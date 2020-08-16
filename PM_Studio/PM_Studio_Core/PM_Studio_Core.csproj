@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\File.png" />
+    <Resource Include="Images\Folder.png" />
+    <Resource Include="Images\NewProject.png" />
+    <Resource Include="Images\OpenProject.png" />
+    <Resource Include="Images\QuickProject.png" />
+  </ItemGroup>
+
+</Project>
