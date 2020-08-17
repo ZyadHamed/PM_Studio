@@ -18,7 +18,11 @@ namespace PM_Studio
             SaveLoadSystem.SaveData<T>(filePath, objectToSave);
         }
 
-       
+        public Algorithm ReturnAlgorithm(string filePath)
+        {
+            return SaveLoadSystem.LoadData<Algorithm>(filePath);
+        }
+
         #endregion
     }
 }
