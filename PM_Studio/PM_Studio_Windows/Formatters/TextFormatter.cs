@@ -18,16 +18,16 @@ namespace PM_Studio
             string Lines = Regex.Replace(rtxtAlgorithm.Text, @"(\[\d*\])", "");
             //Set the richtextbox text to those lines (to remove any steps indicators)
             rtxtAlgorithm.Text = Lines;
+
+           
             for (int i = 0; i < rtxtAlgorithm.Lines.Length; i++)
             {
                
-                rtxtAlgorithm.Text = rtxtAlgorithm.Text.Insert(rtxtAlgorithm.GetFirstCharIndexFromLine(i), $"[{i}]");
+                rtxtAlgorithm.Text = rtxtAlgorithm.Text.Insert(rtxtAlgorithm.GetFirstCharIndexFromLine(i), $"[{i + 1}]");
 
             }
-            
-            
-           
-            
+
+          
             //Get all the patterns passed in by the method
             foreach (string pattern in Patterns)
             {
