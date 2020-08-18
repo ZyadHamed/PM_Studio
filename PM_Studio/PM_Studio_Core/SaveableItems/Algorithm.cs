@@ -4,6 +4,7 @@ using System.Text;
 
 namespace PM_Studio
 {
+    [Serializable]
     public class Algorithm
     {
         public string algorithmFileName { get; set; }
