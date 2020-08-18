@@ -19,13 +19,13 @@ namespace PM_Studio
         StackPanel tabHeader = new StackPanel();
         TextBlock headerText = new TextBlock();
         Button closeButton = new Button();
-        TabControl tabControl;
+        public TabControl tabControl;
 
         #endregion
 
 
         #region Constructor
-        public AlgorithmTabItem(TabControl tabControl, string incomingString = "", string header = "", string filePath = "")
+        public AlgorithmTabItem(TabControl tabControl, string AlgorithmText = "", string header = "", string filePath = "", bool AddbyDefault = false)
         {
             this.tabControl = tabControl;
 
@@ -38,7 +38,7 @@ namespace PM_Studio
             rtxtAlgorithm.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Both;
             rtxtAlgorithm.BackColor = System.Drawing.Color.FromArgb(13, 3, 19);
             rtxtAlgorithm.ForeColor = System.Drawing.Color.FromArgb(210, 210, 210);
-            rtxtAlgorithm.Text = incomingString;
+            rtxtAlgorithm.Text = AlgorithmText;
 
 
 
@@ -64,9 +64,13 @@ namespace PM_Studio
             host.Child = rtxtAlgorithm;
             //Add the RichTextBox to the tab
             this.AddChild(host);
-            //Add the tab to the tabControl
-            tabControl.Items.Add(this);
-            tabControl.SelectedItem = this;
+            //Add the tab to the tabControl if the AddByDefault was true
+            if(AddbyDefault == true)
+            {
+                tabControl.Items.Add(this);
+                tabControl.SelectedItem = this;
+            }
+           
 
         }
         #endregion
@@ -83,7 +87,7 @@ namespace PM_Studio
             }
 
             //Unfocus the richtextbox to avoid blinking
-            this.Focus();
+            //this.Focus();
             //Then Format all the text again and restore the focus
             //TextFormatter textFormatter = new TextFormatter();
             //textFormatter.FormatAlgorithmTextBox(rtxtAlgorithm, @"(\[\d*\])");
