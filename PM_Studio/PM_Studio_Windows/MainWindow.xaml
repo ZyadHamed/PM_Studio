@@ -5,10 +5,74 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PM_Studio"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="PM Studio" Height="450" Width="800"
+        Background="#2D2D30">
     <Grid>
-        <Frame x:Name="frmTest">
-            
-        </Frame>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <!--Top Menu-->
+        <Menu Background="#2D2D30">
+            <MenuItem Header="File"  Background="#2D2D30" Foreground="WhiteSmoke">
+                <MenuItem Header="New" Background="#2D2D30" BorderThickness="0"/>
+                <MenuItem Header="Open" Background="#2D2D30" BorderThickness="0"/>
+                <MenuItem Header="Save" Background="#2D2D30" BorderThickness="0"/>
+                <MenuItem Header="Save All" Background="#2D2D30" BorderThickness="0"/>
+                <MenuItem Header="Quit" Background="#2D2D30" BorderThickness="0"/>
+            </MenuItem>
+            <MenuItem Header="Edit" Background="#2D2D30" Foreground="WhiteSmoke">
+                <MenuItem Command="ApplicationCommands.Copy" Background="#2D2D30"/>
+                <MenuItem Command="ApplicationCommands.Cut" Background="#2D2D30"/>
+                <MenuItem Command="ApplicationCommands.Paste" Background="#2D2D30"/>
+            </MenuItem>
+            <MenuItem Header="Help"  Background="#2D2D30" Foreground="WhiteSmoke">
+
+            </MenuItem>
+        </Menu>
+        <Grid Grid.Row="1">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="160*"/>
+                <ColumnDefinition Width="213*"/>
+                <ColumnDefinition Width="427*"/>
+            </Grid.ColumnDefinitions>
+
+            <!--Left Side Menu-->
+            <Grid Grid.Column="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="13*"/>
+                    <ColumnDefinition Width="147*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Button x:Name="btnAlgorithm" Content="Algorithm" BorderThickness="0"
+                    Background="#3E3E42" Foreground="WhiteSmoke"
+                        Grid.Row="0" Margin="0,10,0,10" Click="TabButton_Click" Grid.ColumnSpan="2" Uid="0"/>
+                <Button x:Name="btnSchedule" Content="Schedule" BorderThickness="0"
+                    Background="#3E3E42" Foreground="WhiteSmoke"
+                        Grid.Row="1" Margin="0,10,0,10" Click="TabButton_Click" Grid.ColumnSpan="2" Uid="1"/>
+                <Button x:Name="btnTeam" Content="Team" BorderThickness="0"
+                    Background="#3E3E42" Foreground="WhiteSmoke"
+                        Grid.Row="2" Margin="0,10,0,10" Click="TabButton_Click" Grid.ColumnSpan="2" Uid="2"/>
+                <Button x:Name="btnPublish" Content="Publish" BorderThickness="0"
+                    Background="#3E3E42" Foreground="WhiteSmoke"
+                        Grid.Row="3" Margin="0,10,0,10" Click="TabButton_Click" Grid.ColumnSpan="2" Uid="3"/>
+
+            </Grid>
+            <!--End Left Side Menu-->
+
+            <!--Pages Switch-->
+            <Frame x:Name="PagesContainer" NavigationUIVisibility="Hidden"
+                   Grid.Column="1" Grid.ColumnSpan="2">
+
+            </Frame>
+            <!--End Pages Switch-->
+        </Grid>
+
     </Grid>
 </Window>

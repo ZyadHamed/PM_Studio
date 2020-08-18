@@ -23,7 +23,29 @@ namespace PM_Studio
         public MainWindow()
         {
             InitializeComponent();
-            frmTest.Content = new AlgorithmEditor();
         }
+
+        private void TabButton_Click(object sender, RoutedEventArgs e)
+        {
+            int buttonIndex = int.Parse(((Button)e.Source).Uid);
+            switch (buttonIndex)
+            {
+                case 0:
+                    PagesContainer.Content = null;
+                    PagesContainer.Content = new AlgorithmEditor();
+                    break;
+                case 1:
+                  
+                    break;
+
+                case 2:
+
+                    break;
+                case 3:
+
+                    break;
+            }
+        }
+
     }
 }
