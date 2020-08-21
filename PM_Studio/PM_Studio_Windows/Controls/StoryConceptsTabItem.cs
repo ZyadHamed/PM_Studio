@@ -27,8 +27,30 @@ namespace PM_Studio
         #region Constuctor
         public StoryConceptsTabItem(TabControl tabControl, string header, string filePath) : base(tabControl, header, filePath)
         {
+            //Create the Rows and Columns for the grid
+            AddGridRowsAndColumns();
+            //Set the properties of the textblocks in the class
+            SetTextBlocksProperties();
+            //Set the properties of the textboxes in the class
+            SetTextBoxesProperties();
+            //Add all the controls to the grid
+            AddControlsToGrid();
+            //Oraganize the controls positions in the grid
+            SetControlsPostions();
+            //Add the Grid as a Child to this Tab Item
+            this.AddChild(Container);
+        }
+
+        #endregion
+
+        #region DesigningMethods
+        /// <summary>
+        /// Creates the Grid Rows and Columns where controls will be placed
+        /// </summary>
+        void AddGridRowsAndColumns()
+        {
             //Create the 5 Grid Rows that will contain the 5 text fields
-            Container.RowDefinitions.Add(new RowDefinition() 
+            Container.RowDefinitions.Add(new RowDefinition()
             {
                 Height = new System.Windows.GridLength(1, System.Windows.GridUnitType.Star)
             });
@@ -51,7 +73,7 @@ namespace PM_Studio
             });
 
             //Create the 2 Columns that will contain the labels and the text fields
-            Container.ColumnDefinitions.Add(new ColumnDefinition() 
+            Container.ColumnDefinitions.Add(new ColumnDefinition()
             {
                 Width = new System.Windows.GridLength(1, System.Windows.GridUnitType.Auto)
             });
@@ -60,19 +82,10 @@ namespace PM_Studio
             {
                 Width = new System.Windows.GridLength(1, System.Windows.GridUnitType.Star)
             });
-
-            SetTextBlocksProperties();
-            SetTextBoxesProperties();
-            AddControlsToGrid();
-            SetControlsPostions();
-            this.AddChild(Container);
         }
 
-        #endregion
-
-        #region Methods
         /// <summary>
-        /// Sets the text and the ForeColor for all the textblocks in the class
+        /// Sets the Properties for all the textblocks in the class
         /// </summary>
         void SetTextBlocksProperties()
         {
@@ -104,6 +117,9 @@ namespace PM_Studio
             lbStoryEvents.Margin = new System.Windows.Thickness(0, 10, 0, 10);
         }
 
+        /// <summary>
+        /// Sets the properties of all TextBoxes in the Class
+        /// </summary>
         void SetTextBoxesProperties()
         {
             //Set the font size for all TextBoxes
@@ -142,6 +158,9 @@ namespace PM_Studio
             txtStoryEvents.Margin = new System.Windows.Thickness(0, 10, 5, 10);
         }
 
+        /// <summary>
+        /// Sets the postion of all controls at the grid
+        /// </summary>
         void SetControlsPostions()
         {
             //Set all the text blocks to the First Column
@@ -171,6 +190,9 @@ namespace PM_Studio
             Grid.SetRow(txtStoryEvents, 4);
         }
 
+        /// <summary>
+        /// Adds all the controls to the grid
+        /// </summary>
         void AddControlsToGrid()
         {
             //Add the TextBlocks to the grid
@@ -188,6 +210,8 @@ namespace PM_Studio
             Container.Children.Add(txtStoryEvents);
         }
         #endregion
+
+       
 
     }
 }
