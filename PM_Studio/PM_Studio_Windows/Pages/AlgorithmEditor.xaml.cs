@@ -26,16 +26,7 @@ namespace PM_Studio
             
             lstFiles.ItemsSource = fileMangerViewModel.FilesAndFolders;
             txtFilePath.Text = fileMangerViewModel.filePath;
-            //StoryConcepts sc = new StoryConcepts()
-            //{
-            //    fileName = "Untitled Story.story",
-            //    StoryTypes = "Adventure, Talend".Split(','),
-            //    StoryIdea = "Hero Is born and Dead!",
-            //    PlotTwists = "He is born\n Now he is dead lol",
-            //    PlotPoints = "Nothing, Just make the hero die",
-            //    StoryEvents = "All the above fool"
-            //};
-            //SaveLoadSystem.SaveData(@"E:\zyadhamedashour\" + sc.fileName, sc);
+           
         }
 
         private void lstFiles_SelectionChanged(object sender, SelectionChangedEventArgs e)
