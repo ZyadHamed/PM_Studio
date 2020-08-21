@@ -22,23 +22,48 @@ namespace PM_Studio
         TextBlock lbPlotTwists = new TextBlock();
         TextBlock lbPlotPoints = new TextBlock();
         TextBlock lbStoryEvents = new TextBlock();
+        StoryConcepts storyConcepts;
         #endregion
 
         #region Constuctor
-        public StoryConceptsTabItem(TabControl tabControl, string header, string filePath) : base(tabControl, header, filePath)
+        public StoryConceptsTabItem(TabControl tabControl, string header, string filePath, StoryConcepts StoryConcepts) : base(tabControl, header, filePath)
         {
+            //Assign the incoming StoryConcepts to the existing StoryConcepts
+            storyConcepts = StoryConcepts;
+
+            //Assign the events for all the textboxes
+            txtStoryType.TextChanged += TextBox_TextChanged;
+            txtStoryIdea.TextChanged += TextBox_TextChanged;
+            txtPlotTwists.TextChanged +=TextBox_TextChanged;
+            txtPlotPoints.TextChanged += TextBox_TextChanged;
+            txtStoryEvents.TextChanged += TextBox_TextChanged;
+
+            txtStoryType.KeyDown += TextBox_KeyDown;
+            txtStoryIdea.KeyDown += TextBox_KeyDown;
+            txtPlotTwists.KeyDown += TextBox_KeyDown;
+            txtPlotPoints.KeyDown += TextBox_KeyDown;
+            txtStoryEvents.KeyDown += TextBox_KeyDown;
+
             //Create the Rows and Columns for the grid
             AddGridRowsAndColumns();
+
             //Set the properties of the textblocks in the class
             SetTextBlocksProperties();
+
             //Set the properties of the textboxes in the class
             SetTextBoxesProperties();
+
             //Add all the controls to the grid
             AddControlsToGrid();
+
             //Oraganize the controls positions in the grid
             SetControlsPostions();
+
             //Add the Grid as a Child to this Tab Item
             this.AddChild(Container);
+
+            //Fill the TextBoxes with the text from the storyConcepts File
+            LoadTextBoxesText();
         }
 
         #endregion
@@ -211,7 +236,41 @@ namespace PM_Studio
         }
         #endregion
 
-       
+        #region Methods
+        void LoadTextBoxesText()
+        {
+            string combinedText = "";
+            foreach(string s in storyConcepts.StoryTypes)
+            {
+                combinedText += s + ",";
+            }
+            txtStoryType.Text = combinedText;
+            txtStoryIdea.Text = storyConcepts.StoryIdea;
+            txtPlotTwists.Text = storyConcepts.PlotTwists;
+            txtPlotPoints.Text = storyConcepts.PlotPoints;
+            txtStoryEvents.Text = storyConcepts.StoryEvents;
+        }
+
+        void SaveFile()
+        {
+          
+        }
+
+        #endregion
+
+        #region Events
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+          
+        }
+
+        private void TextBox_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            
+        }
+
+        #endregion
 
     }
 }
