@@ -26,7 +26,7 @@ namespace PM_Studio
         #endregion
 
         #region Constuctor
-        public StoryConceptsTabItem(TabControl tabControl, string header, string filePath, StoryConcepts StoryConcepts) : base(tabControl, header, filePath)
+        public StoryConceptsTabItem(TabControl tabControl, string filePath, StoryConcepts StoryConcepts) : base(tabControl, StoryConcepts.fileName.Replace("*", ""), filePath)
         {
             //Assign the incoming StoryConcepts to the existing StoryConcepts
             storyConcepts = StoryConcepts;
@@ -64,6 +64,7 @@ namespace PM_Studio
 
             //Fill the TextBoxes with the text from the storyConcepts File
             LoadTextBoxesText();
+
         }
 
         #endregion
@@ -253,7 +254,24 @@ namespace PM_Studio
 
         void SaveFile()
         {
-          
+            //Get the current path of the file,(was saved before in the tab tag)
+            string CurrentPath = this.Tag.ToString();
+            //Create a StoryConcepts Class Based on the new data in the Tab
+            StoryConcepts sc = new StoryConcepts()
+            {
+                fileName = ((TextBlock)tabHeader.Children[0]).Text,
+                StoryTypes = txtStoryType.Text.Split(','),
+                StoryIdea = txtStoryIdea.Text,
+                PlotTwists = txtPlotTwists.Text,
+                PlotPoints = txtPlotPoints.Text,
+                StoryEvents = txtStoryEvents.Text
+            };
+            //Mark IsSaved as true
+            IsSaved = true;
+            //Save the file With the new data
+            saveLoadSystemViewModel.Save(CurrentPath, sc);
+            //Remove the unsaved star from the header
+            ((TextBlock)tabHeader.Children[0]).Text = ((TextBlock)tabHeader.Children[0]).Text.Remove(((TextBlock)tabHeader.Children[0]).Text.Length - 1);
         }
 
         #endregion
@@ -262,12 +280,28 @@ namespace PM_Studio
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-          
+            //Check if the file is saved
+            //If it is, mark it as unsaved and add the unsaved star to the header
+            if (IsSaved == true)
+            {
+                ((TextBlock)tabHeader.Children[0]).Text += "*";
+                IsSaved = false;
+            }
         }
 
         private void TextBox_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            
+            //check what the user had pressed
+            //If he Pressed Ctrl+S, save the file
+            if (System.Windows.Input.Keyboard.Modifiers == System.Windows.Input.ModifierKeys.Control && e.Key == System.Windows.Input.Key.S)
+            {
+                //Check if the file is already saved
+                //If not,Save it
+                if (IsSaved == false)
+                {
+                    SaveFile();
+                }
+            }
         }
 
         #endregion
