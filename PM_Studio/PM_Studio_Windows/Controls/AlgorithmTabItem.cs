@@ -11,6 +11,7 @@ namespace PM_Studio
         #region Variables
         int undocount = 0;
         public int count = 1;
+        Algorithm algorithm;
 
         List<string> LastData = new List<string>();
 
@@ -21,9 +22,12 @@ namespace PM_Studio
 
 
         #region Constructor
-        public AlgorithmTabItem(TabControl tabControl, string AlgorithmText = "", string header = "", string filePath = "", bool AddbyDefault = false) : base(tabControl, header, filePath)
+        public AlgorithmTabItem(TabControl tabControl, Algorithm _algorithm, string filePath = "", bool AddbyDefault = false) : base(tabControl, _algorithm.algorithmFileName.Replace("*", ""), filePath)
         {
             this.tabControl = tabControl;
+
+            //assign the local algorithm to the incoming algorithm
+            algorithm = _algorithm;
 
             //Set the properties of the RichTextBox
             rtxtAlgorithm.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -34,7 +38,7 @@ namespace PM_Studio
             rtxtAlgorithm.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Both;
             rtxtAlgorithm.BackColor = System.Drawing.Color.FromArgb(13, 3, 19);
             rtxtAlgorithm.ForeColor = System.Drawing.Color.FromArgb(210, 210, 210);
-            rtxtAlgorithm.Text = AlgorithmText;
+            rtxtAlgorithm.Text = algorithm.algorithm;
 
             //Add the click event to the closing button
             closeButton.Click += closeButton_Click;
@@ -99,11 +103,7 @@ namespace PM_Studio
                 }
             }
 
-            else if (System.Windows.Input.Keyboard.Modifiers == System.Windows.Input.ModifierKeys.Control && e.KeyCode == System.Windows.Forms.Keys.B)
-            {
-                rtxtAlgorithm.SelectionBullet = true;
-            }
-
+           
             else if (e.KeyCode == System.Windows.Forms.Keys.Space)
             {
                 LastData.Add(rtxtAlgorithm.Text);
@@ -146,8 +146,7 @@ namespace PM_Studio
             //Get the current path of the file,(was saved before in the tab tag)
             string CurrentPath = this.Tag.ToString();
 
-            //Make an instance of the Project Saving Class
-            SaveLoadSystemViewModel sp = new SaveLoadSystemViewModel();
+            
 
             //Make a new algorithm class based on the new data in the file
             Algorithm algorithm = new Algorithm()
@@ -159,7 +158,7 @@ namespace PM_Studio
             //Mark IsSaved as true
             IsSaved = true;
             //Save the File
-            sp.Save(CurrentPath, algorithm);
+            saveLoadSystemViewModel.Save(CurrentPath, algorithm);
             //Remove the unsaved star from the header
             ((TextBlock)tabHeader.Children[0]).Text = ((TextBlock)tabHeader.Children[0]).Text.Remove(((TextBlock)tabHeader.Children[0]).Text.Length - 1);
         }
