@@ -11,6 +11,9 @@ namespace PM_Studio
         #region Variables
         public bool IsSaved = true;
 
+       
+        public SaveLoadSystemViewModel saveLoadSystemViewModel = new SaveLoadSystemViewModel();
+
         public StackPanel tabHeader = new StackPanel();
         public TextBlock headerText = new TextBlock();
         public Button closeButton = new Button();
@@ -25,6 +28,9 @@ namespace PM_Studio
             closeButton.Content = "X";
             closeButton.BorderThickness = new System.Windows.Thickness(0);
 
+            //Add the click event to the closing button
+            closeButton.Click += closeButton_Click;
+
             //Set the header text to the incoming text, and add the closing button
             headerText.Text = Header;
             tabHeader.Orientation = Orientation.Horizontal;
@@ -38,7 +44,43 @@ namespace PM_Studio
 
         }
 
-      
+
+        #endregion
+
+        #region Methods
+        public virtual void SaveFile()
+        {
+
+        }
+        #endregion
+
+        #region Events
+        private void closeButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            //Check If value of IsSaved is false
+            //If yes, then the file isn't saved yet
+            if (IsSaved == false)
+            {
+                //Ask the user wheather to save this file before closing or not
+                if (MessageBox.Show("File \"" + ((TextBlock)tabHeader.Children[0]).Text + "\" Hasn't been saved yet\n Do you Want to Save it Before closing?", "Save file before close", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                {
+                    //If yes, save the file and remove the tab
+                    SaveFile();
+                    tabControl.Items.Remove(this);
+                }
+                //If not, Quit without saving
+                else
+                {
+                    tabControl.Items.Remove(this);
+                }
+            }
+            //If the file Is already saved, Close the tab
+            else
+            {
+                tabControl.Items.Remove(this);
+            }
+        }
+
         #endregion
 
     }
