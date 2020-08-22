@@ -40,8 +40,6 @@ namespace PM_Studio
             rtxtAlgorithm.ForeColor = System.Drawing.Color.FromArgb(210, 210, 210);
             rtxtAlgorithm.Text = algorithm.algorithm;
 
-            //Add the click event to the closing button
-            closeButton.Click += closeButton_Click;
             //Define a windows forms host to handle the Windows Forms Control(RichTextBox)
             System.Windows.Forms.Integration.WindowsFormsHost host = new System.Windows.Forms.Integration.WindowsFormsHost();
             host.Child = rtxtAlgorithm;
@@ -112,36 +110,12 @@ namespace PM_Studio
 
         }
 
-        private void closeButton_Click(object sender, System.Windows.RoutedEventArgs e)
-        {
-            //Check If value of IsSaved is false
-            //If yes, then the file isn't saved yet
-            if (IsSaved == false)
-            {
-                //Ask the user wheather to save this file before closing or not
-                if (MessageBox.Show("File \"" + ((TextBlock)tabHeader.Children[0]).Text + "\" Hasn't been saved yet\n Do you Want to Save it Before closing?", "Save file before close", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-                {
-                    //If yes, save the file and remove the tab
-                    SaveFile();
-                    tabControl.Items.Remove(this);
-                }
-                //If not, Quit without saving
-                else
-                {
-                    tabControl.Items.Remove(this);
-                }
-            }
-            //If the file Is already saved, Close the tab
-            else
-            {
-                tabControl.Items.Remove(this);
-            }
-        }
+        
 
         #endregion
 
         #region Methods
-        public void SaveFile()
+        public override void SaveFile()
         {
             //Get the current path of the file,(was saved before in the tab tag)
             string CurrentPath = this.Tag.ToString();

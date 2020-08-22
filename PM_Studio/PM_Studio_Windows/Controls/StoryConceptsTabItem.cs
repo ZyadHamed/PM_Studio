@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
@@ -30,7 +31,7 @@ namespace PM_Studio
         {
             //Assign the incoming StoryConcepts to the existing StoryConcepts
             storyConcepts = StoryConcepts;
-
+            MessageBox.Show(storyConcepts.fileName);
             //Assign the events for all the textboxes
             txtStoryType.TextChanged += TextBox_TextChanged;
             txtStoryIdea.TextChanged += TextBox_TextChanged;
@@ -252,7 +253,7 @@ namespace PM_Studio
             txtStoryEvents.Text = storyConcepts.StoryEvents;
         }
 
-        void SaveFile()
+        public override void SaveFile()
         {
             //Get the current path of the file,(was saved before in the tab tag)
             string CurrentPath = this.Tag.ToString();
