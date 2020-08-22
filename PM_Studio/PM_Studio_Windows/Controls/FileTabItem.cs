@@ -11,8 +11,8 @@ namespace PM_Studio
         #region Variables
         public bool IsSaved = true;
 
-       
-        public SaveLoadSystemViewModel saveLoadSystemViewModel = new SaveLoadSystemViewModel();
+
+        public SaveLoadSystemViewModel saveLoadSystemViewModel;
 
         public StackPanel tabHeader = new StackPanel();
         public TextBlock headerText = new TextBlock();
@@ -24,6 +24,10 @@ namespace PM_Studio
         #region Constructor
         public FileTabItem(TabControl TabControl, string Header = "", string FilePath = "")
         {
+            //Set the tabControl field to the incoming TabControl
+            tabControl = TabControl;
+            //Set the tabControl Paramerter of the SaveLoadSystemViewModel to tabControl
+            saveLoadSystemViewModel = new SaveLoadSystemViewModel(tabControl);
             //Set the properties of the closing button
             closeButton.Content = "X";
             closeButton.BorderThickness = new System.Windows.Thickness(0);
