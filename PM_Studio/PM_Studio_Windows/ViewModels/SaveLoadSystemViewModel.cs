@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows.Controls;
 
 namespace PM_Studio
 {
@@ -8,8 +9,15 @@ namespace PM_Studio
     {
         #region Variables
 
-        
+        TabControl tbFiles;
 
+        #endregion
+
+        #region Constructor
+        public SaveLoadSystemViewModel(TabControl _tbFiles)
+        {
+            tbFiles = _tbFiles;
+        }
         #endregion
 
         #region Methods
@@ -23,7 +31,7 @@ namespace PM_Studio
             //Get the algorithm file from the given path and return it as a Class again 
             var Algorithm =  SaveLoadSystem.LoadData<Algorithm>(filePath);
             //Construct an Algorithm Editing tab using the information inside that Algorithm class,(and remove any stars at the file name)
-            return new AlgorithmTabItem(null, Algorithm, filePath);
+            return new AlgorithmTabItem(tbFiles, Algorithm, filePath);
         }
 
        public StoryConcepts ReturnStoryConcepts(string filePath)
@@ -36,7 +44,7 @@ namespace PM_Studio
             //Get the StoryConcepts file inside that given path
             StoryConcepts storyConcepts = ReturnStoryConcepts(filePath);
             //Construct a StoryConcepts TabItem using the information in that file
-            return new StoryConceptsTabItem(null, filePath, storyConcepts);
+            return new StoryConceptsTabItem(tbFiles, filePath, storyConcepts);
         }
         
         #endregion
