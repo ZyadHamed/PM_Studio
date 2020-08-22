@@ -19,14 +19,14 @@ namespace PM_Studio
     public partial class AlgorithmEditor : Page
     {
         FileMangerViewModel fileMangerViewModel = new FileMangerViewModel(@"E:\zyadhamedashour");
-        SaveLoadSystemViewModel saveLoadSystemViewModel = new SaveLoadSystemViewModel();
+        SaveLoadSystemViewModel saveLoadSystemViewModel;
         public AlgorithmEditor()
         {
             InitializeComponent();
             
             lstFiles.ItemsSource = fileMangerViewModel.FilesAndFolders;
             txtFilePath.Text = fileMangerViewModel.filePath;
-           
+            saveLoadSystemViewModel = new SaveLoadSystemViewModel(tbFiles);
         }
 
         private void lstFiles_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -50,11 +50,10 @@ namespace PM_Studio
                 {
                     //Create an algorithm tabItem using the current selected Algorithm file
                     AlgorithmTabItem algorithmTabItem = saveLoadSystemViewModel.ReturnAlgorithm(fileMangerViewModel.filePath + @"\" + fileMangerViewModel.SelectedItem);
-                    //Set the tab Control of that AlgorithmTabItem to tbFiles 
-                    algorithmTabItem.tabControl = tbFiles;
                     //Add that tab Item to the tab control
                     tbFiles.Items.Add(algorithmTabItem);
                 }
+
                 //If it was a story file, open it in a StoryConcepts Tab Item
                 else if(fileMangerViewModel.getSelectedExtension == ".story")
                 {
