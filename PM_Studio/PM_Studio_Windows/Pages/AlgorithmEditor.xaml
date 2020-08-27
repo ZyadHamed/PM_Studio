@@ -10,8 +10,8 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="5*"/>
-            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="5*" x:Name="tbFilesColumn"/>
+            <ColumnDefinition Width="2*" x:Name="FileExplorerColumn"/>
         </Grid.ColumnDefinitions>
 
         <Grid Grid.Column="1">
@@ -19,13 +19,14 @@
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <TextBox x:Name="txtFilePath" Grid.Row="0">
+
+            <TextBox x:Name="txtFilePath" Grid.Row="0" Background="#33313D" Foreground="WhiteSmoke">
                
             </TextBox>
             <!--#region File Explorer-->
-            <ListView x:Name="lstFiles" Background="WhiteSmoke"
+            <ListView x:Name="lstFiles" Background="#424047"
                   Grid.Row="1" SelectionChanged="lstFiles_SelectionChanged" MouseDoubleClick="lstFiles_MouseDoubleClick"
-                      KeyDown="lstFiles_KeyDown">
+                      KeyDown="lstFiles_KeyDown" Foreground="#D2D2D2">
                 <ListView.ContextMenu>
                     <ContextMenu>
                         <MenuItem x:Name="menuItemAdd" Header="Add"/>
@@ -53,5 +54,6 @@
         </TabControl>
 
         <!--#endregion-->
+        
     </Grid>
 </Page>
