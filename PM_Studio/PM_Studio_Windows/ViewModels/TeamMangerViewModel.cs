@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq.Expressions;
 using System.Security.Policy;
 using System.Text;
 using System.Windows.Navigation;
@@ -23,15 +24,21 @@ namespace PM_Studio
         #region Methods
         public List<TeamMemberBlock> GetTeamMembers()
         {
-            List<TeamMemberBlock> returnedList = new List<TeamMemberBlock>();
-            foreach (var Teammember in team.TeamMembers)
+            //Make a List of TeamMemberBlock to be the Container of the Data of the Team Member
+            List<TeamMemberBlock> teamMemberBlocks = new List<TeamMemberBlock>();
+
+            //Loop inside each TeamMember in the TeamMembers inside the Team
+            foreach (TeamMember Teammember in team.TeamMembers)
             {
+                //Define a TeamMemberBlock based on the data of the teamMember
                 TeamMemberBlock teamMemberBlock = new TeamMemberBlock(Teammember);
+                //Set the Tag to be that teamMember so we can use that teamMember again in other Classes
                 teamMemberBlock.Tag = Teammember;
-                returnedList.Add(teamMemberBlock);
+                //Add that TeamMemberBlock to the List of TeamMemberBlocks
+                teamMemberBlocks.Add(teamMemberBlock);
                 
             }
-            return returnedList;
+            return teamMemberBlocks;
         }
 
         #endregion
@@ -41,10 +48,12 @@ namespace PM_Studio
         {
             get
             {
+                //return a List of TeamMembers from the GetTeamMembers Method
                 return GetTeamMembers();
             }
             set
             {
+                //Set the property to the incoming value
                 TeamMembers = value;
             }
         }
@@ -53,17 +62,17 @@ namespace PM_Studio
         {
             get
             {
+                //Return null as an intial return (will be changed later)
                 return null;
             }
             set
             {
+                //Set the property to the incoming value
                 MemberTasks = value;
             }
         }
 
-        
-
-     
         #endregion
+
     }
 }
