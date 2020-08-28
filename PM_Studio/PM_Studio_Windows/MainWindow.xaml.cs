@@ -42,7 +42,8 @@ namespace PM_Studio
                     break;
 
                 case 2:
-                 
+                    PagesContainer.Content = null;
+                    PagesContainer.Content = new TeamManger();
                     break;
                 case 3:
                     
@@ -57,8 +58,8 @@ namespace PM_Studio
             //then mark the IsPanelCollapsed as true
             if(IsPanelCollapsed == false)
             {
-                btnAlgorithm.Content = "A";
-                btnSchedule.Content = "S";
+                btnAlgorithmText.Text = "";
+                btnSheduleText.Text = "";
                 btnPublish.Content = "P";
                 btnTeam.Content = "T";
                 TabButtonsColumn.Width = new GridLength(1, GridUnitType.Auto);
@@ -70,8 +71,8 @@ namespace PM_Studio
             //then mark the IsPanelCollapsed as false
             else if(IsPanelCollapsed == true)
             {
-                btnAlgorithm.Content = "Algorithm";
-                btnSchedule.Content = "Schedule";
+                btnAlgorithmText.Text = "Algorithm";
+                btnSheduleText.Text = "Schedule";
                 btnPublish.Content = "Publish";
                 btnTeam.Content = "Team";
                 TabButtonsColumn.Width = new GridLength(1, GridUnitType.Star);
