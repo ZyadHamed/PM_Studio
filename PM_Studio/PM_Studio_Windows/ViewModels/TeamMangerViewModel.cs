@@ -41,9 +41,23 @@ namespace PM_Studio
             return teamMemberBlocks;
         }
 
+        /// <summary>
+        /// Gets All Files of type "Team" in a given filePath
+        /// </summary>
+        /// <param name="filePath">The File path to search for files in</param>
+        /// <returns></returns>
+        public List<string> GetAllTeamFiles(string filePath)
+        {
+            return FileManger.GetAllFilesByExtension(filePath, ".team");
+        }
+
+
         #endregion
 
         #region Properties
+        /// <summary>
+        /// The TeamMembers inside the Team
+        /// </summary>
         public List<TeamMemberBlock> TeamMembers
         {
             get
@@ -58,6 +72,9 @@ namespace PM_Studio
             }
         }
 
+        /// <summary>
+        /// The Tasks of an Indvdiual Member in the Team
+        /// </summary>
         public List<string> MemberTasks
         {
             get
@@ -69,6 +86,25 @@ namespace PM_Studio
             {
                 //Set the property to the incoming value
                 MemberTasks = value;
+            }
+        }
+
+        /// <summary>
+        /// The Current used Team In the Class
+        /// </summary>
+        public Team Team
+        {
+            get
+            {
+                //return the Current Team Variable
+                return team;
+            }
+            set
+            {
+                //set the Team variable to the incoming value
+                team = value;
+                //Get All teamMembers inside that new team
+                TeamMembers = GetTeamMembers();
             }
         }
 
