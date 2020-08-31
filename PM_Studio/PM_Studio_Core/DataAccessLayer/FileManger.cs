@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace PM_Studio
@@ -26,7 +27,10 @@ namespace PM_Studio
         #endregion
 
         #region Methods
-
+        /// <summary>
+        /// Returns all Files and Folders inside the current file Path
+        /// </summary>
+        /// <returns></returns>
         public ObservableCollection<(string ItemType, string ItemName)> LoadFilesAndDirectories()
         {
             DirectoryInfo FileList;
@@ -222,6 +226,12 @@ namespace PM_Studio
             }
         }
 
+        /// <summary>
+        /// Checks wheather the Current FilePath is a File or not
+        /// </summary>
+        /// <param name="FilePath">The File Path to check in</param>
+        /// <returns></returns>
+
         public bool IsPathFile(string FilePath)
         {
             FileAttributes fa = File.GetAttributes(FilePath);
@@ -231,10 +241,28 @@ namespace PM_Studio
                 return true;
         }
 
+        /// <summary>
+        /// Gets the Extension of the Current File
+        /// </summary>
+        /// <param name="FilePath">The Path of the file</param>
+        /// <returns></returns>
+
         public string GetFileExtension(string FilePath)
         {
             FileInfo fi = new FileInfo(FilePath);
             return fi.Extension;
+        }
+
+        /// <summary>
+        /// Searchs for all files with a given Extension in a given filePath
+        /// </summary>
+        /// <param name="filePath">The Path to Search in</param>
+        /// <param name="Extension">The Extension to Search with</param>
+        /// <returns></returns>
+
+        public static List<string> GetAllFilesByExtension(string filePath, string Extension)
+        {
+            return Directory.GetFiles(filePath, "*" + Extension).ToList();
         }
 
         #endregion
