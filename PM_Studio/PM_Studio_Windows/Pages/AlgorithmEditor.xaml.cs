@@ -29,6 +29,7 @@ namespace PM_Studio
             saveLoadSystemViewModel = new SaveLoadSystemViewModel(tbFiles);
         }
 
+        #region Events
         private void lstFiles_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (lstFiles.Items.Count > 0 && lstFiles.Items != null && lstFiles.SelectedItems.Count > 0)
@@ -101,19 +102,73 @@ namespace PM_Studio
 
         private void menuItemAdd_Click(object sender, RoutedEventArgs e)
         {
-            
+            //Show the AddItemWindow as a Dialog
+            AddItemWindow addItemWindow = new AddItemWindow();
+            //If the User Clicked Ok in the Window, then Add the Selected Item
+            if (addItemWindow.ShowDialog() == true)
+            {
+                //Swich on the Selected Item Inside the AddItem Window
+                switch (addItemWindow.SelectedItem)
+                {
+                    //If the Selected Item was Algorithm, then Create a Blank Algorithm File
+                    case "Algorithm":
+                        //Create a Blank Algorithm File in the Selected filePath
+                        saveLoadSystemViewModel.CreateAlgorithmFile(txtFilePath.Text + @"\", addItemWindow.ItemName);
+                        //Reload the File Explorer
+                        lstFiles.ItemsSource = null;
+                        lstFiles.ItemsSource = fileMangerViewModel.FilesAndFolders;
+                        break;
+
+                    //If the Selected Item was Idea, then Create a Blank Idea File(Code will be added soon)
+                    case "Idea":
+
+                        break;
+
+                    //If the Selected Item was Note, then Create a Blank Idea File(Code will be added soon)
+                    case "Note":
+
+                        break;
+
+                    //If the Selected Item was Story Planning, then Create a Blank Idea File(Code will be added soon)
+                    case "StoryPlanning":
+
+                        break;
+
+                    //If the Selected Item was Character Planning, then Create a Blank Idea File(Code will be added soon)
+                    case "CharacterPlanning":
+
+                        break;
+
+                    //If the Selected Item was Node System, then Create a Blank Node System File(Code will be added soon)
+                    case "NodeSystem":
+
+                        break;
+                }
+               
+            }
         }
 
         private void lstFiles_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            HitTestResult r = VisualTreeHelper.HitTest(this, e.GetPosition(this));
-            if (r.VisualHit.GetType() != typeof(ListBoxItem))
+            //Check If there is a Selected Item to avoid removing Extra text from the FilePath
+            //If there is a Selected Item, then remove it's Name from the File Path and Unselect All Items
+            if(lstFiles.SelectedItems.Count > 0)
             {
-                lstFiles.UnselectAll();
-                txtFilePath.Text = txtFilePath.Text.Remove(txtFilePath.Text.LastIndexOf(@"\"));
-            }
-                
+                //Get the postion of the place of the click
+                HitTestResult r = VisualTreeHelper.HitTest(this, e.GetPosition(this));
+                //Check the type of Item user pressed
+                //If the user didn't click a List Item, then he must have clicked a black space
+                if (r.VisualHit.GetType() != typeof(ListBoxItem))
+                {
+                    //Unselect all Items
+                    lstFiles.UnselectAll();
+                    //Remove the Prevoisly selected Item from the Text of the TextBox
+                    txtFilePath.Text = txtFilePath.Text.Remove(txtFilePath.Text.LastIndexOf(@"\"));
+                }
 
+            }
         }
+
+        #endregion
     }
 }
