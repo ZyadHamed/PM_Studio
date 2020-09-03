@@ -26,10 +26,10 @@
             <!--#region File Explorer-->
             <ListView x:Name="lstFiles" Background="#424047"
                   Grid.Row="1" SelectionChanged="lstFiles_SelectionChanged" MouseDoubleClick="lstFiles_MouseDoubleClick"
-                      KeyDown="lstFiles_KeyDown" Foreground="#D2D2D2">
+                      KeyDown="lstFiles_KeyDown" Foreground="#D2D2D2" MouseDown="lstFiles_MouseDown">
                 <ListView.ContextMenu>
                     <ContextMenu>
-                        <MenuItem x:Name="menuItemAdd" Header="Add"/>
+                        <MenuItem x:Name="menuItemAdd" Header="Add" Click="menuItemAdd_Click"/>
                         <MenuItem x:Name="menuItemCut" Header="Cut"/>
                         <MenuItem x:Name="menuItemCopy" Header="Copy"/>
                         <MenuItem x:Name="menuItemPaste" Header="Paste"/>

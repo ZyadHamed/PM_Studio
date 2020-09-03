@@ -31,7 +31,7 @@ namespace PM_Studio
 
         private void lstFiles_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (lstFiles.Items.Count > 0 && lstFiles.Items != null)
+            if (lstFiles.Items.Count > 0 && lstFiles.Items != null && lstFiles.SelectedItems.Count > 0)
             {
                 string TempSelectedItem = ((ImagelistItem)e.AddedItems[0]).itemText;
                 fileMangerViewModel.SelectedItem = TempSelectedItem;
@@ -97,6 +97,23 @@ namespace PM_Studio
                     break;
 
             }
+        }
+
+        private void menuItemAdd_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void lstFiles_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            HitTestResult r = VisualTreeHelper.HitTest(this, e.GetPosition(this));
+            if (r.VisualHit.GetType() != typeof(ListBoxItem))
+            {
+                lstFiles.UnselectAll();
+                txtFilePath.Text = txtFilePath.Text.Remove(txtFilePath.Text.LastIndexOf(@"\"));
+            }
+                
+
         }
     }
 }
