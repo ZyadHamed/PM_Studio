@@ -74,6 +74,23 @@ namespace PM_Studio
             return SaveLoadSystem.LoadData<Team>(filePath);
         }
 
+        /// <summary>
+        /// Creates a Black Algorithm File
+        /// </summary>
+        /// <param name="filePath">The Path to Create the Algorthim file in</param>
+        /// <param name="fileName">The Name of the Algorithm File</param>
+        public void CreateAlgorithmFile(string filePath, string fileName)
+        {
+            //Create an Algorithm With the given name and with an empty Algorithm
+            Algorithm algorithm = new Algorithm()
+            {
+                algorithmFileName = fileName + ".algorithm",
+                algorithm = ""
+            };
+            //Save that algorithm in the given path
+            Save(filePath + algorithm.algorithmFileName, algorithm);
+        }
+
         #endregion
     }
 }
