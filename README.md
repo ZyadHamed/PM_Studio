@@ -10,3 +10,5 @@ It's still under devoulpment though, so make sure to stay updated till full rele
 7. **Export your full project in a readable PDF and show it to your team, your manger, your companyn etc**
 
 **More is coming soon, Stay Tuned!**
+
+Icons Used In this project from: (https://www.flaticon.com, Icon authors: Darius Dan, Freepik)
