@@ -1,0 +1,90 @@
+﻿<Window x:Class="PM_Studio.AddItemWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PM_Studio"
+        mc:Ignorable="d"
+        Title="" Height="450" Width="800"
+        Background="#2D2D30" WindowStartupLocation="CenterScreen"
+         >
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        
+        <!--Left Side Panel Container-->
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+           
+            <ListView SelectionMode="Single" Background="#474B54"
+                      Grid.Row="0" Margin="5,5,0,10" x:Name="lstItems"
+                      SelectionChanged="lstItems_SelectionChanged">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    </Style>
+                </ListView.ItemContainerStyle>
+
+                <!--ListView Items-->
+                
+                <StackPanel Orientation="Horizontal" Margin="0,5" x:Name="lstItemAlgorithm">
+                    <Image Source="pack://application:,,,/PM_Studio_Core;component/Images/Algorithm.png" Width="50"/>
+                    <TextBlock Text="Algorithm" FontSize="17" VerticalAlignment="Center" Foreground="#D2D2DC"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,5" x:Name="lstItemIdea">
+                    <Image Source="pack://application:,,,/PM_Studio_Core;component/Images/Idea.png" Width="50"/>
+                    <TextBlock Text="Idea" FontSize="17" VerticalAlignment="Center" Foreground="#D2D2DC"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,5" x:Name="lstItemNote">
+                    <Image Source="pack://application:,,,/PM_Studio_Core;component/Images/Note.png" Width="50"/>
+                    <TextBlock Text="Note" FontSize="17" VerticalAlignment="Center" Foreground="#D2D2DC"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,5" x:Name="lstItemStoryPlanning">
+                    <Image Source="pack://application:,,,/PM_Studio_Core;component/Images/Algorithm.png" Width="50"/>
+                    <TextBlock Text="Story Planning" FontSize="17" VerticalAlignment="Center" Foreground="#D2D2DC"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,5" x:Name="lstItemCharacterPlanning">
+                    <Image Source="pack://application:,,,/PM_Studio_Core;component/Images/Algorithm.png" Width="50"/>
+                    <TextBlock Text="Character Planning" FontSize="17" VerticalAlignment="Center" Foreground="#D2D2DC"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,5" x:Name="lstItemNodeSystem">
+                    <Image Source="pack://application:,,,/PM_Studio_Core;component/Images/NodeSystem.png" Width="50"/>
+                    <TextBlock Text="Node System" FontSize="17" VerticalAlignment="Center" Foreground="#D2D2DC"/>
+                </StackPanel>
+                
+                <!--End ListView Items-->
+                
+            </ListView>
+
+            <!--Bottom Container-->
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="Name:" Foreground="WhiteSmoke" FontSize="17" />
+                <TextBox Grid.Column="1" x:Name="txtItemName" Background="#666E75" BorderThickness="0" Margin="0,0,0,5"/>
+                <Button x:Name="btnOK" Grid.Column="3" Margin="5,0,0,5" Content="OK" BorderThickness="0"
+                        FontSize="17" Click="btnOK_Click" />
+            </Grid>
+            <!--End Bottom Container-->
+            
+        </Grid>
+        <!--End Left Side Panel Container-->
+        
+        <!--Right Side Panel Container-->
+        <StackPanel Grid.Column="1">
+            <TextBlock x:Name="lbItemName" FontSize="15"/>
+            <TextBlock x:Name="lbItemDescription" FontSize="12"/>
+        </StackPanel>
+        <!--End Right Side Panel Container-->
+        
+    </Grid>
+</Window>
