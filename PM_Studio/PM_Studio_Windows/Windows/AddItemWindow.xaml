@@ -5,13 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PM_Studio"
         mc:Ignorable="d"
-        Title="" Height="450" Width="800"
+        Title="Select an Item to Add" MinHeight="600" MinWidth="1000"
         Background="#2D2D30" WindowStartupLocation="CenterScreen"
          >
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*"/>
-            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1.5*"/>
         </Grid.ColumnDefinitions>
         
         <!--Left Side Panel Container-->
@@ -72,7 +72,7 @@
                 <TextBlock Grid.Column="0" Text="Name:" Foreground="WhiteSmoke" FontSize="17" />
                 <TextBox Grid.Column="1" x:Name="txtItemName" Background="#666E75" BorderThickness="0" Margin="0,0,0,5"/>
                 <Button x:Name="btnOK" Grid.Column="3" Margin="5,0,0,5" Content="OK" BorderThickness="0"
-                        FontSize="17" Click="btnOK_Click" />
+                        FontSize="17" Click="btnOK_Click" Foreground="#D2D2D3"/>
             </Grid>
             <!--End Bottom Container-->
             
@@ -81,8 +81,10 @@
         
         <!--Right Side Panel Container-->
         <StackPanel Grid.Column="1">
-            <TextBlock x:Name="lbItemName" FontSize="15"/>
-            <TextBlock x:Name="lbItemDescription" FontSize="12"/>
+            <TextBlock x:Name="lbItemName" FontSize="15" Foreground="FloralWhite"
+                       Margin="5,0,0,0"/>
+            <TextBlock x:Name="lbItemDescription" FontSize="12" Foreground="FloralWhite"
+                       Margin="5,0,0,0"/>
         </StackPanel>
         <!--End Right Side Panel Container-->
         
