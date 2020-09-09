@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -48,10 +49,34 @@ namespace PM_Studio
                     //give the selection(the word to be formatted) a blue color
                     rtxtAlgorithm.SelectionColor = System.Drawing.Color.Blue;
                 }
-                //Restore the old values of the selection and color of the text box
-                rtxtAlgorithm.SelectionStart = originalIndex;
-                rtxtAlgorithm.SelectionLength = originalLength;
-                rtxtAlgorithm.SelectionColor = originalColor;
+
+                //Get The Index of the CurrentLine in the RichTextBox
+                int CurrentLine = rtxtAlgorithm.GetLineFromCharIndex(originalIndex);
+
+                //If the Current Line contains only a step indicator without any text, then it's a Blank Line
+                //Then Set the selection start to the end of that Line
+
+                if (Regex.IsMatch(rtxtAlgorithm.Lines[CurrentLine], @"(\[\d*\])")) 
+                {
+                    //Set the Selection Start to the End of the blank Line
+                    rtxtAlgorithm.SelectionStart = rtxtAlgorithm.GetFirstCharIndexFromLine(CurrentLine) + rtxtAlgorithm.Lines[CurrentLine].Length;
+
+                    //Restore the old values of the selection length and color of the text box
+                    rtxtAlgorithm.SelectionLength = originalLength;
+                    rtxtAlgorithm.SelectionColor = originalColor;
+                }
+
+                //If the Line did not contain a step indicator only, then set the selection start to the original one
+                else
+                {
+                    //Set the Selection Start to the original Selection start
+                    rtxtAlgorithm.SelectionStart = originalIndex;
+
+                    //Restore the old values of the selection length and color of the text box
+                    rtxtAlgorithm.SelectionLength = originalLength;
+                    rtxtAlgorithm.SelectionColor = originalColor;
+
+                }
 
                 //get back the focus to the textbox
                 rtxtAlgorithm.Focus();
