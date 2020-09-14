@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -16,10 +17,9 @@ namespace PM_Studio
         List<string> LastData = new List<string>();
 
         System.Windows.Forms.RichTextBox rtxtAlgorithm = new System.Windows.Forms.RichTextBox();
-        
 
+        TextFormatter textFormatter = new TextFormatter();
         #endregion
-
 
         #region Constructor
         public AlgorithmTabItem(TabControl tabControl, Algorithm _algorithm, string filePath = "", bool AddbyDefault = false) : base(tabControl, _algorithm.algorithmFileName.Replace("*", ""), filePath)
@@ -39,7 +39,7 @@ namespace PM_Studio
             rtxtAlgorithm.BackColor = System.Drawing.Color.FromArgb(13, 3, 19);
             rtxtAlgorithm.ForeColor = System.Drawing.Color.FromArgb(210, 210, 210);
             rtxtAlgorithm.Text = algorithm.algorithm;
-
+            
             //Define a windows forms host to handle the Windows Forms Control(RichTextBox)
             System.Windows.Forms.Integration.WindowsFormsHost host = new System.Windows.Forms.Integration.WindowsFormsHost();
             host.Child = rtxtAlgorithm;
@@ -51,8 +51,9 @@ namespace PM_Studio
                 tabControl.Items.Add(this);
                 tabControl.SelectedItem = this;
             }
-           
 
+            textFormatter.FormatAlgorithmTextBox(rtxtAlgorithm, @"(\[\d*\])");
+            SaveFile();
         }
         #endregion
 
@@ -70,7 +71,7 @@ namespace PM_Studio
             //Unfocus the richtextbox to avoid blinking
             this.Focus();
             //Then Format all the text again and restore the focus
-            TextFormatter textFormatter = new TextFormatter();
+            
             textFormatter.FormatAlgorithmTextBox(rtxtAlgorithm, @"(\[\d*\])");
         }
 
@@ -101,6 +102,20 @@ namespace PM_Studio
                 }
             }
 
+            else if(e.KeyCode == System.Windows.Forms.Keys.Back)
+            {
+                int CurrentLine = rtxtAlgorithm.GetLineFromCharIndex(rtxtAlgorithm.SelectionStart);
+                if(Regex.Replace(rtxtAlgorithm.Lines[CurrentLine], @"(\[\d*\])", "") == "")
+                {
+                    int OldSelectionStart = rtxtAlgorithm.SelectionStart;
+                    int OldSelectionLength = rtxtAlgorithm.SelectionLength;
+                    rtxtAlgorithm.SelectionStart = rtxtAlgorithm.GetFirstCharIndexFromLine(CurrentLine) - 1;
+                    rtxtAlgorithm.SelectionLength = rtxtAlgorithm.Lines[CurrentLine].Length;
+                    rtxtAlgorithm.SelectedText = String.Empty;
+                    rtxtAlgorithm.SelectionStart = OldSelectionStart;
+                    rtxtAlgorithm.SelectionLength = OldSelectionLength;
+                }
+            }
            
             else if (e.KeyCode == System.Windows.Forms.Keys.Space)
             {
