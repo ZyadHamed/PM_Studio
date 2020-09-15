@@ -2,11 +2,26 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace PM_Studio
 {
     public class TaskBlock : Border
     {
+
+        #region Designing Variables
+
+        StackPanel Container = new StackPanel();
+        TextBlock lbTaskTitle = new TextBlock();
+        StackPanel TaskDateContainer = new StackPanel();
+        Image TaskDateIcon = new Image();
+        TextBlock lbTaskDate = new TextBlock();
+        DockPanel BottomContainer = new DockPanel();
+        Image TaskProgressIcon = new Image();
+        TextBlock lbTaskProgess = new TextBlock();
+        Image TaskWorkersIcon = new Image();
+
+        #endregion
 
         #region Variables
 
@@ -19,10 +34,118 @@ namespace PM_Studio
         public TaskBlock(Task task)
         {
             Task = task;
+
+            SetControlsProperties();
+            AddControlsToContainer();
+            SetBlockData();
         }
 
         #endregion
 
+        #region Methods
+
+        void SetControlsProperties()
+        {
+            //Set the Properties of the outer Border
+            this.BorderBrush = Brushes.Aqua;
+            this.BorderThickness = new System.Windows.Thickness(3);
+            this.CornerRadius = new System.Windows.CornerRadius(3);
+            this.Margin = new System.Windows.Thickness(5);
+
+            //Set the Margin of the Container StackPanel
+            Container.Margin = new System.Windows.Thickness(5);
+
+            //Set the Properties of the Task Title TextBlock
+            lbTaskTitle.FontSize = 25;
+            lbTaskTitle.Foreground = Brushes.FloralWhite;
+
+            //Set the Properties of the TaskDateContainer StackPanel
+            TaskDateContainer.Orientation = Orientation.Horizontal;
+            TaskDateContainer.Margin = new System.Windows.Thickness(0,10,0,0);
+
+            //Set the Width of the TaskDateIcon(Source of the Icon will be added soon)
+            TaskDateIcon.Width = 20;
+
+            //Set the Foreground and the FontSize of the TaskDate Label
+            lbTaskDate.Foreground = Brushes.FloralWhite;
+            lbTaskDate.FontSize = 14;
+
+            //Add Some margin to the bottom Container
+            BottomContainer.Margin = new System.Windows.Thickness(0, 10, 0, 0);
+
+            //Set the Width of the TaskProgressIcon(Source of the Icon will be added soon)
+            TaskProgressIcon.Width = 20;
+
+            //Set the font size of the TaskProgress Label
+            lbTaskProgess.FontSize = 14;
+
+            //Set the Width and the HorizontalAlignment of the TaskWorkersIcon(Source of the Icon will be added soon)
+            TaskWorkersIcon.Width = 20;
+            TaskWorkersIcon.HorizontalAlignment = System.Windows.HorizontalAlignment.Right;
+        }
+
+        /// <summary>
+        /// Adds all the Controls inside the class to their correct Container
+        /// </summary>
+        void AddControlsToContainer()
+        {
+            //Add the TaskProgressIcon, TaskProgrssLabel, and the TaskWorkersIcon to the Bottom Container
+            BottomContainer.Children.Add(TaskProgressIcon);
+            BottomContainer.Children.Add(lbTaskProgess);
+            BottomContainer.Children.Add(TaskWorkersIcon);
+
+            //Add the TaskDateIcon and the TaskDateLabel to the TaskDate Container
+            TaskDateContainer.Children.Add(TaskDateIcon);
+            TaskDateContainer.Children.Add(lbTaskDate);
+
+            //Add the TaskTitle,the TaskDateContainer, and the BottomContainer to the Container StackPanel
+            Container.Children.Add(lbTaskTitle);
+            Container.Children.Add(TaskDateContainer);
+            Container.Children.Add(BottomContainer);
+
+            //Add the Container StackPanel to the Border
+            this.Child = Container;
+        }
+
+        /// <summary>
+        /// Sets the Data inside the Block with respect to the Task passed to the class
+        /// </summary>
+        void SetBlockData()
+        {
+            //Set the Task Title and Task Duration labels to the Title and Duration of the Task
+            lbTaskTitle.Text = Task.TaskTitle;
+            lbTaskDate.Text = Task.TaskDuration;
+            
+            //If the Task Progress was Undone, display "Undone" in the Progress label with red Color
+            if(Task.TaskProgress == "Undone")
+            {
+                lbTaskProgess.Text = "Undone";
+                lbTaskProgess.Foreground = Brushes.Red;
+            }
+
+            //else if the Task Progress was In Progress, display "In Progress" in the Progress label with yellow Color
+            else if (Task.TaskProgress == "In Progress")
+            {
+                lbTaskProgess.Text = "In Progress";
+                lbTaskProgess.Foreground = Brushes.Yellow;
+            }
+
+            //else if the Task Progress was Done, display "Done" in the Progress label with Lime Color
+            else if (Task.TaskProgress == "Done")
+            {
+                lbTaskProgess.Text = "Done";
+                lbTaskProgess.Foreground = Brushes.Lime;
+            }
+
+        }
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// The Task in which this TaskBlock is based On
+        /// </summary>
         Task Task
         {
             get
@@ -34,6 +157,8 @@ namespace PM_Studio
                 _Task = value;
             }
         }
+
+        #endregion
 
     }
 }
