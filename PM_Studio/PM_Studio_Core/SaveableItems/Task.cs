@@ -11,14 +11,16 @@ namespace PM_Studio
 
         private string _TaskProgress = "Undone";
         private List<TeamMember> _TaskWorkers = new List<TeamMember>();
+        private string _TaskDuration;
 
         #endregion
 
         #region Constructor
-        public Task(string _TaskTitle, string _TaskDescription, string TaskDuration)
+        public Task(string _TaskTitle, string _TaskDescription, string _TaskDuration)
         {
             TaskTitle = _TaskTitle;
             TaskDescription = _TaskDescription;
+            TaskDuration = _TaskDuration;
         }
         #endregion
 
@@ -58,9 +60,22 @@ namespace PM_Studio
             }
         }
 
+        public string TaskDuration
+        {
+            get
+            {
+                return _TaskDuration;
+            }
+            set
+            {
+                _TaskDuration = value;
+            }
+        }
+
         public string TaskTitle {get; set;}
         public string TaskDescription { get; set; }
 
+        
         #endregion
 
     }
