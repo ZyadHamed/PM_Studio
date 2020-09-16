@@ -40,8 +40,6 @@ namespace PM_Studio
             {
                 //Define a TeamMemberBlock based on the data of the teamMember
                 TeamMemberBlock teamMemberBlock = new TeamMemberBlock(Teammember);
-                //Set the Tag to be that teamMember so we can use that teamMember again in other Classes
-                teamMemberBlock.Tag = Teammember;
                 //Add that TeamMemberBlock to the List of TeamMemberBlocks
                 teamMemberBlocks.Add(teamMemberBlock);
                 
