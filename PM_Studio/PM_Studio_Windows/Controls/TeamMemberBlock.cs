@@ -9,7 +9,7 @@ namespace PM_Studio
    public class TeamMemberBlock : Border
     {
         #region Variables
-        TeamMember teamMember;
+
         TextBlock lbMemberName = new TextBlock();
         TextBlock lbMemberJob = new TextBlock();
         Grid Container = new Grid();
@@ -20,12 +20,13 @@ namespace PM_Studio
         MenuItem RemoveTeamMemberMenuItem = new MenuItem();
         MenuItem EditTeamMemberMenuItem = new MenuItem();
 
+        private TeamMember _TeamMember;
         #endregion
 
         #region Constructor
         public TeamMemberBlock(TeamMember _teamMember)
         {
-            teamMember = _teamMember;
+            TeamMember = _teamMember;
             //Add the row definitions to the Container grid
             Container.ColumnDefinitions.Add(new ColumnDefinition() 
             {
@@ -37,8 +38,8 @@ namespace PM_Studio
             });
 
             //Set the Text of the two TextBlocks to the Name and the Job of the Team Member
-            lbMemberName.Text = teamMember.Name;
-            lbMemberJob.Text = teamMember.Job;
+            lbMemberName.Text = TeamMember.Name;
+            lbMemberJob.Text = TeamMember.Job;
 
             //Set the Font Size of the TextBlocks to 17
             lbMemberName.FontSize = 17;
@@ -114,7 +115,7 @@ namespace PM_Studio
             TeamManger teamManger = new TeamManger();
             //Remove the TeamMember using the teamMangerViewModel inside the TeamManger Class
             //(Will Update the code soon to add refreashing of the Page)
-            teamManger.teamMangerViewModel.RemoveTeamMember(this.Tag as TeamMember);
+            teamManger.teamMangerViewModel.RemoveTeamMember(TeamMember);
             
         }
 
@@ -123,6 +124,26 @@ namespace PM_Studio
             
         }
 
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// The TeamMember in which this Block is based on it
+        /// </summary>
+        public TeamMember TeamMember
+        {
+            get
+            {
+                return _TeamMember;
+            }
+
+            set
+            {
+                _TeamMember = value;
+            }
+        }
 
         #endregion
 
