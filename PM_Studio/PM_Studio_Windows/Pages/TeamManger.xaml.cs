@@ -92,7 +92,7 @@ namespace PM_Studio
         #region Events
         private void lstTeamMembers_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            teamMangerViewModel.SelectedMember = ((TeamMember)(e.AddedItems[0] as TeamMemberBlock).Tag);
+            teamMangerViewModel.SelectedMember = (e.AddedItems[0] as TeamMemberBlock).TeamMember;
             //Get the Tasks from the selected Team Member and Display it in the TeamMemberTasks ListView
             lstTeamMembersTasks.ItemsSource = teamMangerViewModel.MemberTasks;
         }
