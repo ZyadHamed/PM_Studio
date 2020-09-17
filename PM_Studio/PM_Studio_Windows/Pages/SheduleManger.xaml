@@ -9,17 +9,34 @@
       Title="SheduleManger">
 
     <Grid>
-        <ScrollViewer>
-            <ItemsControl x:Name="lstTasks" Background="#2D2D30" Margin="20,0,0,0">
-                <ItemsControl.ItemsPanel>
+        <TreeView ScrollViewer.HorizontalScrollBarVisibility="Disabled" Background="#2D2D30" Margin="20,0,0,0">
+            
+            <TreeViewItem Header="Undone" x:Name="tviUndone" Foreground="#D2D2D2">
+                <TreeViewItem.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel/>
                     </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
+                </TreeViewItem.ItemsPanel>
+                
+            </TreeViewItem>
 
-               
-            </ItemsControl>
-        </ScrollViewer>
+            <TreeViewItem Header="In Progress" x:Name="tviInProgress" Foreground="#D2D2D2">
+                <TreeViewItem.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel/>
+                        </ItemsPanelTemplate>
+                    </TreeViewItem.ItemsPanel>
+                </TreeViewItem>
+
+            <TreeViewItem Header="Done" x:Name="tviDone" Foreground="#D2D2D2">
+                <TreeViewItem.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel/>
+                    </ItemsPanelTemplate>
+                </TreeViewItem.ItemsPanel>
+            </TreeViewItem>
+        </TreeView>
+        
         
     </Grid>
 </Page>

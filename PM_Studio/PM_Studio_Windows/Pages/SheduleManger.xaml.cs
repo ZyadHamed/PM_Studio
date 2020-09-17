@@ -21,6 +21,28 @@ namespace PM_Studio
         public SheduleManger()
         {
             InitializeComponent();
+            //Code Used for testing the tasks and it's sorting
+            //Task task1 = new Task("Design the Form", "", "From 9/9/2020 To 15/12/2020");
+            //task1.TaskProgress = "Done";
+            //Task task2 = new Task("Program the front End of the Form", "", "From 8/8/2020 To 8/9/2020");
+            //task2.TaskProgress = "Done";
+            //Task task3 = new Task("Revise the Code", "", "From 9/10/2020 To 5/11/2020");
+            //task3.TaskProgress = "In Progress";
+            //Task task4 = new Task("Fix Bugs", "", "From 12/12/2020 To 5/1/2021");
+            //task4.TaskProgress = "Undone";
+            //Task task5 = new Task("Publish the Program", "", "From 5/1/2021 To 15/1/2021");
+            //task5.TaskProgress = "Undone";
+            //List<TaskBlock> tasks = new List<TaskBlock>();
+            //tasks.Add(new TaskBlock(task1));
+            //tasks.Add(new TaskBlock(task2));
+            //tasks.Add(new TaskBlock(task3));
+            //tasks.Add(new TaskBlock(task4));
+            //tasks.Add(new TaskBlock(task5));
+            //SheduleMangerViewModel sheduleMangerViewModel = new SheduleMangerViewModel();
+
+            //tviUndone.ItemsSource = sheduleMangerViewModel.SortTasks(tasks).UndoneTasks;
+            //tviInProgress.ItemsSource = sheduleMangerViewModel.SortTasks(tasks).InProgrssTasks;
+            //tviDone.ItemsSource = sheduleMangerViewModel.SortTasks(tasks).DoneTasks;
             
         }
     }
