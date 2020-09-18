@@ -87,5 +87,24 @@ namespace PM_Studio
 
         #endregion
 
+        #region Properties
+
+        /// <summary>
+        /// The Text of the Header of the TabItem
+        /// </summary>
+        public string HeaderText
+        {
+            get
+            {
+                return headerText.Text;
+            }
+            set
+            {
+                headerText.Text = value;
+            }
+        }
+
+        #endregion
+
     }
 }
