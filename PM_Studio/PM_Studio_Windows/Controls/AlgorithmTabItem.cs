@@ -52,8 +52,15 @@ namespace PM_Studio
                 tabControl.SelectedItem = this;
             }
 
+            //Format the Text Inside the AlgorithmTextBox
             textFormatter.FormatAlgorithmTextBox(rtxtAlgorithm, @"(\[\d*\])");
-            SaveFile();
+            
+            //If the Last Character in the Header of the TabItem was a star, save the file
+            if (HeaderText[HeaderText.Length - 1] == '*')
+            {
+                SaveFile();
+            }
+            
         }
         #endregion
 
@@ -64,7 +71,7 @@ namespace PM_Studio
             //If it is, mark it as unsaved and add the unsaved star to the header
             if (IsSaved == true)
             {
-                ((TextBlock)tabHeader.Children[0]).Text += "*";
+                HeaderText += "*";
                 IsSaved = false;
             }
            
@@ -141,7 +148,7 @@ namespace PM_Studio
             Algorithm algorithm = new Algorithm()
             {
                 algorithm = rtxtAlgorithm.Text,
-                algorithmFileName = ((TextBlock)tabHeader.Children[0]).Text
+                algorithmFileName = HeaderText
 
             };
             //Mark IsSaved as true
@@ -149,7 +156,7 @@ namespace PM_Studio
             //Save the File
             saveLoadSystemViewModel.Save(CurrentPath, algorithm);
             //Remove the unsaved star from the header
-            ((TextBlock)tabHeader.Children[0]).Text = ((TextBlock)tabHeader.Children[0]).Text.Remove(((TextBlock)tabHeader.Children[0]).Text.Length - 1);
+            HeaderText = HeaderText.Remove(HeaderText.Length - 1);
         }
         #endregion
 

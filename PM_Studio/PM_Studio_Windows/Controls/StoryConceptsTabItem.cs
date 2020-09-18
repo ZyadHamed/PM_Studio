@@ -31,7 +31,7 @@ namespace PM_Studio
         {
             //Assign the incoming StoryConcepts to the existing StoryConcepts
             storyConcepts = StoryConcepts;
-            MessageBox.Show(storyConcepts.fileName);
+            
             //Assign the events for all the textboxes
             txtStoryType.TextChanged += TextBox_TextChanged;
             txtStoryIdea.TextChanged += TextBox_TextChanged;
@@ -66,6 +66,11 @@ namespace PM_Studio
             //Fill the TextBoxes with the text from the storyConcepts File
             LoadTextBoxesText();
 
+            // If the Last Character in the Header of the TabItem was a star, save the file
+            if (HeaderText[HeaderText.Length - 1] == '*')
+            {
+                SaveFile();
+            }
         }
 
         #endregion
@@ -138,10 +143,10 @@ namespace PM_Studio
             lbStoryEvents.FontSize = 15;
 
             //Add some margin between the TextBlocks
-            lbStoryIdea.Margin = new System.Windows.Thickness(0, 10, 0, 10);
-            lbPlotTwists.Margin = new System.Windows.Thickness(0, 10, 0, 10);
-            lbPlotPoints.Margin = new System.Windows.Thickness(0, 10, 0, 10);
-            lbStoryEvents.Margin = new System.Windows.Thickness(0, 10, 0, 10);
+            lbStoryIdea.Margin = new Thickness(2, 10, 0, 10);
+            lbPlotTwists.Margin = new Thickness(2, 10, 0, 10);
+            lbPlotPoints.Margin = new Thickness(2, 10, 0, 10);
+            lbStoryEvents.Margin = new Thickness(2, 10, 0, 10);
         }
 
         /// <summary>
@@ -178,11 +183,18 @@ namespace PM_Studio
             txtStoryEvents.Background = Brushes.DimGray;
 
             //Add some margin between the TextBoxes
-            txtStoryType.Margin = new System.Windows.Thickness(0,0,5,0);
-            txtStoryIdea.Margin = new System.Windows.Thickness(0, 10, 5, 10);
-            txtPlotTwists.Margin = new System.Windows.Thickness(0, 10, 5, 10);
-            txtPlotPoints.Margin = new System.Windows.Thickness(0, 10, 5, 10);
-            txtStoryEvents.Margin = new System.Windows.Thickness(0, 10, 5, 10);
+            txtStoryType.Margin = new Thickness(0,0,5,0);
+            txtStoryIdea.Margin = new Thickness(0, 10, 5, 10);
+            txtPlotTwists.Margin = new Thickness(0, 10, 5, 10);
+            txtPlotPoints.Margin = new Thickness(0, 10, 5, 10);
+            txtStoryEvents.Margin = new Thickness(0, 10, 5, 10);
+
+            //Add Some padding to the text inside the textboxes
+            txtStoryType.Padding = new Thickness(2,2,0,0);
+            txtStoryIdea.Padding = new Thickness(2, 2, 0, 0);
+            txtPlotTwists.Padding = new Thickness(2, 2, 0, 0);
+            txtPlotPoints.Padding = new Thickness(2, 2, 0, 0);
+            txtStoryEvents.Padding = new Thickness(2, 2, 0, 0);
         }
 
         /// <summary>
@@ -242,10 +254,14 @@ namespace PM_Studio
         void LoadTextBoxesText()
         {
             string combinedText = "";
-            foreach(string s in storyConcepts.StoryTypes)
+            if(storyConcepts.StoryTypes != null && storyConcepts.StoryTypes.Length > 0)
             {
-                combinedText += s + ",";
+                foreach (string s in storyConcepts.StoryTypes)
+                {
+                    combinedText += s + ",";
+                }
             }
+            
             txtStoryType.Text = combinedText;
             txtStoryIdea.Text = storyConcepts.StoryIdea;
             txtPlotTwists.Text = storyConcepts.PlotTwists;
@@ -260,7 +276,7 @@ namespace PM_Studio
             //Create a StoryConcepts Class Based on the new data in the Tab
             StoryConcepts sc = new StoryConcepts()
             {
-                fileName = ((TextBlock)tabHeader.Children[0]).Text,
+                fileName = HeaderText,
                 StoryTypes = txtStoryType.Text.Split(','),
                 StoryIdea = txtStoryIdea.Text,
                 PlotTwists = txtPlotTwists.Text,
@@ -272,7 +288,7 @@ namespace PM_Studio
             //Save the file With the new data
             saveLoadSystemViewModel.Save(CurrentPath, sc);
             //Remove the unsaved star from the header
-            ((TextBlock)tabHeader.Children[0]).Text = ((TextBlock)tabHeader.Children[0]).Text.Remove(((TextBlock)tabHeader.Children[0]).Text.Length - 1);
+            HeaderText = HeaderText.Remove(HeaderText.Length - 1);
         }
 
         #endregion
