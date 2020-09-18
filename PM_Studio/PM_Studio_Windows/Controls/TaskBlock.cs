@@ -38,6 +38,8 @@ namespace PM_Studio
             SetControlsProperties();
             AddControlsToContainer();
             SetBlockData();
+
+            
         }
 
         #endregion
@@ -146,7 +148,7 @@ namespace PM_Studio
         /// <summary>
         /// The Task in which this TaskBlock is based On
         /// </summary>
-        Task Task
+        public Task Task
         {
             get
             {
@@ -154,7 +156,10 @@ namespace PM_Studio
             }
             set
             {
+                //Set the Block Task to the incoming value
                 _Task = value;
+                //Set the Data of the Block to the new data of the incoming task
+                SetBlockData();
             }
         }
 
