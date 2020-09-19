@@ -75,6 +75,16 @@ namespace PM_Studio
         }
 
         /// <summary>
+        /// Returns a shedule in a shedule file in a given path
+        /// </summary>
+        /// <param name="filePath">The path of the shedule file</param>
+        /// <returns></returns>
+        public Shedule GetShedule(string filePath)
+        {
+            return SaveLoadSystem.LoadData<Shedule>(filePath);
+        }
+
+        /// <summary>
         /// Creates a Black Algorithm File
         /// </summary>
         /// <param name="filePath">The Path to Create the Algorthim file in</param>
@@ -84,11 +94,35 @@ namespace PM_Studio
             //Create an Algorithm With the given name and with an empty Algorithm
             Algorithm algorithm = new Algorithm()
             {
-                algorithmFileName = fileName + ".algorithm",
+                algorithmFileName = fileName + ".pmalg",
                 algorithm = ""
             };
             //Save that algorithm in the given path
             Save(filePath + algorithm.algorithmFileName, algorithm);
+        }
+
+        public void CreateStoryConceptsFile(string filePath, string fileName)
+        {
+            StoryConcepts storyConcepts = new StoryConcepts()
+            {
+                fileName = fileName + ".pmstory",
+                StoryTypes = new string[] { "" },
+                StoryIdea = "",
+                PlotTwists = "",
+                PlotPoints = "",
+                StoryEvents = ""
+            };
+            Save(filePath + storyConcepts.fileName, storyConcepts);
+        }
+
+        public void CreateShedule(string filePath, string SheduleName)
+        {
+            Shedule shedule = new Shedule()
+            {
+                Name = SheduleName + ".pmshed",
+                Tasks = new List<Task>()
+            };
+            Save(filePath + shedule.Name, shedule);
         }
 
         #endregion
