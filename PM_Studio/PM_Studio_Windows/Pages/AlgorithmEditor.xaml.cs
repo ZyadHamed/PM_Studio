@@ -47,7 +47,7 @@ namespace PM_Studio
             if(fileMangerViewModel.IsSelectedFile == true)
             {
                 //If it was an algorithm file, open it in an Algorithm Tab Item
-                if(fileMangerViewModel.getSelectedExtension == ".algorithm")
+                if(fileMangerViewModel.getSelectedExtension == ".pmalg")
                 {
                     //Create an algorithm tabItem using the current selected Algorithm file
                     AlgorithmTabItem algorithmTabItem = saveLoadSystemViewModel.ReturnAlgorithm(fileMangerViewModel.filePath + @"\" + fileMangerViewModel.SelectedItem);
@@ -56,7 +56,7 @@ namespace PM_Studio
                 }
 
                 //If it was a story file, open it in a StoryConcepts Tab Item
-                else if(fileMangerViewModel.getSelectedExtension == ".story")
+                else if(fileMangerViewModel.getSelectedExtension == ".pmstory")
                 {
                     //Create a storyConcepts TabItem using the current selected Story File
                     StoryConceptsTabItem storyConceptsTabItem = saveLoadSystemViewModel.ReturnStoryConceptsTabItem(fileMangerViewModel.filePath + @"\" + fileMangerViewModel.SelectedItem);
@@ -131,7 +131,11 @@ namespace PM_Studio
 
                     //If the Selected Item was Story Planning, then Create a Blank Idea File(Code will be added soon)
                     case "StoryPlanning":
-
+                        //Create a Blank Story Concepts File in the Selected filePath
+                        saveLoadSystemViewModel.CreateStoryConceptsFile(txtFilePath.Text + @"\", addItemWindow.ItemName);
+                        //Reload the File Explorer
+                        lstFiles.ItemsSource = null;
+                        lstFiles.ItemsSource = fileMangerViewModel.FilesAndFolders;
                         break;
 
                     //If the Selected Item was Character Planning, then Create a Blank Idea File(Code will be added soon)
