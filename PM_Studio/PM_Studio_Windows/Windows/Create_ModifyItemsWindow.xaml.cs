@@ -40,9 +40,12 @@ namespace PM_Studio
             {
 
             }
+            IsDatePickerVisible = false;
+            
         }
 
         #region Properties
+
 
         public string lbDataField1Text
         {
@@ -116,12 +119,60 @@ namespace PM_Studio
             }
         }
 
+        public bool IsDatePickerVisible
+        {
+            get
+            {
+                return DatePickersContainer.Visibility == Visibility.Visible;
+            }
+            set
+            {
+                if(value == true)
+                {
+                    DatePickersContainer.Visibility = Visibility.Visible;
+                    txtDataField3.Visibility = Visibility.Hidden;
+                }
+                else
+                {
+                    DatePickersContainer.Visibility = Visibility.Hidden;
+                    txtDataField3.Visibility = Visibility.Visible;
+                }
+            }
+        }
+
+        public DateTime StartDate
+        {
+            get
+            {
+                return dpStartDate.SelectedDate.Value;
+            }
+        }
+
+        public DateTime EndDate
+        {
+            get
+            {
+                return dpEndDate.SelectedDate.Value;
+            }
+        }
+
         #endregion
 
         private void btnOK_Click(object sender, RoutedEventArgs e)
         {
-            //Set the Dialog Result of the Form to Ok
-            this.DialogResult = true;
+            if(DateTime.Compare(StartDate, EndDate) > 0)
+            {
+                MessageBox.Show("The Starting Date of the Task must Be Before the Finishing Date");
+                return;
+            }
+            else
+            {
+                //Set the Dialog Result of the Form to Ok
+                this.DialogResult = true;
+            }
+            
         }
+
+       
     }
 }
