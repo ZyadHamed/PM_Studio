@@ -42,13 +42,13 @@
             </Grid.ColumnDefinitions>
 
             <!--Left Side Menu-->
-            <Grid Grid.Column="0">
+            <Grid Grid.Column="0" x:Name="LeftPanelGrid">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -58,32 +58,32 @@
                 <!--Algorthim Tab Button-->
                 <Button Content="&lt;" Grid.Column="1" Grid.Row="0"
                         x:Name="btnCollapsePanel" Click="btnCollapsePanel_Click" />
-                <Button x:Name="btnAlgorithm" BorderThickness="0"
+                <ToggleButton x:Name="btnAlgorithm" BorderThickness="0"
                     Background="#3E3E42" Foreground="WhiteSmoke"
                         Grid.Row="1" Margin="0,10,0,10" Click="TabButton_Click" Grid.ColumnSpan="2" Uid="0">
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="pack://application:,,,/PM_Studio_Core;component/Images/Algorithm.png" Width="50"/>
-                        <TextBlock Text="Algorithm" VerticalAlignment="Center" x:Name="btnAlgorithmText"/>
+                        <Image Source="/PM_Studio_Core;component/Images/Shedule.png" Width="50"/>
+                        <TextBlock Text="Algorithm" VerticalAlignment="Center" x:Name="btnAlgorithmText" FontSize="17"/>
                     </StackPanel>
-                </Button>
+                </ToggleButton>
                 <!--End Algorthim Tab Button-->
 
                 <!--Shedule Tab Button-->
-                <Button x:Name="btnSchedule" BorderThickness="0"
+                <ToggleButton x:Name="btnSchedule" BorderThickness="0"
                     Background="#3E3E42" Foreground="WhiteSmoke"
                         Grid.Row="2" Margin="0,10,0,10" Click="TabButton_Click" Grid.ColumnSpan="2" Uid="1">
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="pack://application:,,,/PM_Studio_Core;component/Images/Shedule.png" Width="50"/>
-                        <TextBlock Text="Shedule" VerticalAlignment="Center" x:Name="btnSheduleText"/>
+                        <Image Source="/PM_Studio_Core;component/Resources/Images/Shedule.png" Width="50"/>
+                        <TextBlock Text="Shedule" VerticalAlignment="Center" x:Name="btnSheduleText" FontSize="17"/>
                     </StackPanel>
-                </Button>
+                </ToggleButton>
                 <!--End Sheudle Tab Button-->
-                <Button x:Name="btnTeam" Content="Team" BorderThickness="0"
+                <ToggleButton x:Name="btnTeam" Content="Team" BorderThickness="0"
                     Background="#3E3E42" Foreground="WhiteSmoke"
-                        Grid.Row="3" Margin="0,10,0,10" Click="TabButton_Click" Grid.ColumnSpan="2" Uid="2"/>
-                <Button x:Name="btnPublish" Content="Publish" BorderThickness="0"
+                        Grid.Row="3" Margin="0,10,0,10" Click="TabButton_Click" Grid.ColumnSpan="2" Uid="2" FontSize="17"/>
+                <ToggleButton x:Name="btnPublish" Content="Publish" BorderThickness="0"
                     Background="#3E3E42" Foreground="WhiteSmoke"
-                        Grid.Row="4" Margin="0,10,0,10" Click="TabButton_Click" Grid.ColumnSpan="2" Uid="3"/>
+                        Grid.Row="4" Margin="0,10,0,10" Click="TabButton_Click" Grid.ColumnSpan="2" Uid="3" FontSize="17"/>
 
             </Grid>
             <!--End Left Side Menu-->

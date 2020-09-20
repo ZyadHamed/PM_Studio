@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -25,12 +26,13 @@ namespace PM_Studio
         {
             InitializeComponent();
             PagesContainer.Content = new AlgorithmEditor();
+            btnAlgorithm.IsChecked = true;
             
         }
 
         private void TabButton_Click(object sender, RoutedEventArgs e)
         {
-            int buttonIndex = int.Parse(((Button)e.Source).Uid);
+            int buttonIndex = int.Parse(((ToggleButton)e.Source).Uid);
             switch (buttonIndex)
             {
                 case 0:
@@ -38,7 +40,8 @@ namespace PM_Studio
                     PagesContainer.Content = new AlgorithmEditor();
                     break;
                 case 1:
-                  
+                    PagesContainer.Content = null;
+                    PagesContainer.Content = new SheduleManger();
                     break;
 
                 case 2:
@@ -48,6 +51,22 @@ namespace PM_Studio
                 case 3:
                     
                     break;
+            }
+            foreach(var Control in LeftPanelGrid.Children)
+            {
+                if(Control.GetType() == typeof(ToggleButton))
+                {
+                    ToggleButton button = Control as ToggleButton;
+                    if (button == ((ToggleButton)e.Source))
+                    {
+                        button.IsChecked = true;
+                    }
+                    else
+                    {
+                        button.IsChecked = false;
+                    }
+                }
+               
             }
         }
 
