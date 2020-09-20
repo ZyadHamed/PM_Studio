@@ -9,7 +9,7 @@
       Title="SheduleManger">
 
     <Grid>
-        <TreeView ScrollViewer.HorizontalScrollBarVisibility="Disabled" Background="#2D2D30" Margin="20,0,0,0">
+        <TreeView ScrollViewer.HorizontalScrollBarVisibility="Disabled" Background="#2D2D30" Margin="20,0,0,0" Visibility="Hidden" x:Name="tvTasks">
             
             <TreeViewItem Header="Undone" x:Name="tviUndone" Foreground="#D2D2D2">
                 <TreeViewItem.ItemsPanel>
@@ -35,8 +35,16 @@
                     </ItemsPanelTemplate>
                 </TreeViewItem.ItemsPanel>
             </TreeViewItem>
+            <Button Content="+" FontSize="20" Click="btnAddTask_Click"/>
         </TreeView>
-        
+
+        <Grid x:Name="NoSheduleGrid" Visibility="Hidden">
+            <DockPanel>
+                <TextBlock Text="Ooops, Looks Like you do not have a Shedule yet, Do you want to Create one?" FontSize="20"
+                           Foreground="WhiteSmoke" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Button Content="Create Shedule" DockPanel.Dock="Bottom" FontSize="15" Height="40"/>
+            </DockPanel>
+        </Grid>
         
     </Grid>
 </Page>
