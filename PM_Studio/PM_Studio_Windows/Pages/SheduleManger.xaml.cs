@@ -86,7 +86,7 @@ namespace PM_Studio
                 //Add a Task using the Data inside the Window
                 sheduleMangerViewModel.AddTask(new Task(CreateWindow.txtDataField1Text, "", Date)
                 {
-                    TaskProgress = "Undone"
+                    TaskProgress = "Upcoming"
                 });
                 //Reload the Items of the Tree View
                 FillTreeView();
@@ -101,21 +101,26 @@ namespace PM_Studio
         void FillTreeView()
         {
             //Set the ItemsSource of all the TreeNodes to null(to remove any Parents to the Items)
-            tviUndone.ItemsSource = null;
+            tviUpcomingTasks.ItemsSource = null;
             tviInProgress.ItemsSource = null;
             tviDone.ItemsSource = null;
-
+            tviUndone.ItemsSource = null;
+            
             //Clear all the Items inside all the TreeNodes
-            tviUndone.Items.Clear();
+            tviUpcomingTasks.Items.Clear();
             tviInProgress.Items.Clear();
             tviDone.Items.Clear();
-
+            tviUndone.Items.Clear();
+            
             //Reset the Items Source for each one of them
-            tviUndone.ItemsSource = sheduleMangerViewModel.UndoneTasks;
+            tviUpcomingTasks.ItemsSource = sheduleMangerViewModel.UpcomingTasks;
 
             tviInProgress.ItemsSource = sheduleMangerViewModel.InProgressTasks;
-            
+
             tviDone.ItemsSource = sheduleMangerViewModel.DoneTasks;
+
+            tviUndone.ItemsSource = sheduleMangerViewModel.UndoneTasks;
+
         }
 
         #endregion

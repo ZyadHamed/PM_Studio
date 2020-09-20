@@ -9,24 +9,25 @@
       Title="SheduleManger">
 
     <Grid>
+        
         <TreeView ScrollViewer.HorizontalScrollBarVisibility="Disabled" Background="#2D2D30" Margin="20,0,0,0" Visibility="Hidden" x:Name="tvTasks">
-            
-            <TreeViewItem Header="Undone" x:Name="tviUndone" Foreground="#D2D2D2">
+
+            <TreeViewItem Header="Upcoming Tasks" x:Name="tviUpcomingTasks" Foreground="#D2D2D2">
                 <TreeViewItem.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel/>
                     </ItemsPanelTemplate>
                 </TreeViewItem.ItemsPanel>
-                
+
             </TreeViewItem>
 
             <TreeViewItem Header="In Progress" x:Name="tviInProgress" Foreground="#D2D2D2">
                 <TreeViewItem.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <WrapPanel/>
-                        </ItemsPanelTemplate>
-                    </TreeViewItem.ItemsPanel>
-                </TreeViewItem>
+                    <ItemsPanelTemplate>
+                        <WrapPanel/>
+                    </ItemsPanelTemplate>
+                </TreeViewItem.ItemsPanel>
+            </TreeViewItem>
 
             <TreeViewItem Header="Done" x:Name="tviDone" Foreground="#D2D2D2">
                 <TreeViewItem.ItemsPanel>
@@ -35,6 +36,16 @@
                     </ItemsPanelTemplate>
                 </TreeViewItem.ItemsPanel>
             </TreeViewItem>
+
+            <TreeViewItem Header="Undone" x:Name="tviUndone" Foreground="#D2D2D2">
+                <TreeViewItem.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel/>
+                    </ItemsPanelTemplate>
+                </TreeViewItem.ItemsPanel>
+
+            </TreeViewItem>
+
             <Button Content="+" FontSize="20" Click="btnAddTask_Click"/>
         </TreeView>
 
