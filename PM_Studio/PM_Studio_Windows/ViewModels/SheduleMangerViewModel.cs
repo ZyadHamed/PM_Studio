@@ -46,20 +46,21 @@ namespace PM_Studio
             return taskBlocks;
         }
 
-        public (List<TaskBlock> UndoneTasks, List<TaskBlock> InProgrssTasks, List<TaskBlock> DoneTasks) SortTasks()
+        public (List<TaskBlock> UpcomingTasks, List<TaskBlock> InProgrssTasks, List<TaskBlock> DoneTasks, List<TaskBlock> UndoneTasks) SortTasks()
         {
-            //Create 3 Empty Lists for each type of TaskBlocks
-            List<TaskBlock> UndoneTasks = new List<TaskBlock>();
+            //Create 4 Empty Lists for each type of TaskBlocks
+            List<TaskBlock> UpcomingTasks = new List<TaskBlock>();
             List<TaskBlock> InProgrssTasks = new List<TaskBlock>();
             List<TaskBlock> DoneTasks = new List<TaskBlock>();
+            List<TaskBlock> UndoneTasks = new List<TaskBlock>();
             
             //Loop inside all TaskBlocks in the Shedule
             foreach (TaskBlock taskBlock in GetTaskBlocks())
             {
-                //If the Task of that task Block was Undone, add it to the Undone TaskBlocks List
-                if(taskBlock.Task.TaskProgress == "Undone")
+                //If the Task of that task Block was Upcoming, add it to the Upcoming TaskBlocks List
+                if (taskBlock.Task.TaskProgress == "Upcoming")
                 {
-                    UndoneTasks.Add(taskBlock);
+                    UpcomingTasks.Add(taskBlock);
                 }
                 //If the Task of that task Block was In Progress, add it to the InProgress TaskBlocks List
                 else if (taskBlock.Task.TaskProgress == "In Progress")
@@ -71,8 +72,14 @@ namespace PM_Studio
                 {
                     DoneTasks.Add(taskBlock);
                 }
+                //If the Task of that task Block was Undone, add it to the Undone TaskBlocks List
+                else if (taskBlock.Task.TaskProgress == "Undone")
+                {
+                    UndoneTasks.Add(taskBlock);
+                }
+                
             }
-            return (UndoneTasks, InProgrssTasks, DoneTasks);
+            return (UpcomingTasks, InProgrssTasks, DoneTasks, UndoneTasks);
         }
 
         /// <summary>
@@ -125,17 +132,18 @@ namespace PM_Studio
             set
             {
                 _SheduleFilePath = value;
+                Shedule = saveLoadSystemViewModel.GetShedule(_SheduleFilePath);
             }
         }
 
         /// <summary>
-        /// The Undone Tasks returned from the Tasks Sorting Method
+        /// The UpcomingTasks Tasks returned from the Tasks Sorting Method
         /// </summary>
-        public List<TaskBlock> UndoneTasks
+        public List<TaskBlock> UpcomingTasks
         {
             get
             {
-                return SortTasks().UndoneTasks;
+                return SortTasks().UpcomingTasks;
             }
         }
 
@@ -158,6 +166,17 @@ namespace PM_Studio
             get
             {
                 return SortTasks().DoneTasks;
+            }
+        }
+
+        /// <summary>
+        /// The Undone Tasks returned from the Tasks Sorting Method
+        /// </summary>
+        public List<TaskBlock> UndoneTasks
+        {
+            get
+            {
+                return SortTasks().UndoneTasks;
             }
         }
 
