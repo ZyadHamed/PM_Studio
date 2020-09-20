@@ -21,6 +21,7 @@ namespace PM_Studio
         {
             InitializeComponent();
 
+            //If the Number of DataEntries was 1, show only the TextBox and the Label in the Middle
             if (DataEntriesNumber == 1)
             {
                 lbDataField1.Visibility = Visibility.Hidden;
@@ -30,23 +31,28 @@ namespace PM_Studio
                 txtDataField3.Visibility = Visibility.Hidden;
             }
 
+            //If the Number of DataEntries was 2, show the TextBoxes and the Labels in the Top and the Bottom
             else if (DataEntriesNumber == 2)
             {
                 lbDataField2.Visibility = Visibility.Hidden;
                 txtDataField2.Visibility = Visibility.Hidden;
             }
 
-            else if(DataEntriesNumber == 3)
+            //If the Number of DataEntries was 3, Do nothing
+            else if (DataEntriesNumber == 3)
             {
 
             }
+            //Set the Visibilty of the DatePicker to False by default
             IsDatePickerVisible = false;
             
         }
 
         #region Properties
 
-
+        /// <summary>
+        /// The Text Inside the first Label
+        /// </summary>
         public string lbDataField1Text
         {
             get
@@ -59,6 +65,9 @@ namespace PM_Studio
             }
         }
 
+        /// <summary>
+        /// The Text Inside the first TextBox
+        /// </summary>
         public string txtDataField1Text
         {
             get
@@ -71,6 +80,9 @@ namespace PM_Studio
             }
         }
 
+        /// <summary>
+        /// The Text Inside the second Label
+        /// </summary>
         public string lbDataField2Text
         {
             get
@@ -83,6 +95,9 @@ namespace PM_Studio
             }
         }
 
+        /// <summary>
+        /// The Text Inside the second TextBox
+        /// </summary>
         public string txtDataField2Text
         {
             get
@@ -95,6 +110,9 @@ namespace PM_Studio
             }
         }
 
+        /// <summary>
+        /// The Text Inside the third Label
+        /// </summary>
         public string lbDataField3Text
         {
             get
@@ -107,6 +125,9 @@ namespace PM_Studio
             }
         }
 
+        /// <summary>
+        /// The Text Inside the third TextBox
+        /// </summary>
         public string txtDataField3Text
         {
             get
@@ -119,6 +140,9 @@ namespace PM_Studio
             }
         }
 
+        /// <summary>
+        /// The Bool which indicates wheather the DatePickers are Visible or not
+        /// </summary>
         public bool IsDatePickerVisible
         {
             get
@@ -140,6 +164,9 @@ namespace PM_Studio
             }
         }
 
+        /// <summary>
+        /// The Start Date of the Task
+        /// </summary>
         public DateTime StartDate
         {
             get
@@ -148,6 +175,9 @@ namespace PM_Studio
             }
         }
 
+        /// <summary>
+        /// The End Date of the Task
+        /// </summary>
         public DateTime EndDate
         {
             get
@@ -160,6 +190,7 @@ namespace PM_Studio
 
         private void btnOK_Click(object sender, RoutedEventArgs e)
         {
+            //If the End Date was Earilier than the Start Date, Show an Error Message
             if(DateTime.Compare(StartDate, EndDate) > 0)
             {
                 MessageBox.Show("The Starting Date of the Task must Be Before the Finishing Date");
@@ -167,8 +198,19 @@ namespace PM_Studio
             }
             else
             {
-                //Set the Dialog Result of the Form to Ok
-                this.DialogResult = true;
+                //If the Start date was Earilier than Today, Display Another Error Message
+                if (DateTime.Compare(DateTime.Now, StartDate) >= 0)
+                {
+                    MessageBox.Show("The Starting Date Cannot Be Earlier than Today");
+                    return;
+                }
+                //If not, Set the Dialog Result to Ok and Close the Form
+                else
+                {
+                    //Set the Dialog Result of the Form to Ok
+                    this.DialogResult = true;
+                }
+                    
             }
             
         }
