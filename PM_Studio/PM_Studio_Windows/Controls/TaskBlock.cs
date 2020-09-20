@@ -117,12 +117,12 @@ namespace PM_Studio
             //Set the Task Title and Task Duration labels to the Title and Duration of the Task
             lbTaskTitle.Text = Task.TaskTitle;
             lbTaskDate.Text = Task.TaskDuration;
-            
-            //If the Task Progress was Undone, display "Undone" in the Progress label with red Color
-            if(Task.TaskProgress == "Undone")
+
+            //If the Task Progress was Upcoming,  display "Upcoming" in the Progress label with Purple Color
+            if (Task.TaskProgress == "Upcoming")
             {
-                lbTaskProgess.Text = "Undone";
-                lbTaskProgess.Foreground = Brushes.Red;
+                lbTaskProgess.Text = "Upcoming";
+                lbTaskProgess.Foreground = Brushes.Purple;
             }
 
             //else if the Task Progress was In Progress, display "In Progress" in the Progress label with yellow Color
@@ -139,6 +139,15 @@ namespace PM_Studio
                 lbTaskProgess.Foreground = Brushes.Lime;
             }
 
+
+            //else if the Task Progress was Undone, display "Undone" in the Progress label with red Color
+            else if (Task.TaskProgress == "Undone")
+            {
+                lbTaskProgess.Text = "Undone";
+                lbTaskProgess.Foreground = Brushes.Red;
+            }
+
+           
         }
 
         #endregion
