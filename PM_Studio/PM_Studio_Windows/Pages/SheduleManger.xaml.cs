@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -66,15 +67,28 @@ namespace PM_Studio
 
         private void btnAddTask_Click(object sender, RoutedEventArgs e)
         {
+            //Create a CreatingItem Window with 2 Data Fields(The Task Title and The Task Duration)
             Create_ModifyItemsWindow CreateWindow = new Create_ModifyItemsWindow(2);
+            //Set the First Label Text to Task Title
             CreateWindow.lbDataField1Text = "Task Title: ";
+            //Set the Second Label Text to Task Duration
             CreateWindow.lbDataField3Text = "Task Duration: ";
+            //Make the IsDatePicker Property Visible so that the Second Data Entry Is a DatePicker
+            CreateWindow.IsDatePickerVisible = true;
+            //Set the Title of the Window to Create New Task
+            CreateWindow.Title = "Create New Task";
+            //Show the Window as Dialog
             if(CreateWindow.ShowDialog() == true)
             {
-                sheduleMangerViewModel.AddTask(new Task(CreateWindow.txtDataField1Text, "", CreateWindow.txtDataField3Text)
+                //If the User Has Pressed the OK button, Add The Task
+                //Create a string holding the 2 Dates in dd/M/yyyy Form(ex: 22/9/2020 To 18/2/2021)
+                string Date = CreateWindow.StartDate.ToString("dd/M/yyyy", CultureInfo.InvariantCulture) + " To " + CreateWindow.EndDate.ToString("dd/M/yyyy", CultureInfo.InvariantCulture);
+                //Add a Task using the Data inside the Window
+                sheduleMangerViewModel.AddTask(new Task(CreateWindow.txtDataField1Text, "", Date)
                 {
                     TaskProgress = "Undone"
                 });
+                //Reload the Items of the Tree View
                 FillTreeView();
             }
             
@@ -86,14 +100,17 @@ namespace PM_Studio
 
         void FillTreeView()
         {
+            //Set the ItemsSource of all the TreeNodes to null(to remove any Parents to the Items)
             tviUndone.ItemsSource = null;
             tviInProgress.ItemsSource = null;
             tviDone.ItemsSource = null;
 
+            //Clear all the Items inside all the TreeNodes
             tviUndone.Items.Clear();
             tviInProgress.Items.Clear();
             tviDone.Items.Clear();
 
+            //Reset the Items Source for each one of them
             tviUndone.ItemsSource = sheduleMangerViewModel.UndoneTasks;
 
             tviInProgress.ItemsSource = sheduleMangerViewModel.InProgressTasks;
