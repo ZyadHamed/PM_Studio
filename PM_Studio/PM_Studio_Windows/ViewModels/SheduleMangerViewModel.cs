@@ -41,9 +41,13 @@ namespace PM_Studio
                 TaskBlock taskBlock = new TaskBlock(task);
                 //Add that TaskBlock to the List
                 taskBlocks.Add(taskBlock);
+                
             }
+            //Save the Current Data of the Tasks(Will take affect when the Progress of a Task Changes)
+            SaveSheduleData();
             //Return the List of the TaskBlocks
             return taskBlocks;
+            
         }
 
         public (List<TaskBlock> UpcomingTasks, List<TaskBlock> InProgrssTasks, List<TaskBlock> DoneTasks, List<TaskBlock> UndoneTasks) SortTasks()
@@ -58,22 +62,22 @@ namespace PM_Studio
             foreach (TaskBlock taskBlock in GetTaskBlocks())
             {
                 //If the Task of that task Block was Upcoming, add it to the Upcoming TaskBlocks List
-                if (taskBlock.Task.TaskProgress == "Upcoming")
+                if (taskBlock.Task.Progress == "Upcoming")
                 {
                     UpcomingTasks.Add(taskBlock);
                 }
                 //If the Task of that task Block was In Progress, add it to the InProgress TaskBlocks List
-                else if (taskBlock.Task.TaskProgress == "In Progress")
+                else if (taskBlock.Task.Progress == "In Progress")
                 {
                     InProgrssTasks.Add(taskBlock);
                 }
                 //If the Task of that task Block was Done, add it to the Done TaskBlocks List
-                else if (taskBlock.Task.TaskProgress == "Done")
+                else if (taskBlock.Task.Progress == "Done")
                 {
                     DoneTasks.Add(taskBlock);
                 }
                 //If the Task of that task Block was Undone, add it to the Undone TaskBlocks List
-                else if (taskBlock.Task.TaskProgress == "Undone")
+                else if (taskBlock.Task.Progress == "Undone")
                 {
                     UndoneTasks.Add(taskBlock);
                 }
