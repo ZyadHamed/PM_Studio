@@ -173,6 +173,10 @@ namespace PM_Studio
             {
                 return dpStartDate.SelectedDate.Value;
             }
+            set
+            {
+                dpStartDate.SelectedDate = value;
+            }
         }
 
         /// <summary>
@@ -184,34 +188,43 @@ namespace PM_Studio
             {
                 return dpEndDate.SelectedDate.Value;
             }
+            set
+            {
+                dpEndDate.SelectedDate = value;
+            }
         }
 
         #endregion
 
         private void btnOK_Click(object sender, RoutedEventArgs e)
         {
-            //If the End Date was Earilier than the Start Date, Show an Error Message
-            if(DateTime.Compare(StartDate, EndDate) > 0)
+            //If the DatePickers were Visible, do the Date Checking
+            if(IsDatePickerVisible == true)
             {
-                MessageBox.Show("The Starting Date of the Task must Be Before the Finishing Date");
-                return;
-            }
-            else
-            {
-                //If the Start date was Earilier than Today, Display Another Error Message
-                if (DateTime.Compare(DateTime.Now, StartDate) >= 0)
+                //If the End Date was Earilier than the Start Date, Show an Error Message
+                if (DateTime.Compare(StartDate, EndDate) > 0)
                 {
-                    MessageBox.Show("The Starting Date Cannot Be Earlier than Today");
+                    MessageBox.Show("The Starting Date of the Task must Be Before the Finishing Date");
                     return;
                 }
-                //If not, Set the Dialog Result to Ok and Close the Form
                 else
                 {
-                    //Set the Dialog Result of the Form to Ok
-                    this.DialogResult = true;
+                    //If the Start date was Earilier than Today, Display Another Error Message
+                    if (DateTime.Compare(DateTime.Now, StartDate) >= 0)
+                    {
+                        MessageBox.Show("The Starting Date Cannot Be Earlier than Today");
+                        return;
+                    }
+                    //If not, Set the Dialog Result to Ok and Close the Form
+                    else
+                    {
+                        //Set the Dialog Result of the Form to Ok
+                        this.DialogResult = true;
+                    }
+
                 }
-                    
             }
+            
             
         }
 
