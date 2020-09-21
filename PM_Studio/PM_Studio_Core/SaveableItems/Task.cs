@@ -21,8 +21,8 @@ namespace PM_Studio
         #region Constructor
         public Task(string _TaskTitle, string _TaskDescription, DateTime _StartDate, DateTime _EndDate, bool _IsDone = false)
         {
-            TaskTitle = _TaskTitle;
-            TaskDescription = _TaskDescription;
+            Title = _TaskTitle;
+            Description = _TaskDescription;
             StartDate = _StartDate;
             EndDate = _EndDate;
             IsDone = _IsDone;
@@ -39,7 +39,7 @@ namespace PM_Studio
         /// <param name="TaskWorker">The TeamMember that will work on the Task</param>
         public void AddTaskWorker(TeamMember TaskWorker)
         {
-            TaskWorkers.Add(TaskWorker);
+            Workers.Add(TaskWorker);
         }
 
         void SetTaskProgress()
@@ -71,7 +71,7 @@ namespace PM_Studio
                     }
                 }
             }
-            
+
         }
 
         #endregion
@@ -91,7 +91,7 @@ namespace PM_Studio
             }
         }
 
-        public List<TeamMember> TaskWorkers
+        public List<TeamMember> Workers
         {
             get
             {
@@ -137,14 +137,15 @@ namespace PM_Studio
             }
             set
             {
-              _IsDone = value;
+                _IsDone = value;
+                SetTaskProgress();
             }
         }
 
-        public string TaskTitle {get; set;}
-        public string TaskDescription { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
 
-        
+
         #endregion
 
     }
