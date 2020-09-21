@@ -27,6 +27,7 @@ namespace PM_Studio
             InitializeComponent();
 
             ////Code Used for Creating a shedule file
+            /////note: Code was Updated so you need to create a new SheduleFile so that the Tasks in it are affected with the Changes
             //Task task1 = new Task("A", "", "From 9/9/2020 To 15/12/2020");
             //task1.TaskProgress = "Done";
             //Task task2 = new Task("B", "", "From 8/8/2020 To 8/9/2020");
@@ -45,11 +46,12 @@ namespace PM_Studio
             //tasks.Add(task5);
             //Shedule shedule = new Shedule()
             //{
-            //    Name = "PMShedule2.pmshed",
-            //    Tasks = tasks
+            //    Name = "PMShedule.pmshed",
+            //    Tasks = new List<Task>()
             //};
             //SaveLoadSystemViewModel saveLoadSystemViewModel = new SaveLoadSystemViewModel(null);
             //saveLoadSystemViewModel.Save(@"E:\zyadhamedashour\" + shedule.Name, shedule);
+            
             if (FileManger.GetAllFilesByExtension(@"E:\zyadhamedashour", ".pmshed").Count < 1)
             {
                 NoSheduleGrid.Visibility = Visibility.Visible;
@@ -58,7 +60,6 @@ namespace PM_Studio
             {
                 tvTasks.Visibility = Visibility.Visible;
                 FillTreeView();
-
             }
            
             
@@ -81,12 +82,11 @@ namespace PM_Studio
             if(CreateWindow.ShowDialog() == true)
             {
                 //If the User Has Pressed the OK button, Add The Task
-                //Create a string holding the 2 Dates in dd/M/yyyy Form(ex: 22/9/2020 To 18/2/2021)
-                string Date = CreateWindow.StartDate.ToString("dd/M/yyyy", CultureInfo.InvariantCulture) + " To " + CreateWindow.EndDate.ToString("dd/M/yyyy", CultureInfo.InvariantCulture);
+                
                 //Add a Task using the Data inside the Window
-                sheduleMangerViewModel.AddTask(new Task(CreateWindow.txtDataField1Text, "", Date)
+                sheduleMangerViewModel.AddTask(new Task(CreateWindow.txtDataField1Text, "", CreateWindow.StartDate, CreateWindow.EndDate)
                 {
-                    TaskProgress = "Upcoming"
+                    Progress = "Upcoming"
                 });
                 //Reload the Items of the Tree View
                 FillTreeView();
