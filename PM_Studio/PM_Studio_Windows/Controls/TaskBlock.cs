@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -116,24 +117,24 @@ namespace PM_Studio
         {
             //Set the Task Title and Task Duration labels to the Title and Duration of the Task
             lbTaskTitle.Text = Task.TaskTitle;
-            lbTaskDate.Text = Task.TaskDuration;
+            lbTaskDate.Text = Task.StartDate.ToString("dd/M/yyyy", CultureInfo.InvariantCulture) + " To " + Task.EndDate.ToString("dd/M/yyyy", CultureInfo.InvariantCulture); ;
 
             //If the Task Progress was Upcoming,  display "Upcoming" in the Progress label with Purple Color
-            if (Task.TaskProgress == "Upcoming")
+            if (Task.Progress == "Upcoming")
             {
                 lbTaskProgess.Text = "Upcoming";
                 lbTaskProgess.Foreground = Brushes.Purple;
             }
 
             //else if the Task Progress was In Progress, display "In Progress" in the Progress label with yellow Color
-            else if (Task.TaskProgress == "In Progress")
+            else if (Task.Progress == "In Progress")
             {
                 lbTaskProgess.Text = "In Progress";
                 lbTaskProgess.Foreground = Brushes.Yellow;
             }
 
             //else if the Task Progress was Done, display "Done" in the Progress label with Lime Color
-            else if (Task.TaskProgress == "Done")
+            else if (Task.Progress == "Done")
             {
                 lbTaskProgess.Text = "Done";
                 lbTaskProgess.Foreground = Brushes.Lime;
@@ -141,7 +142,7 @@ namespace PM_Studio
 
 
             //else if the Task Progress was Undone, display "Undone" in the Progress label with red Color
-            else if (Task.TaskProgress == "Undone")
+            else if (Task.Progress == "Undone")
             {
                 lbTaskProgess.Text = "Undone";
                 lbTaskProgess.Foreground = Brushes.Red;
