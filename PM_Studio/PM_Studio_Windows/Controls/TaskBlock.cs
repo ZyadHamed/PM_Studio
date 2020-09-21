@@ -39,7 +39,6 @@ namespace PM_Studio
             SetControlsProperties();
             AddControlsToContainer();
             SetBlockData();
-
             
         }
 
@@ -116,7 +115,7 @@ namespace PM_Studio
         void SetBlockData()
         {
             //Set the Task Title and Task Duration labels to the Title and Duration of the Task
-            lbTaskTitle.Text = Task.TaskTitle;
+            lbTaskTitle.Text = Task.Title;
             lbTaskDate.Text = Task.StartDate.ToString("dd/M/yyyy", CultureInfo.InvariantCulture) + " To " + Task.EndDate.ToString("dd/M/yyyy", CultureInfo.InvariantCulture); ;
 
             //If the Task Progress was Upcoming,  display "Upcoming" in the Progress label with Purple Color
@@ -153,6 +152,8 @@ namespace PM_Studio
 
         #endregion
 
+        
+       
         #region Properties
 
         /// <summary>
