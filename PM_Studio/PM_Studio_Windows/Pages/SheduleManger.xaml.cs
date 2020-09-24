@@ -21,7 +21,7 @@ namespace PM_Studio
     /// </summary>
     public partial class SheduleManger : Page
     {
-        SheduleMangerViewModel sheduleMangerViewModel = new SheduleMangerViewModel(@"E:\zyadhamedashour\PMShedule.pmshed");
+        SheduleMangerViewModel sheduleMangerViewModel = new SheduleMangerViewModel(@"E:\zyadhamedashour\PMShedule2.pmshed");
         //Button btnAddTask = new Button();
         #region Constructor
         public SheduleManger()
@@ -48,7 +48,7 @@ namespace PM_Studio
             //tasks.Add(task5);
             //Shedule shedule = new Shedule()
             //{
-            //    Name = "PMShedule.pmshed",
+            //    Name = "PMShedule2.pmshed",
             //    Tasks = new List<Task>()
             //};
             //SaveLoadSystemViewModel saveLoadSystemViewModel = new SaveLoadSystemViewModel(null);
@@ -68,38 +68,7 @@ namespace PM_Studio
 
         }
 
-        private void btnAddTask_Click(object sender, RoutedEventArgs e)
-        {
-            //Create a CreatingItem Window with 2 Data Fields(The Task Title and The Task Duration)
-            Create_ModifyItemsWindow CreateWindow = new Create_ModifyItemsWindow(2);
-            //Set the First Label Text to Task Title
-            CreateWindow.lbDataField1Text = "Task Title: ";
-            //Set the Second Label Text to Task Duration
-            CreateWindow.lbDataField3Text = "Task Duration: ";
-            //Make the IsDatePicker Property Visible so that the Second Data Entry Is a DatePicker
-            CreateWindow.IsDatePickerVisible = true;
-            //Set the Title of the Window to Create New Task
-            CreateWindow.Title = "Create New Task";
-            //Show the Window as Dialog
-            if (CreateWindow.ShowDialog() == true)
-            {
-                //If the User Has Pressed the OK button, Add The Task
-
-                //Add a Task using the Data inside the Window
-                sheduleMangerViewModel.AddTask(new Task(CreateWindow.txtDataField1Text, "", CreateWindow.StartDate, CreateWindow.EndDate)
-                {
-                    Progress = "Upcoming"
-                });
-                //Reload the Items of the Tree View
-                FillTreeView();
-
-            }
-            //MessageBox.Show((tvTasks.ItemContainerGenerator.ContainerFromItem(tvTasks.SelectedItem).GetType().ToString()));
-            //List<TaskBlock> blocks = tviUpcomingTasks.ItemsSource as List<TaskBlock>;
-            //MessageBox.Show(blocks[0].Task.TaskTitle);
-            //MessageBox.Show((tvTasks.SelectedItem as TaskBlock).Task.TaskTitle);
-        }
-
+        
         #endregion
 
         #region Methods
@@ -140,6 +109,7 @@ namespace PM_Studio
             {
                 //If it was a Task Block, Store it in a Variable
                 TaskBlock SelectedItem = tvTasks.SelectedItem as TaskBlock;
+
                 //Get the Operation that the User Selected using the MenuItem's name
                 //If the User Selected Edit Task, Edit the Selected Task
                 if ((e.Source as MenuItem).Name == "menuItemEditTask")
@@ -151,7 +121,7 @@ namespace PM_Studio
                     CreateWindow.lbDataField1Text = "Task Title: ";
 
                     //Set the Second Label Text to Task Duration
-                    CreateWindow.lbDataField3Text = "Task Duration: ";
+                    CreateWindow.lbDataField3Text = "Start Date: \nEndDate: ";
 
                     //Make the IsDatePicker Property Visible so that the Second Data Entry Is a DatePicker
                     CreateWindow.IsDatePickerVisible = true;
@@ -209,6 +179,36 @@ namespace PM_Studio
             }
 
         }
+
+        private void btnAddTask_Click(object sender, RoutedEventArgs e)
+        {
+            //Create a CreatingItem Window with 2 Data Fields(The Task Title and The Task Duration)
+            Create_ModifyItemsWindow CreateWindow = new Create_ModifyItemsWindow(2);
+            //Set the First Label Text to Task Title
+            CreateWindow.lbDataField1Text = "Task Title: ";
+            //Set the Second Label Text to Task Duration
+            CreateWindow.lbDataField3Text = "Start Date: \n\nEndDate: ";
+            //Make the IsDatePicker Property Visible so that the Second Data Entry Is a DatePicker
+            CreateWindow.IsDatePickerVisible = true;
+            //Set the Title of the Window to Create New Task
+            CreateWindow.Title = "Create New Task";
+            //Show the Window as Dialog
+            if (CreateWindow.ShowDialog() == true)
+            {
+                //If the User Has Pressed the OK button, Add The Task
+
+                //Add a Task using the Data inside the Window
+                sheduleMangerViewModel.AddTask(new Task(CreateWindow.txtDataField1Text, "", CreateWindow.StartDate, CreateWindow.EndDate)
+                {
+                    Progress = "Upcoming"
+                });
+                //Reload the Items of the Tree View
+                FillTreeView();
+
+            }
+            
+        }
+
 
         #endregion
 
