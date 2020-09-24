@@ -42,7 +42,7 @@ namespace PM_Studio
             Workers.Add(TaskWorker);
         }
 
-        void SetTaskProgress()
+        public void SetTaskProgress()
         {
             //If the task was Done, set the Progress to Done
             if (IsDone == true)
@@ -53,19 +53,20 @@ namespace PM_Studio
             else
             {
                 //If The Start Date of the Task was Later than Today, the Task is Upcoming
-                if (DateTime.Compare(DateTime.Now, StartDate) < 0)
+                if (DateTime.Now.GetTimeStamp() < StartDateTimeStamp && DateTime.Now.GetTimeStamp() < EndDateTimeStamp)
                 {
                     Progress = "Upcoming";
                 }
+                
                 else
                 {
                     //If the start Date has Already arrived but the end date is not, the Task is in Progress
-                    if (DateTime.Compare(DateTime.Now, StartDate) >= 0 && DateTime.Compare(DateTime.Now, EndDate) < 0)
+                    if (DateTime.Now.GetTimeStamp() >= StartDateTimeStamp && DateTime.Now.GetTimeStamp() < EndDateTimeStamp)
                     {
                         Progress = "In Progress";
                     }
                     //If the Start Date has Already arrived and the End Date also arrived and the Task is not done yet, then the task is Undone
-                    else if (DateTime.Compare(DateTime.Now, StartDate) >= 0 && DateTime.Compare(DateTime.Now, EndDate) > 0)
+                    else if (DateTime.Now.GetTimeStamp() > StartDateTimeStamp && DateTime.Now.GetTimeStamp() > EndDateTimeStamp)
                     {
                         Progress = "Undone";
                     }
@@ -73,6 +74,8 @@ namespace PM_Studio
             }
 
         }
+
+        
 
         #endregion
 
@@ -126,6 +129,21 @@ namespace PM_Studio
             {
                 _EndDate = value;
                 SetTaskProgress();
+            }
+        }
+
+        public long StartDateTimeStamp
+        {
+            get
+            {
+                return StartDate.GetTimeStamp();
+            }
+        }
+        public long EndDateTimeStamp
+        {
+            get
+            {
+                return EndDate.GetTimeStamp();
             }
         }
 
