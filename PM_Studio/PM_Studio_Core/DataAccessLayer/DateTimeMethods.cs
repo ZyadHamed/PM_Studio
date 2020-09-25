@@ -12,5 +12,10 @@ namespace PM_Studio
             DateTimeOffset dateTimeOffset = dateTime.ToUniversalTime();
             return dateTimeOffset.ToUnixTimeSeconds();
         }
+        public static DateTime GetDateTime(this long timeStamp)
+        {
+            DateTime dt = new DateTime(1970, 1, 1, 0, 0, 0, 0).AddSeconds(timeStamp).ToLocalTime();
+            return dt;
+        }
     }
 }
