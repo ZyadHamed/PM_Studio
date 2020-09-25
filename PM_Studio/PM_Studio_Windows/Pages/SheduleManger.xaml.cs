@@ -64,7 +64,10 @@ namespace PM_Studio
                 FillTreeView();
             }
 
-
+            PDF_Exporter exporter = new PDF_Exporter();
+            SaveLoadSystemViewModel saveLoadSystemViewModel = new SaveLoadSystemViewModel(null);
+            List<Algorithm> algorithms = saveLoadSystemViewModel.GetAllAlgorithms(@"E:\zyadhamedashour");
+            exporter.GeneratePDFFile(@"E:\zyadhamedashour\", "Calculator2.pdf", algorithms);
 
         }
 
