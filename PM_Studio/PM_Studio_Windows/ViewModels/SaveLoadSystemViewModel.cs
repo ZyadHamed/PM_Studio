@@ -45,6 +45,29 @@ namespace PM_Studio
             return new AlgorithmTabItem(tbFiles, Algorithm, algorithmFilePath);
         }
 
+        /// <summary>
+        /// Gets all Algorithms inside a Given Path
+        /// </summary>
+        /// <param name="algorithmsFilePath">The filePath to search in</param>
+        /// <returns>A List Containing all the Algorithms inside the Algorithm Files</returns>
+        public List<Algorithm> GetAllAlgorithms(string algorithmsFilePath)
+        {
+            //Create a List of string that contains the FilePaths of all pmalg files
+            List<string> algorithmFilePaths = FileManger.GetAllFilesByExtension(algorithmsFilePath, ".pmalg");
+            
+            //Create a List of Algorithms that will store the Algorithms inside the pmalg files
+            List<Algorithm> algorithms = new List<Algorithm>();
+
+            //Loop on all the file pathes
+            foreach(string filePath in algorithmFilePaths)
+            {
+                //Add the algorithm inside the current file into the List of algorithms
+                algorithms.Add(SaveLoadSystem.LoadData<Algorithm>(filePath));
+            }
+            
+            //Return the algorithms list
+            return algorithms;
+        }
 
         public StoryConcepts ReturnStoryConcepts(string filePath)
         {
