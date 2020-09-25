@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 using iText.Kernel.Colors;
 using iText.Kernel.Pdf;
 using iText.Layout;
@@ -46,13 +47,35 @@ namespace PM_Studio
                 //(The remove method is placed to remove the extension of the File from the FileName)
                 Paragraph AlgorithmsTitle = new Paragraph(algorithmFileName.Remove(algorithmFileName.LastIndexOf("."))).SetFontSize(25);
 
-                //Create another Pargraph that stores the Text of the Algorithm
-                Paragraph AlgorithmsText = new Paragraph(algorithm.algorithm).SetFontSize(15);
+                //Create an Empty Pargraph that will store the Text of the Algorithm
+                Paragraph AlgorithmsText = new Paragraph("").SetFontSize(15);
 
+                //Create a Match collection for the Pattern of the Step Indicators for formatting the step indicators
+                MatchCollection matches = Regex.Matches(algorithm.algorithm, @"(\[\d*\])");
+
+                //Create a string array that holds the lines inside the algorithm
+                string[] Lines = algorithm.algorithm.Split('\n');
+
+                //Loop inside each match in the Match Collection
+                for(int i = 0; i < matches.Count; i++)
+                {
+                    //Create a Text object that holds the step indicator of that line and give it Blue color
+                    Text StepIndecator = new Text(matches[i].Value).SetFontColor(ColorConstants.BLUE);
+
+                    //Create another Text object that holds the rest of the Text on the right of the step indicator
+                    Text LineText = new Text(Lines[i].Substring(matches[i].Length));
+
+                    //Add the step indicator , the LineText Text objects to the paragraph and add a new Line in the End of each Line
+                    AlgorithmsText.Add(StepIndecator);
+                    AlgorithmsText.Add(LineText);
+                    AlgorithmsText.Add("\n");
+                }
+                
                 //Add both Paragraphs into the document
                 document.Add(AlgorithmsTitle);
                 document.Add(AlgorithmsText);
             }
+            //document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
             //Close the Document
             document.Close();
 
