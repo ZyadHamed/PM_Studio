@@ -1,31 +1,49 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Windows;
-using System.Text;
-using System.Windows.Controls;
-using System.Windows.Input;
+﻿using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Shapes;
 
 namespace PM_Studio
 {
     public class NodesEditorCanvas : Canvas
     {
 
-        NodeBlock node;
+        //NodeBlock block1;
         
         public NodesEditorCanvas()
         {
-         
-            this.Background = Brushes.Blue;
-            node = new NodeBlock("New Node",this);
-            this.Children.Add(node);
-            this.Children.Add(new NodeBlock("New Node2", this));
-            
-            Canvas.SetLeft(node, 150);
-            Canvas.SetTop(node, 200);
 
-            Canvas.SetLeft(this.Children[1], 160);
-            Canvas.SetTop(this.Children[1], 190);
+            Line line1 = new Line();
+            Line line2 = new Line();
+            line1.Stroke = Brushes.Black;
+            line2.Stroke = Brushes.Black;
+            this.Background = Brushes.Blue;
+            NodeBlock block1 = new NodeBlock("New Node",this);
+            
+            this.Children.Add(block1);
+            this.Children.Add(line1);
+            this.Children.Add(line2);
+            block1.ToLine = line1;
+
+            NodeBlock block2 = new NodeBlock("New Node2", this);
+            this.Children.Add(block2);
+            block2.FromLine = line1;
+            block2.ToLine = line2;
+            //block2.line.ToBlock = null;
+
+            NodeBlock block3 = new NodeBlock("New Node3", this);
+            this.Children.Add(block3);
+            block3.FromLine = line2;
+            
+
+            Canvas.SetLeft(block1, 150);
+            Canvas.SetTop(block1, 200);
+
+            Canvas.SetLeft(block2, 200);
+            Canvas.SetTop(block2, 300);
+
+            Canvas.SetLeft(block3, 300);
+            Canvas.SetTop(block3, 400);
+
         }
         
         

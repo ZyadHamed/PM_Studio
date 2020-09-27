@@ -5,14 +5,18 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Shapes;
 
 namespace PM_Studio
 {
-    class NodeBlock : TextBlock
+    public class NodeBlock : TextBlock
     {
 
         #region Variables
+
         private Point mouseDownLocation;
+        public Line FromLine;
+        public Line ToLine;
         #endregion
 
         #region Constructor
@@ -25,6 +29,13 @@ namespace PM_Studio
             this.MouseDown += Node_MouseDown;
             this.MouseMove += Node_MouseMove;
             this.MouseUp += Node_MouseUp;
+
+            //line.X2 = Canvas.GetLeft(this);
+            //line.Y2 = Canvas.GetTop(this);
+            //line.arrow.X1 = 0;
+            //line.arrow.Y1 = 0;
+
+            
         }
  
         #endregion
@@ -45,6 +56,23 @@ namespace PM_Studio
             {
                 Canvas.SetLeft((TextBlock)sender, (e.GetPosition(this).X + Canvas.GetLeft((TextBlock)sender)) - mouseDownLocation.X);
                 Canvas.SetTop((TextBlock)sender, (e.GetPosition(this).Y + Canvas.GetTop((TextBlock)sender)) - mouseDownLocation.Y);
+                if(FromLine != null && ToLine != null)
+                {
+                    FromLine.X2 = Canvas.GetLeft(this) + this.ActualWidth / 2;
+                    FromLine.Y2 = Canvas.GetTop(this) + this.ActualHeight / 2;
+                    ToLine.X1 = Canvas.GetLeft(this) + this.ActualWidth / 2;
+                    ToLine.Y1 = Canvas.GetTop(this) + this.ActualHeight / 2;
+                }
+                else if(FromLine == null && ToLine != null)
+                {
+                    ToLine.X1 = Canvas.GetLeft(this) + this.ActualWidth / 2;
+                    ToLine.Y1 = Canvas.GetTop(this) + this.ActualHeight / 2;
+                }
+                else if(FromLine != null && ToLine == null)
+                {
+                    FromLine.X2 = Canvas.GetLeft(this) + this.ActualWidth / 2;
+                    FromLine.Y2 = Canvas.GetTop(this) + this.ActualHeight / 2;
+                }
             }
         }
 
