@@ -15,8 +15,8 @@ namespace PM_Studio
         #region Variables
 
         private Point mouseDownLocation;
-        public Line FromLine;
-        public Line ToLine;
+        private Line fromLine;
+        private Line toLine;
         #endregion
 
         #region Constructor
@@ -34,10 +34,35 @@ namespace PM_Studio
             //line.Y2 = Canvas.GetTop(this);
             //line.arrow.X1 = 0;
             //line.arrow.Y1 = 0;
-
+            SetLinesPostion();
             
         }
- 
+
+        #endregion
+
+        #region Methods
+
+        void SetLinesPostion()
+        {
+            if (FromLine != null && ToLine != null)
+            {
+                FromLine.X2 = Canvas.GetLeft(this) + this.ActualWidth / 2;
+                FromLine.Y2 = Canvas.GetTop(this) + this.ActualHeight / 2;
+                ToLine.X1 = Canvas.GetLeft(this) + this.ActualWidth / 2;
+                ToLine.Y1 = Canvas.GetTop(this) + this.ActualHeight / 2;
+            }
+            else if (FromLine == null && ToLine != null)
+            {
+                ToLine.X1 = Canvas.GetLeft(this) + this.ActualWidth / 2;
+                ToLine.Y1 = Canvas.GetTop(this) + this.ActualHeight / 2;
+            }
+            else if (FromLine != null && ToLine == null)
+            {
+                FromLine.X2 = Canvas.GetLeft(this) + this.ActualWidth / 2;
+                FromLine.Y2 = Canvas.GetTop(this) + this.ActualHeight / 2;
+            }
+        }
+
         #endregion
 
         #region Events
@@ -56,29 +81,44 @@ namespace PM_Studio
             {
                 Canvas.SetLeft((TextBlock)sender, (e.GetPosition(this).X + Canvas.GetLeft((TextBlock)sender)) - mouseDownLocation.X);
                 Canvas.SetTop((TextBlock)sender, (e.GetPosition(this).Y + Canvas.GetTop((TextBlock)sender)) - mouseDownLocation.Y);
-                if(FromLine != null && ToLine != null)
-                {
-                    FromLine.X2 = Canvas.GetLeft(this) + this.ActualWidth / 2;
-                    FromLine.Y2 = Canvas.GetTop(this) + this.ActualHeight / 2;
-                    ToLine.X1 = Canvas.GetLeft(this) + this.ActualWidth / 2;
-                    ToLine.Y1 = Canvas.GetTop(this) + this.ActualHeight / 2;
-                }
-                else if(FromLine == null && ToLine != null)
-                {
-                    ToLine.X1 = Canvas.GetLeft(this) + this.ActualWidth / 2;
-                    ToLine.Y1 = Canvas.GetTop(this) + this.ActualHeight / 2;
-                }
-                else if(FromLine != null && ToLine == null)
-                {
-                    FromLine.X2 = Canvas.GetLeft(this) + this.ActualWidth / 2;
-                    FromLine.Y2 = Canvas.GetTop(this) + this.ActualHeight / 2;
-                }
+                SetLinesPostion();
+
             }
         }
 
         private void Node_MouseUp(object sender, MouseButtonEventArgs e)
         {
             Mouse.Capture(null);
+        }
+
+        #endregion
+
+        #region Properties
+
+        public Line FromLine
+        {
+            get
+            {
+                return fromLine;
+            }
+            set
+            {
+                fromLine = value;
+                SetLinesPostion();
+            }
+        }
+
+        public Line ToLine
+        {
+            get
+            {
+                return toLine;
+            }
+            set
+            {
+                toLine = value;
+                SetLinesPostion();
+            }
         }
 
         #endregion
