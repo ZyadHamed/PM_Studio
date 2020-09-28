@@ -9,43 +9,15 @@ namespace PM_Studio
 {
     public class NodesEditorCanvas : Canvas
     {
-        
-        
+
+        List<string> blocks = new List<string>() { "Block1", "Block2", "Block3", "Block4", "Block5", "Block6" };
+
         public NodesEditorCanvas()
         {
 
             this.Background = Brushes.Blue;
 
-            //Create 4 NodeBlocks and Add them to the Canvas
-            NodeBlock block1 = new NodeBlock("New Node", this);
-            this.Children.Add(block1);
-
-            NodeBlock block2 = new NodeBlock("New Node2", this);
-            this.Children.Add(block2);
-
-            NodeBlock block3 = new NodeBlock("New Node3", this);
-            this.Children.Add(block3);
-
-            NodeBlock block4 = new NodeBlock("New Node4", this);
-            this.Children.Add(block4);
-
-            //Add Some Distance between the blocks and the (0,0) point of the Canvas
-            Canvas.SetLeft(block1, 150);
-            Canvas.SetTop(block1, 200);
-
-            Canvas.SetLeft(block2, 200);
-            Canvas.SetTop(block2, 300);
-
-            Canvas.SetLeft(block3, 300);
-            Canvas.SetTop(block3, 400);
-
-            Canvas.SetLeft(block4, 350);
-            Canvas.SetTop(block4, 450);
-
-            //Connect all the Blocks
-            Connect(block1, block2);
-            Connect(block2, block3);
-            Connect(block3, block4);
+            FillCanvas(blocks);
 
         }
 
@@ -70,7 +42,44 @@ namespace PM_Studio
             SecondBlock.FromLine = line;
         }
 
-        
-        
+        /// <summary>
+        /// Creates and Addes a Number of NodeBlocks based on a List that represents their text
+        /// </summary>
+        /// <param name="blocksText">The List that Contains all the Blocks text</param>
+        void FillCanvas(List<string> blocksText)
+        {
+            List<NodeBlock> blocks = new List<NodeBlock>();
+            //Loop inside each string in the string List
+            for (int i = 0; i < blocksText.Count; i++)
+            {
+                //Create a NodeBlock Based on that string
+                NodeBlock block = new NodeBlock(blocksText[i]);
+
+                //Add that NodeBlock to the List and add it to the Canvas
+                blocks.Add(block);
+                this.Children.Add(block);
+
+                //Create a Random Variable that Ranges between 2 and 800 for creating a random width and between 2 and 600 for a random height
+                Random random = new Random();
+                int X1 = random.Next(2, 800);
+                int Y1 = random.Next(2, 600);
+
+                //Set the Coordinates of the block using the value from that random variable
+                Canvas.SetLeft(block, X1);
+                Canvas.SetTop(block, Y1);
+            }
+
+            //Now loop inside each NodeBlock in the NodeBlock list
+            for (int i = 0; i < blocks.Count; i++)
+            {
+                //If we have not reached the Last block yet(when i + 1 = the Number of items this means we have reached the Last Element)
+                //Connect that block with the next block
+                if(i + 1 < blocks.Count)
+                {
+                    Connect(blocks[i], blocks[i + 1]);
+                }
+            }
+        }
+
     }
 }
