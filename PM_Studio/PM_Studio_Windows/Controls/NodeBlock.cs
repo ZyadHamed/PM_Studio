@@ -15,13 +15,15 @@ namespace PM_Studio
         #region Variables
 
         private Point mouseDownLocation;
-        private Line fromLine;
+        private List<Line> fromLines = new List<Line>();
         private Line toLine;
+
         #endregion
 
         #region Constructor
         public NodeBlock(string NodeText)
         {
+
             this.Foreground = Brushes.WhiteSmoke;
             this.Background = Brushes.Orange;
             this.FontSize = 15;
@@ -41,64 +43,73 @@ namespace PM_Studio
         /// Sets the Posion of Lines with respect to the postion of the NodeBlock
         /// </summary>
 
-        // __________
-        //|          |
-        //|  Block1  |
-        //|__________|
+        // __________                                                        
+        //|          |                                                       
+        //|  Block1  |                                                       
+        //|__________|                                                        
         // (x1,y1)\
         //         \
         //          \
-        //           \           (Block2 FromLine)
+        //           \ <----(Block1 ToLine, Block2 FromLine1)
         //            \
         //             \
         //              \
-        //               \
-        //         (x2,y2)\ __________
-        //                 |          |
-        //                 |  Block2  |
-        //                 |__________|
-        //                      (x1,y1)\
-        //                              \
-        //                               \
-        //                                \        (Block2 ToLine)
-        //                                 \
-        //                                  \
-        //                                   \
-        //                             (x2,y2)\ __________
+        //               \                                            __________
+        //         (x2,y2)\ __________                               |          |
+        //                 |          |                             /|  Block4  |
+        //                 |  Block2  |                            / |__________|
+        //                 |__________|                           /
+        //                      (x1,y1)\                         /
+        //                              \                       /
+        //         (Block2 ToLine,       \                     /
+        //        Block3 FromLine1) ----> \                   / <----(Block4 ToLine, Block3 FromLine2)
+        //                                 \                 /
+        //                                  \               /
+        //                                   \             /
+        //                             (x2,y2)\ __________/
         //                                     |          |
         //                                     |  Block3  |
         //                                     |__________|
         //
         // From Line Is the Line Entering the Node Block        
         // To Line Is the Line Exiting from the Node Block 
-        void SetLinesPostion()
+        public void SetLinesPostion()
         {
-            //If the Node Has a FromLine and a ToLine, Move both Lines with repect to the coordinates of the Block itself
-            if (FromLine != null && ToLine != null)
+            //If the Node Has FromLines and a ToLine, Move all Lines with repect to the coordinates of the Block itself
+            if (FromLines.Count > 0 && ToLine != null)
             {
-                // Set the (x2,y2) Coordinates of the FromLine(The End of the FromLine) to the coordinates of the Block
-                FromLine.X2 = Canvas.GetLeft(this) + this.ActualWidth / 2;
-                FromLine.Y2 = Canvas.GetTop(this) + this.ActualHeight / 2;
+                
+                //Loop inside all the Lines inside the FromLines list
+                foreach(Line line in FromLines)
+                {
+                    // Set the (x2,y2) Coordinates of that FromLine(The End of the FromLine) to the coordinates of the Block
+                    line.X2 = Canvas.GetLeft(this);
+                    line.Y2 = Canvas.GetTop(this) + this.ActualHeight / 2;
+                }
 
                 // Set the (x1,y1) Coordinates of the ToLine(The Start of the ToLine) to the coordinates of the Block
-                ToLine.X1 = Canvas.GetLeft(this) + this.ActualWidth / 2;
+                ToLine.X1 = Canvas.GetLeft(this) + this.ActualWidth;
                 ToLine.Y1 = Canvas.GetTop(this) + this.ActualHeight / 2;
             }
 
             //else If the Node has only a ToLine, Move it with respect to the coordinates of the block
-            else if (FromLine == null && ToLine != null)
+            else if (FromLines.Count <= 0 && ToLine != null)
             {
                 // Set the (x1,y1) Coordinates of the ToLine(The Start of the ToLine) to the coordinates of the Block
-                ToLine.X1 = Canvas.GetLeft(this) + this.ActualWidth / 2;
+                ToLine.X1 = Canvas.GetLeft(this) + this.ActualWidth;
                 ToLine.Y1 = Canvas.GetTop(this) + this.ActualHeight / 2;
             }
 
-            //else if the Node has only a FromLine, Move it with respect to the coordinates of the block
-            else if (FromLine != null && ToLine == null)
+            //else if the Node has only FromLines, Move them with respect to the coordinates of the block
+            else if (FromLines.Count > 0 && ToLine == null)
             {
-                // Set the (x2,y2) Coordinates of the FromLine(The End of the FromLine) to the coordinates of the Block
-                FromLine.X2 = Canvas.GetLeft(this) + this.ActualWidth / 2;
-                FromLine.Y2 = Canvas.GetTop(this) + this.ActualHeight / 2;
+                //Loop inside all the Lines inside the FromLines list
+                foreach (Line line in FromLines)
+                {
+                    // Set the (x2,y2) Coordinates of that FromLine(The End of the FromLine) to the coordinates of the Block
+                    line.X2 = Canvas.GetLeft(this);
+                    line.Y2 = Canvas.GetTop(this) + this.ActualHeight / 2;
+                }
             }
         }
 
@@ -142,23 +153,6 @@ namespace PM_Studio
         #region Properties
 
         /// <summary>
-        /// The Line that Enters the NodeBlock and Connects it with the previous block
-        /// </summary>
-        public Line FromLine
-        {
-            get
-            {
-                return fromLine;
-            }
-            set
-            {
-                //On setting the Line, set the postion of the new Line to it's new Postion
-                fromLine = value;
-                SetLinesPostion();
-            }
-        }
-
-        /// <summary>
         /// The Line that Exits from the NodeBlock and Connects it with the next block
         /// </summary>
         public Line ToLine
@@ -171,6 +165,23 @@ namespace PM_Studio
             {
                 //On setting the Line, set the postion of the new Line to it's new Postion
                 toLine = value;
+                SetLinesPostion();
+            }
+        }
+
+        /// <summary>
+        /// The Lines that Enter the NodeBlock and Connects it with the previous blocks
+        /// </summary>
+        public List<Line> FromLines
+        {
+            get
+            {
+                return fromLines;
+            }
+            set
+            {
+                //On setting the Line, set the postion of the new Line to it's new Postion
+                fromLines = value;
                 SetLinesPostion();
             }
         }
