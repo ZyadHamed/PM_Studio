@@ -38,9 +38,14 @@ namespace PM_Studio
             //Set the ToLine of the First Block to that Line
             FirstBlock.ToLine = line;
 
-            //Set the FromLine of the Second Block to that Line(such that a Line Exits FirstBlock and Enters Second Block)
-            SecondBlock.FromLine = line;
+            //Add that Line to the List of the FromLines of the Second Block(such that a Line Exits FirstBlock and Enters Second Block)
+            SecondBlock.FromLines.Add(line);
+
+            //Reset the Lines Position so that they match the coordinates of the blocks
+            FirstBlock.SetLinesPostion();
+            SecondBlock.SetLinesPostion();
         }
+
 
         /// <summary>
         /// Creates and Addes a Number of NodeBlocks based on a List that represents their text
