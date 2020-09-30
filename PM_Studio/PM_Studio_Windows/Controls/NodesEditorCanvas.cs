@@ -1,25 +1,95 @@
-﻿using Org.BouncyCastle.Crypto.Tls;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Shapes;
 
 namespace PM_Studio
 {
     public class NodesEditorCanvas : Canvas
     {
+        #region Variables
 
         List<string> blocks = new List<string>() { "Block1", "Block2", "Block3", "Block4", "Block5", "Block6" };
+        List<NodeBlock> SelectedBlocks = new List<NodeBlock>();
+
+        #endregion
+
+        #region Constructor
 
         public NodesEditorCanvas()
         {
-
+            this.MouseDown += NodesEditorCanvas_MouseDown;
             this.Background = Brushes.Blue;
 
             FillCanvas(blocks);
 
         }
+
+        #endregion
+
+        #region Events
+
+        private void NodesEditorCanvas_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            //If there was at least 1 nodeblock in the Canvas, do the Selection
+            if(this.Children.Count > 0)
+            {
+                //If the User pressed Left Button
+                if(e.ChangedButton == MouseButton.Left)
+                {
+                    //Create a HitTestResult for storing the object in which the user has clicked
+                    HitTestResult r = VisualTreeHelper.HitTest(this, e.GetPosition(this));
+
+                    //If the user has not clicked a NodeBlock, then He has clicked on the Canvas, then Unselect all the NodeBlocks
+                    if (r.VisualHit.GetType() != typeof(NodeBlock))
+                    {
+                        //Loop inside each Item in the Canvas
+                        foreach (var block in this.Children)
+                        {
+                            //If the Type of the Item Was a NodeBlock, UnSelect It
+                            if(block.GetType() == typeof(NodeBlock))
+                            {
+                                NodeBlock nodeBlock = block as NodeBlock;
+                                nodeBlock.IsSelected = false;
+                            }
+                        }
+                    }
+
+                    //else if the User selected a NodeBlock and Was Holding Ctrl at the Same Time ,Select that Block and  Add it to the Selected Blocks List
+                    else if(r.VisualHit.GetType() == typeof(NodeBlock) && Keyboard.IsKeyDown(Key.LeftCtrl) == true)
+                    {
+                        //Get the NodeBlock that the user has Clicked
+                        NodeBlock block = r.VisualHit as NodeBlock;
+
+                        //Set the Property IsSelected to true
+                        block.IsSelected = true;
+
+                        //Add this Block to the SelectedBlocks List
+                        SelectedBlocks.Add(block);
+                    }
+
+                    //Else if the User Selected a NodeBlock and Was Holding Alt at the Same Time, Unselect that Block and Remove it From the Selected Blocks List
+                    else if (r.VisualHit.GetType() == typeof(NodeBlock) && Keyboard.IsKeyDown(Key.LeftAlt) == true)
+                    {
+                        //Get the NodeBlock that the user has Clicked
+                        NodeBlock block = r.VisualHit as NodeBlock;
+
+                        //Set the Property IsSelected to false
+                        block.IsSelected = false;
+
+                        //Remove that Block from the SelectedBlocks List
+                        SelectedBlocks.Remove(block);
+                    }
+
+                  
+                }
+            }
+            
+        }
+
+        #endregion
+
+        #region Methods
 
         /// <summary>
         /// Connects 2 Blocks with Each Other
@@ -28,22 +98,23 @@ namespace PM_Studio
         /// <param name="SecondBlock">The Second Block</param>
         void Connect(NodeBlock FirstBlock, NodeBlock SecondBlock)
         {
-            //Create the Line that will connect both blocks and set it's color to black
-            Line line = new Line();
-            line.Stroke = Brushes.Black;
+            //Create the Arrow that will connect both blocks and set it's color to black
+            Arrow arrow = new Arrow();
+            arrow.Stroke = Brushes.Black;
+            arrow.StrokeThickness = 3;
 
-            //Add the Line to the Canvas
-            this.Children.Add(line);
+            //Add that Arrow to the Canvas
+            this.Children.Add(arrow);
 
-            //Set the ToLine of the First Block to that Line
-            FirstBlock.ToLine = line;
+            //Set the ToArrow of the First Block to that Arrow
+            FirstBlock.ToArrow = arrow;
 
-            //Add that Line to the List of the FromLines of the Second Block(such that a Line Exits FirstBlock and Enters Second Block)
-            SecondBlock.FromLines.Add(line);
+            //Add that Arrow to the List of the FromLines of the Second Block(such that the Arrow Exits FirstBlock and Enters Second Block)
+            SecondBlock.FromArrows.Add(arrow);
 
-            //Reset the Lines Position so that they match the coordinates of the blocks
-            FirstBlock.SetLinesPostion();
-            SecondBlock.SetLinesPostion();
+            //Reset the Arrows Position so that they match the coordinates of the blocks
+            FirstBlock.SetArrowsPostion();
+            SecondBlock.SetArrowsPostion();
         }
 
 
@@ -65,7 +136,7 @@ namespace PM_Studio
                 this.Children.Add(block);
 
                 //Create a Random Variable that Ranges between 2 and 800 for creating a random width and between 2 and 600 for a random height
-                Random random = new Random();
+                System.Random random = new System.Random();
                 int X1 = random.Next(2, 800);
                 int Y1 = random.Next(2, 600);
 
@@ -85,6 +156,9 @@ namespace PM_Studio
                 }
             }
         }
+
+
+        #endregion
 
     }
 }
