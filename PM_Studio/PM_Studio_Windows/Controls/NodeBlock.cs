@@ -23,8 +23,9 @@ namespace PM_Studio
         {
 
             this.Foreground = Brushes.WhiteSmoke;
-            this.Background = Brushes.Orange;
+            this.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#332F2E"));
             this.FontSize = 15;
+            this.Padding = new Thickness(10);
             this.Text = NodeText;
             this.MouseDown += Node_MouseDown;
             this.MouseMove += Node_MouseMove;
@@ -194,6 +195,14 @@ namespace PM_Studio
             set
             {
                 isSelected = value;
+                if(isSelected == true)
+                {
+                    this.Background = Brushes.Green;
+                }
+                else
+                {
+                    this.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#332F2E"));
+                }
             }
         }
 
