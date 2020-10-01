@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -32,10 +33,10 @@ namespace PM_Studio
         private void NodesEditorCanvas_MouseDown(object sender, MouseButtonEventArgs e)
         {
             //If there was at least 1 nodeblock in the Canvas, do the Selection
-            if(this.Children.Count > 0)
+            if (this.Children.Count > 0)
             {
                 //If the User pressed Left Button
-                if(e.ChangedButton == MouseButton.Left)
+                if (e.ChangedButton == MouseButton.Left)
                 {
                     //Create a HitTestResult for storing the object in which the user has clicked
                     HitTestResult r = VisualTreeHelper.HitTest(this, e.GetPosition(this));
@@ -43,34 +44,29 @@ namespace PM_Studio
                     //If the user has not clicked a NodeBlock, then He has clicked on the Canvas, then Unselect all the NodeBlocks
                     if (r.VisualHit.GetType() != typeof(NodeBlock))
                     {
-                        //Loop inside each Item in the Canvas
-                        foreach (var block in this.Children)
-                        {
-                            //If the Type of the Item Was a NodeBlock, UnSelect It
-                            if(block.GetType() == typeof(NodeBlock))
-                            {
-                                NodeBlock nodeBlock = block as NodeBlock;
-                                nodeBlock.IsSelected = false;
-                            }
-                        }
+                        UnSelectAllNodeBlocks();
                     }
 
                     //else if the User selected a NodeBlock and Was Holding Ctrl at the Same Time ,Select that Block and  Add it to the Selected Blocks List
-                    else if(r.VisualHit.GetType() == typeof(NodeBlock) && Keyboard.IsKeyDown(Key.LeftCtrl) == true)
+                    else if (r.VisualHit.GetType() == typeof(NodeBlock) && Keyboard.IsKeyDown(Key.LeftCtrl) == true)
                     {
                         //Get the NodeBlock that the user has Clicked
                         NodeBlock block = r.VisualHit as NodeBlock;
 
-                        //Set the Property IsSelected to true
-                        block.IsSelected = true;
+                        if(SelectedBlocks.Find(x => x == block) == null)
+                        {
+                            //Set the Property IsSelected to true
+                            block.IsSelected = true;
 
-                        //Add this Block to the SelectedBlocks List
-                        SelectedBlocks.Add(block);
+                            //Add this Block to the SelectedBlocks List
+                            SelectedBlocks.Add(block);
+                        }
                     }
 
                     //Else if the User Selected a NodeBlock and Was Holding Alt at the Same Time, Unselect that Block and Remove it From the Selected Blocks List
                     else if (r.VisualHit.GetType() == typeof(NodeBlock) && Keyboard.IsKeyDown(Key.LeftAlt) == true)
                     {
+
                         //Get the NodeBlock that the user has Clicked
                         NodeBlock block = r.VisualHit as NodeBlock;
 
@@ -79,12 +75,28 @@ namespace PM_Studio
 
                         //Remove that Block from the SelectedBlocks List
                         SelectedBlocks.Remove(block);
+
                     }
 
-                  
+                    //If the user clicked a NodeBlock without clicking any other buttons, Unselect all NodeBlocks and Select this NodeBlock
+                    else if (r.VisualHit.GetType() == typeof(NodeBlock))
+                    {
+                        //Get the NodeBlock that the User has Selected
+                        NodeBlock block = r.VisualHit as NodeBlock;
+
+                        //UnSelect All NodeBlocks
+                        UnSelectAllNodeBlocks();
+
+                        //Set the Selection of the NodeBlock that the User has Clicked to true
+                        block.IsSelected = true;
+
+                        //Add that Block to the List of SelectedBlocks
+                        SelectedBlocks.Add(block);
+                    }
+
                 }
             }
-            
+
         }
 
         #endregion
@@ -150,13 +162,31 @@ namespace PM_Studio
             {
                 //If we have not reached the Last block yet(when i + 1 = the Number of items this means we have reached the Last Element)
                 //Connect that block with the next block
-                if(i + 1 < blocks.Count)
+                if (i + 1 < blocks.Count)
                 {
                     Connect(blocks[i], blocks[i + 1]);
                 }
             }
         }
 
+        /// <summary>
+        /// Unselects all NodeBlocks in the Canvas
+        /// </summary>
+        void UnSelectAllNodeBlocks()
+        {
+            //Loop inside each Item in the Canvas
+            foreach (var block in this.Children)
+            {
+                //If the Type of the Item Was a NodeBlock, UnSelect It
+                if (block.GetType() == typeof(NodeBlock))
+                {
+                    NodeBlock nodeBlock = block as NodeBlock;
+                    nodeBlock.IsSelected = false;
+                }
+            }
+            //Clear the List of SelectedBlocks
+            SelectedBlocks.Clear();
+        }
 
         #endregion
 
