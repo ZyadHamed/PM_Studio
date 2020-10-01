@@ -20,10 +20,8 @@ namespace PM_Studio
         public NodesEditorCanvas()
         {
             this.MouseDown += NodesEditorCanvas_MouseDown;
-            this.KeyDown += NodesEditorCanvas_KeyDown;
 
             this.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#2E292C"));
-            this.Focusable = true;
 
             FillCanvas(blocks);
 
@@ -118,7 +116,7 @@ namespace PM_Studio
             SelectedBlocks.Clear();
         }
 
-        void DeleteSelectedNodeBlocks()
+        public void DeleteSelectedNodeBlocks()
         {
             //Create a List of Arrows to Contain the Arrows that Shall be Removed
             List<Arrow> arrowsToRemove = new List<Arrow>();
@@ -199,7 +197,6 @@ namespace PM_Studio
                     if (r.VisualHit.GetType() != typeof(NodeBlock))
                     {
                         UnSelectAllNodeBlocks();
-                        this.Focus();
                     }
 
                     //else if the User selected a NodeBlock and Was Holding Ctrl at the Same Time ,Select that Block and  Add it to the Selected Blocks List
@@ -254,29 +251,6 @@ namespace PM_Studio
 
         }
 
-        private void NodesEditorCanvas_KeyDown(object sender, KeyEventArgs e)
-        {
-            //If the User has Pressed G, Toggle the Grid Visibilty on and Off
-            if(e.Key == Key.G)
-            {
-                //If it was Visible, Set It's Visibilty to false
-                if(IsGridVisible == true)
-                {
-                    IsGridVisible = false;
-                }
-                //and Vise Versa
-                else
-                {
-                    IsGridVisible = true;
-                }
-            }
-
-            //If the User has Pressed Delete, Delete the Selected NodeBlocks
-            else if(e.Key == Key.Delete)
-            {
-                DeleteSelectedNodeBlocks();
-            }
-        }
 
         #endregion
 
