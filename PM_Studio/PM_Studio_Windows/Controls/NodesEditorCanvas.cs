@@ -20,10 +20,40 @@ namespace PM_Studio
         public NodesEditorCanvas()
         {
             this.MouseDown += NodesEditorCanvas_MouseDown;
-
             this.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#2E292C"));
 
-            FillCanvas(blocks);
+            Node node = new Node() 
+            {
+                Text = "Get Two Numbers From User",
+                ToNodeText = "Add the Two Numbers"
+            };
+
+            Node node2 = new Node()
+            {
+                Text = "Add the Two Numbers",
+                ToNodeText = "Print the Result"
+            };
+
+            Node node3 = new Node()
+            {
+                Text = "Print the Result",
+                ToNodeText = "End"
+            };
+
+            Node node4 = new Node()
+            {
+                Text = "Close the Program",
+                ToNodeText = "End"
+            };
+
+            Node node5 = new Node()
+            {
+                Text = "End"
+            };
+
+           
+            List<Node> nodeBlocks = new List<Node>() { node, node2, node3, node4 , node5};
+            FillCanvasFromList(nodeBlocks);
 
         }
 
@@ -95,6 +125,71 @@ namespace PM_Studio
                     Connect(blocks[i], blocks[i + 1]);
                 }
             }
+        }
+
+        /// <summary>
+        /// Create NodeBlocks and Connect them to each other using a List of Nodes
+        /// </summary>
+        /// <param name="Nodes">The Nodes in which the NodeSystem is Based on</param>
+        void FillCanvasFromList(List<Node> Nodes)
+        {
+            //Loop Inside Each Node in the Nodes List
+            foreach(Node node in Nodes)
+            {
+                //Create a NodeBlock using that Node's Text
+                NodeBlock block = new NodeBlock(node.Text);
+                //Add that NodeBlock to the Canvas
+                this.Children.Add(block);
+
+                //Create a Random Variable that Ranges between 2 and 800 for creating a random width and between 2 and 600 for a random height
+                System.Random random = new System.Random();
+                int X1 = random.Next(2, 800);
+                int Y1 = random.Next(2, 600);
+
+                //Set the Coordinates of the block using the value from that random variable
+                Canvas.SetLeft(block, X1);
+                Canvas.SetTop(block, Y1);
+            }
+
+            //now Create a List containing all the NodeBlocks in the Canvas
+            List<NodeBlock> nodeBlocks = GetNodeBlocks();
+
+            //Loop inside each NodeBlock
+            for (int i = 0; i < nodeBlocks.Count; i++)
+            {
+                //Check If there was a NodeBlock that Matches the ToNodeText of the Current NodeBlock (ToNodeText is the Text of the NodeBlock in which this NodeBlock is Connected to)
+                NodeBlock matchingToBlock = nodeBlocks.Find(x => x.Text == Nodes[i].ToNodeText);
+
+                //If that matchingToBlock was not null, then it exists, then Connect the Current Block in the Loop with it
+                if (matchingToBlock != null)
+                {
+                    Connect(nodeBlocks[i], matchingToBlock);
+                }
+            }
+                
+        }
+
+        /// <summary>
+        /// Gets all the NodeBlocks in the Canvas
+        /// </summary>
+        /// <returns>a List Containing all the NodeBlocks in the Canvas</returns>
+        List<NodeBlock> GetNodeBlocks()
+        {
+            //Create an Empty List of nodeBlocks
+            List<NodeBlock> nodeBlocks = new List<NodeBlock>();
+            
+            //loop inside each Contorl in the Children of the Canvas
+            foreach (var Control in this.Children)
+            {
+                //If the type of the Control was a NodeBlock, Add it to the List
+                if(Control.GetType() == typeof(NodeBlock))
+                {
+                    nodeBlocks.Add(Control as NodeBlock);
+                }
+            }
+
+            //Return the List of the nodeBlocks
+            return nodeBlocks;
         }
 
         /// <summary>
