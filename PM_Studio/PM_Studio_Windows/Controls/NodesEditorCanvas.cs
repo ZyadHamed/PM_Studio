@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -9,10 +10,18 @@ namespace PM_Studio
     {
         #region Variables
 
-        List<string> blocks = new List<string>() { "Block1", "Block2", "Block3", "Block4", "Block5", "Block6" };
         List<NodeBlock> SelectedBlocks = new List<NodeBlock>();
 
         private bool isGridVisible = false;
+
+        #endregion
+
+        #region Designing Variables
+
+        ContextMenu menu = new ContextMenu();
+        MenuItem NewNodeItem = new MenuItem();
+        MenuItem ConnectNodesItem = new MenuItem();
+
         #endregion
 
         #region Constructor
@@ -21,6 +30,7 @@ namespace PM_Studio
         {
             this.MouseDown += NodesEditorCanvas_MouseDown;
             this.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#2E292C"));
+            SetContextMenu();
 
             Node node = new Node() 
             {
@@ -53,8 +63,26 @@ namespace PM_Studio
 
            
             List<Node> nodeBlocks = new List<Node>() { node, node2, node3, node4 , node5};
-            FillCanvasFromList(nodeBlocks);
+            //FillCanvasFromList(nodeBlocks);
 
+        }
+
+        #endregion
+
+        #region Designing Methods
+
+        void SetContextMenu()
+        {
+            NewNodeItem.Header = "New Node";
+            ConnectNodesItem.Header = "Connect Nodes";
+
+            NewNodeItem.Click += MenuItem_Click;
+            ConnectNodesItem.Click += MenuItem_Click;
+
+            menu.Items.Add(NewNodeItem);
+            menu.Items.Add(ConnectNodesItem);
+
+            this.ContextMenu = menu;
         }
 
         #endregion
@@ -87,46 +115,6 @@ namespace PM_Studio
             SecondBlock.SetArrowsPostion();
         }
 
-
-        /// <summary>
-        /// Creates and Addes a Number of NodeBlocks based on a List that represents their text
-        /// </summary>
-        /// <param name="blocksText">The List that Contains all the Blocks text</param>
-        void FillCanvas(List<string> blocksText)
-        {
-            List<NodeBlock> blocks = new List<NodeBlock>();
-            //Loop inside each string in the string List
-            for (int i = 0; i < blocksText.Count; i++)
-            {
-                //Create a NodeBlock Based on that string
-                NodeBlock block = new NodeBlock(blocksText[i]);
-
-                //Add that NodeBlock to the List and add it to the Canvas
-                blocks.Add(block);
-                this.Children.Add(block);
-
-                //Create a Random Variable that Ranges between 2 and 800 for creating a random width and between 2 and 600 for a random height
-                System.Random random = new System.Random();
-                int X1 = random.Next(2, 800);
-                int Y1 = random.Next(2, 600);
-
-                //Set the Coordinates of the block using the value from that random variable
-                Canvas.SetLeft(block, X1);
-                Canvas.SetTop(block, Y1);
-            }
-
-            //Now loop inside each NodeBlock in the NodeBlock list
-            for (int i = 0; i < blocks.Count; i++)
-            {
-                //If we have not reached the Last block yet(when i + 1 = the Number of items this means we have reached the Last Element)
-                //Connect that block with the next block
-                if (i + 1 < blocks.Count)
-                {
-                    Connect(blocks[i], blocks[i + 1]);
-                }
-            }
-        }
-
         /// <summary>
         /// Create NodeBlocks and Connect them to each other using a List of Nodes
         /// </summary>
@@ -137,7 +125,7 @@ namespace PM_Studio
             foreach(Node node in Nodes)
             {
                 //Create a NodeBlock using that Node's Text
-                NodeBlock block = new NodeBlock(node.Text);
+                NodeBlock block = new NodeBlock(node);
                 //Add that NodeBlock to the Canvas
                 this.Children.Add(block);
 
@@ -158,7 +146,7 @@ namespace PM_Studio
             for (int i = 0; i < nodeBlocks.Count; i++)
             {
                 //Check If there was a NodeBlock that Matches the ToNodeText of the Current NodeBlock (ToNodeText is the Text of the NodeBlock in which this NodeBlock is Connected to)
-                NodeBlock matchingToBlock = nodeBlocks.Find(x => x.Text == Nodes[i].ToNodeText);
+                NodeBlock matchingToBlock = nodeBlocks.Find(x => x.Node.Text == Nodes[i].ToNodeText);
 
                 //If that matchingToBlock was not null, then it exists, then Connect the Current Block in the Loop with it
                 if (matchingToBlock != null)
@@ -167,6 +155,27 @@ namespace PM_Studio
                 }
             }
                 
+        }
+
+        void CreateNewNodeBlock(string BlockText)
+        {
+            //Create a New Node with the String passed in 
+            Node node = new Node()
+            {
+                Text = BlockText
+            };
+            //Create a Node Block from that Node and Add it to the Canvas
+            NodeBlock block = new NodeBlock(node);
+            this.Children.Add(block);
+
+            //Create a Random Variable that Ranges between 2 and 800 for creating a random width and between 2 and 600 for a random height
+            System.Random random = new System.Random();
+            int X1 = random.Next(2, 800);
+            int Y1 = random.Next(2, 600);
+
+            //Set the Coordinates of the block using the value from that random variable
+            Canvas.SetLeft(block, X1);
+            Canvas.SetTop(block, Y1);
         }
 
         /// <summary>
@@ -346,6 +355,32 @@ namespace PM_Studio
 
         }
 
+        private void MenuItem_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            if ((sender as MenuItem).Header.ToString() == "New Node")
+            {
+                Create_ModifyItemsWindow window = new Create_ModifyItemsWindow(1);
+                window.lbDataField2Text = "Node Text: ";
+                if(window.ShowDialog() == true)
+                {
+                    CreateNewNodeBlock(window.txtDataField2Text);
+                }
+
+            }
+
+            else if ((sender as MenuItem).Header.ToString() == "Connect Nodes")
+            {
+                for(int i = 0; i< SelectedBlocks.Count; i++)
+                {
+                    if(i + 1 < SelectedBlocks.Count)
+                    {
+                        SelectedBlocks[i].Node.ToNodeText = SelectedBlocks[i + 1].Node.Text;
+                        Connect(SelectedBlocks[i], SelectedBlocks[i + 1]);
+                    }
+
+                }
+            }
+        }
 
         #endregion
 
