@@ -15,18 +15,18 @@ namespace PM_Studio
         private List<Arrow> fromArrows = new List<Arrow>();
         private Arrow toArrow;
         private bool isSelected = false;
-
+        private Node node;
         #endregion
 
         #region Constructor
-        public NodeBlock(string NodeText)
+        public NodeBlock(Node _node)
         {
-
+            Node = _node;
             this.Foreground = Brushes.WhiteSmoke;
             this.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#332F2E"));
             this.FontSize = 15;
             this.Padding = new Thickness(10);
-            this.Text = NodeText;
+            this.Text = Node.Text;
             this.MouseDown += Node_MouseDown;
             this.MouseMove += Node_MouseMove;
             this.MouseUp += Node_MouseUp;
@@ -203,6 +203,19 @@ namespace PM_Studio
                 {
                     this.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#332F2E"));
                 }
+            }
+        }
+
+        public Node Node
+        {
+            get
+            {
+                return node;
+            }
+            set
+            {
+                node = value;
+                this.Text = node.Text;
             }
         }
 
