@@ -101,10 +101,17 @@ namespace PM_Studio
         /// Returns a shedule in a shedule file in a given path
         /// </summary>
         /// <param name="filePath">The path of the shedule file</param>
-        /// <returns></returns>
+        /// <returns>a Shedule Class Containing the Data Stored in That File</returns>
         public Shedule GetShedule(string filePath)
         {
             return SaveLoadSystem.LoadData<Shedule>(filePath);
+        }
+
+
+        public NodeEditorTabItem ReturnNodeEditorTabItem(string filePath)
+        {
+            NodeSystem nodeSystem = SaveLoadSystem.LoadData<NodeSystem>(filePath);
+            return new NodeEditorTabItem(tbFiles, filePath, nodeSystem);
         }
 
         /// <summary>
