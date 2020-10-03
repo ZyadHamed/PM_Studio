@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace PM_Studio
 {
+    [Serializable]
     public class NodeSystem
     {
-        public List<string> NodesText { get; set; }
+        public string fileName { get; set; }
+        public List<Node> Nodes { get; set; }
         
     }
 }
