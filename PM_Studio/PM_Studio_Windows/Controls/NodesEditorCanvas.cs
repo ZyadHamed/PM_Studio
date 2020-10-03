@@ -13,6 +13,7 @@ namespace PM_Studio
         List<NodeBlock> SelectedBlocks = new List<NodeBlock>();
 
         private bool isGridVisible = false;
+        private List<Node> nodes;
 
         #endregion
 
@@ -26,44 +27,13 @@ namespace PM_Studio
 
         #region Constructor
 
-        public NodesEditorCanvas()
+        public NodesEditorCanvas(List<Node> _nodes)
         {
             this.MouseDown += NodesEditorCanvas_MouseDown;
             this.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#2E292C"));
             SetContextMenu();
-
-            Node node = new Node() 
-            {
-                Text = "Get Two Numbers From User",
-                ToNodeText = "Add the Two Numbers"
-            };
-
-            Node node2 = new Node()
-            {
-                Text = "Add the Two Numbers",
-                ToNodeText = "Print the Result"
-            };
-
-            Node node3 = new Node()
-            {
-                Text = "Print the Result",
-                ToNodeText = "End"
-            };
-
-            Node node4 = new Node()
-            {
-                Text = "Close the Program",
-                ToNodeText = "End"
-            };
-
-            Node node5 = new Node()
-            {
-                Text = "End"
-            };
-
-           
-            List<Node> nodeBlocks = new List<Node>() { node, node2, node3, node4 , node5};
-            //FillCanvasFromList(nodeBlocks);
+            Nodes = _nodes;
+            FillCanvasFromList(Nodes);
 
         }
 
@@ -106,6 +76,7 @@ namespace PM_Studio
 
             //Set the ToArrow of the First Block to that Arrow
             FirstBlock.ToArrow = arrow;
+            FirstBlock.Node.ToNodeText = SecondBlock.Node.Text;
 
             //Add that Arrow to the List of the FromLines of the Second Block(such that the Arrow Exits FirstBlock and Enters Second Block)
             SecondBlock.FromArrows.Add(arrow);
@@ -282,6 +253,19 @@ namespace PM_Studio
             }
         }
 
+        public List<Node> GetNodes()
+        {
+            List<Node> nodes = new List<Node>();
+            List<NodeBlock> blocks = GetNodeBlocks();
+
+            foreach(NodeBlock block in blocks)
+            {
+                nodes.Add(block.Node);
+            }
+
+            return nodes;
+        }
+
         #endregion
 
         #region Events
@@ -435,6 +419,19 @@ namespace PM_Studio
                     //If the IsGridVisible was false, set the BackGround Color to a Solid Dark Grey Color
                     this.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#2E292C"));
                 }
+            }
+        }
+
+        public List<Node> Nodes
+        {
+            get
+            {
+                return nodes;
+            }
+
+            set
+            {
+                nodes = value;
             }
         }
 
