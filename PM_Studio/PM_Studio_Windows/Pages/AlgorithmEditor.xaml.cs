@@ -27,6 +27,12 @@ namespace PM_Studio
             lstFiles.ItemsSource = fileMangerViewModel.FilesAndFolders;
             txtFilePath.Text = fileMangerViewModel.filePath;
             saveLoadSystemViewModel = new SaveLoadSystemViewModel(tbFiles);
+            //NodeSystem nodeSystem = new NodeSystem()
+            //{
+            //    fileName = "NodeSystem.pmnodes",
+            //    Nodes = new List<Node>()
+            //};
+            //saveLoadSystemViewModel.Save(@"E:\zyadhamedashour\" + nodeSystem.fileName, nodeSystem);
         }
 
         #region Events
@@ -62,6 +68,12 @@ namespace PM_Studio
                     StoryConceptsTabItem storyConceptsTabItem = saveLoadSystemViewModel.ReturnStoryConceptsTabItem(fileMangerViewModel.filePath + @"\" + fileMangerViewModel.SelectedItem);
                     //Add that tab Item to the tab control
                     tbFiles.Items.Add(storyConceptsTabItem);
+                }
+
+                else if(fileMangerViewModel.getSelectedExtension == ".pmnodes")
+                {
+                    NodeEditorTabItem nodeEditorTabItem = saveLoadSystemViewModel.ReturnNodeEditorTabItem(fileMangerViewModel.filePath + @"\" + fileMangerViewModel.SelectedItem);
+                    tbFiles.Items.Add(nodeEditorTabItem);
                 }
 
             }
