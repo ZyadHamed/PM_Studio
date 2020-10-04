@@ -26,6 +26,8 @@ namespace PM_Studio
             this.AddChild(Container);
 
             this.Focus();
+
+            SaveFile();
         }
 
         #endregion
@@ -56,6 +58,7 @@ namespace PM_Studio
             if (e.Key == System.Windows.Input.Key.Delete)
             {
                 Canvas.DeleteSelectedNodeBlocks();
+                IsSaved = false;
             }
 
             else if (e.Key == System.Windows.Input.Key.G)
@@ -77,9 +80,15 @@ namespace PM_Studio
                 }
             }
 
+            //If the User has Pressed Ctrl + S, Save the File
             else if (System.Windows.Input.Keyboard.Modifiers == System.Windows.Input.ModifierKeys.Control && e.Key == System.Windows.Input.Key.S)
             {
+                //If the File Was not Saved, then Save It
+                if(IsSaved == false)
+                {
                     SaveFile();
+                }
+                    
             }
         }
 
