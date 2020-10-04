@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 
 namespace PM_Studio
@@ -9,7 +6,7 @@ namespace PM_Studio
     class FileTabItem : TabItem
     {
         #region Variables
-        public bool IsSaved = true;
+        private bool isSaved = true;
 
 
         public SaveLoadSystemViewModel saveLoadSystemViewModel;
@@ -101,6 +98,33 @@ namespace PM_Studio
             set
             {
                 headerText.Text = value;
+            }
+        }
+
+        /// <summary>
+        /// The Boolean which indicates wheather the file IsSaved or Not
+        /// </summary>
+        public bool IsSaved
+        {
+            get
+            {
+                return isSaved;
+            }
+            set
+            {
+                isSaved = value;
+                //If the Incoming value was true, Remove the Unsaved Star from the Header
+                if (isSaved == true)
+                {
+                    HeaderText = HeaderText.Remove(HeaderText.Length - 1);
+                }
+
+                //Else, then the incoming value is false, then add an Unsaved Star to the Header
+                else
+                {
+                    HeaderText += "*";
+                }
+                
             }
         }
 
