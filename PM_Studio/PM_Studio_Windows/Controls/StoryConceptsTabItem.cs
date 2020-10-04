@@ -283,12 +283,12 @@ namespace PM_Studio
                 PlotPoints = txtPlotPoints.Text,
                 StoryEvents = txtStoryEvents.Text
             };
-            //Mark IsSaved as true
-            IsSaved = true;
+           
             //Save the file With the new data
             saveLoadSystemViewModel.Save(CurrentPath, sc);
-            //Remove the unsaved star from the header
-            HeaderText = HeaderText.Remove(HeaderText.Length - 1);
+
+            //Mark IsSaved as true
+            IsSaved = true;
         }
 
         #endregion
@@ -298,10 +298,9 @@ namespace PM_Studio
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             //Check if the file is saved
-            //If it is, mark it as unsaved and add the unsaved star to the header
+            //If it is, mark it as unsaved
             if (IsSaved == true)
             {
-                ((TextBlock)tabHeader.Children[0]).Text += "*";
                 IsSaved = false;
             }
         }

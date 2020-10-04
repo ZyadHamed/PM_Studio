@@ -54,37 +54,32 @@ namespace PM_Studio
 
             //Format the Text Inside the AlgorithmTextBox
             textFormatter.FormatAlgorithmTextBox(rtxtAlgorithm, @"(\[\d*\])");
-            
-            //If the Last Character in the Header of the TabItem was a star, save the file
-            if (HeaderText[HeaderText.Length - 1] == '*')
-            {
-                SaveFile();
-            }
+
+            SaveFile();
             
         }
         #endregion
-
+        
         #region Events
         private void rtxtAlgorithm_TextChanged(object sender, EventArgs e)
         {
             //Check if the file is saved
-            //If it is, mark it as unsaved and add the unsaved star to the header
+            //If it is, mark it as unsaved
             if (IsSaved == true)
             {
-                HeaderText += "*";
                 IsSaved = false;
             }
            
             //Unfocus the richtextbox to avoid blinking
             this.Focus();
+
             //Then Format all the text again and restore the focus
-            
             textFormatter.FormatAlgorithmTextBox(rtxtAlgorithm, @"(\[\d*\])");
+
         }
 
         private void rtxtAlgorithm_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
         {
-
 
             //check what the user had pressed
             //If he Pressed Ctrl+S, save the file
@@ -132,32 +127,29 @@ namespace PM_Studio
 
         }
 
-        
-
         #endregion
 
         #region Methods
+
         public override void SaveFile()
         {
             //Get the current path of the file,(was saved before in the tab tag)
-            string CurrentPath = this.Tag.ToString();
-
-            
+            string CurrentPath = this.Tag.ToString();  
 
             //Make a new algorithm class based on the new data in the file
             Algorithm algorithm = new Algorithm()
             {
                 algorithm = rtxtAlgorithm.Text,
                 algorithmFileName = HeaderText
-
             };
-            //Mark IsSaved as true
-            IsSaved = true;
+
             //Save the File
             saveLoadSystemViewModel.Save(CurrentPath, algorithm);
-            //Remove the unsaved star from the header
-            HeaderText = HeaderText.Remove(HeaderText.Length - 1);
+
+            //Mark IsSaved as true
+            IsSaved = true;
         }
+
         #endregion
 
     }
