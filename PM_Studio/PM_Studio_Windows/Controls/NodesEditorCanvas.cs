@@ -100,14 +100,10 @@ namespace PM_Studio
                 //Add that NodeBlock to the Canvas
                 this.Children.Add(block);
 
-                //Create a Random Variable that Ranges between 2 and 800 for creating a random width and between 2 and 600 for a random height
-                System.Random random = new System.Random();
-                int X1 = random.Next(2, 800);
-                int Y1 = random.Next(2, 600);
-
                 //Set the Coordinates of the block using the value from that random variable
-                Canvas.SetLeft(block, X1);
-                Canvas.SetTop(block, Y1);
+                Canvas.SetLeft(block, block.Node.X);
+                Canvas.SetTop(block, block.Node.Y);
+
             }
 
             //now Create a List containing all the NodeBlocks in the Canvas
@@ -348,6 +344,7 @@ namespace PM_Studio
                 if(window.ShowDialog() == true)
                 {
                     CreateNewNodeBlock(window.txtDataField2Text);
+                    ((this.Parent as Grid).Parent as NodeEditorTabItem).IsSaved = false;
                 }
 
             }
@@ -360,6 +357,7 @@ namespace PM_Studio
                     {
                         SelectedBlocks[i].Node.ToNodeText = SelectedBlocks[i + 1].Node.Text;
                         Connect(SelectedBlocks[i], SelectedBlocks[i + 1]);
+                        ((this.Parent as Grid).Parent as NodeEditorTabItem).IsSaved = false;
                     }
 
                 }
