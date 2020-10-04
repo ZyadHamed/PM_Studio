@@ -33,8 +33,8 @@ namespace PM_Studio
             this.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#2E292C"));
             SetContextMenu();
             Nodes = _nodes;
-            FillCanvasFromList(Nodes);
 
+            FillCanvasFromList(Nodes);
         }
 
         #endregion
@@ -106,6 +106,10 @@ namespace PM_Studio
 
             }
 
+            //Add those two methods to make sure the Width and height of objects is calculated early and thus the Arrows Placement is accurate
+            this.Measure(new System.Windows.Size(double.PositiveInfinity, double.PositiveInfinity));
+            this.Arrange(new System.Windows.Rect(0, 0, this.DesiredSize.Width, this.DesiredSize.Height));
+
             //now Create a List containing all the NodeBlocks in the Canvas
             List<NodeBlock> nodeBlocks = GetNodeBlocks();
 
@@ -120,6 +124,7 @@ namespace PM_Studio
                 {
                     Connect(nodeBlocks[i], matchingToBlock);
                 }
+                nodeBlocks[i].SetArrowsPostion();
             }
                 
         }
