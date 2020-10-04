@@ -56,7 +56,7 @@ namespace PM_Studio
                 if(fileMangerViewModel.getSelectedExtension == ".pmalg")
                 {
                     //Create an algorithm tabItem using the current selected Algorithm file
-                    AlgorithmTabItem algorithmTabItem = saveLoadSystemViewModel.ReturnAlgorithm(fileMangerViewModel.filePath + @"\" + fileMangerViewModel.SelectedItem);
+                    AlgorithmTabItem algorithmTabItem = saveLoadSystemViewModel.ReturnAlgorithmTabItem(fileMangerViewModel.filePath + @"\" + fileMangerViewModel.SelectedItem);
                     //Add that tab Item to the tab control
                     tbFiles.Items.Add(algorithmTabItem);
                 }
@@ -65,14 +65,14 @@ namespace PM_Studio
                 else if(fileMangerViewModel.getSelectedExtension == ".pmstory")
                 {
                     //Create a storyConcepts TabItem using the current selected Story File
-                    StoryConceptsTabItem storyConceptsTabItem = saveLoadSystemViewModel.ReturnStoryConceptsTabItem(fileMangerViewModel.filePath + @"\" + fileMangerViewModel.SelectedItem);
+                    StoryConceptsTabItem storyConceptsTabItem = saveLoadSystemViewModel.GetStoryConceptsTabItem(fileMangerViewModel.filePath + @"\" + fileMangerViewModel.SelectedItem);
                     //Add that tab Item to the tab control
                     tbFiles.Items.Add(storyConceptsTabItem);
                 }
 
                 else if(fileMangerViewModel.getSelectedExtension == ".pmnodes")
                 {
-                    NodeEditorTabItem nodeEditorTabItem = saveLoadSystemViewModel.ReturnNodeEditorTabItem(fileMangerViewModel.filePath + @"\" + fileMangerViewModel.SelectedItem);
+                    NodeEditorTabItem nodeEditorTabItem = saveLoadSystemViewModel.GetNodeEditorTabItem(fileMangerViewModel.filePath + @"\" + fileMangerViewModel.SelectedItem);
                     tbFiles.Items.Add(nodeEditorTabItem);
                 }
 
@@ -116,6 +116,7 @@ namespace PM_Studio
         {
             //Show the AddItemWindow as a Dialog
             AddItemWindow addItemWindow = new AddItemWindow();
+
             //If the User Clicked Ok in the Window, then Add the Selected Item
             if (addItemWindow.ShowDialog() == true)
             {
@@ -124,8 +125,10 @@ namespace PM_Studio
                 {
                     //If the Selected Item was Algorithm, then Create a Blank Algorithm File
                     case "Algorithm":
+
                         //Create a Blank Algorithm File in the Selected filePath
                         saveLoadSystemViewModel.CreateAlgorithmFile(txtFilePath.Text + @"\", addItemWindow.ItemName);
+
                         //Reload the File Explorer
                         lstFiles.ItemsSource = null;
                         lstFiles.ItemsSource = fileMangerViewModel.FilesAndFolders;
@@ -136,28 +139,36 @@ namespace PM_Studio
 
                         break;
 
-                    //If the Selected Item was Note, then Create a Blank Idea File(Code will be added soon)
+                    //If the Selected Item was Note, then Create a Blank Note File(Code will be added soon)
                     case "Note":
 
                         break;
 
-                    //If the Selected Item was Story Planning, then Create a Blank Idea File(Code will be added soon)
+                    //If the Selected Item was Story Planning, then Create a Blank Story Concepts File
                     case "StoryPlanning":
+
                         //Create a Blank Story Concepts File in the Selected filePath
                         saveLoadSystemViewModel.CreateStoryConceptsFile(txtFilePath.Text + @"\", addItemWindow.ItemName);
+
                         //Reload the File Explorer
                         lstFiles.ItemsSource = null;
                         lstFiles.ItemsSource = fileMangerViewModel.FilesAndFolders;
                         break;
 
-                    //If the Selected Item was Character Planning, then Create a Blank Idea File(Code will be added soon)
+                    //If the Selected Item was Character Planning, then Create a Blank Character Planning File(Code will be added soon)
                     case "CharacterPlanning":
 
                         break;
 
-                    //If the Selected Item was Node System, then Create a Blank Node System File(Code will be added soon)
+                    //If the Selected Item was Node System, then Create a Blank Node System File
                     case "NodeSystem":
 
+                        //Create a Blank NodeSystem File in the Selected filePath
+                        saveLoadSystemViewModel.CreateNodeSystemFile(txtFilePath.Text + @"\", addItemWindow.ItemName);
+
+                        //Reload the File Explorer
+                        lstFiles.ItemsSource = null;
+                        lstFiles.ItemsSource = fileMangerViewModel.FilesAndFolders;
                         break;
                 }
                
