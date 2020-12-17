@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace PM_Studio
 {
@@ -10,6 +9,8 @@ namespace PM_Studio
         public string Version { get; set; }
         public string StageType { get; set; }
         public List<Feature> Features { get; set; }
-        public List<string> BugsToFix { get; set; }
+        public List<BugToFix> BugsToFix { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
     }
 }

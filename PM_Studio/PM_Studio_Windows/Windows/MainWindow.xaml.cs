@@ -49,7 +49,12 @@ namespace PM_Studio
                     PagesContainer.Content = new TeamManger();
                     break;
                 case 3:
-                    
+                    PagesContainer.Content = null;
+                    PagesContainer.Content = new StagesManger();
+                    break;
+                case 4:
+                    PagesContainer.Content = null;
+                    PagesContainer.Content = new PublishManger();
                     break;
             }
             foreach(var Control in LeftPanelGrid.Children)

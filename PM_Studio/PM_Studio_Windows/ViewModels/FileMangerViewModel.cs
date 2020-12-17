@@ -1,9 +1,6 @@
-﻿using Microsoft.Windows.Themes;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Text;
 
 namespace PM_Studio
 {
@@ -50,12 +47,12 @@ namespace PM_Studio
                 //If the item type was a File, Set the icon to file icon, then add the corrosponding File Name
                 if (FilesAndFolders[i].ItemType == "File")
                 {
-                    returnedFilesAndFolders.Add(new ImagelistItem("../PM_Studio_Core/Images/File.png", FilesAndFolders[i].ItemName));
+                    returnedFilesAndFolders.Add(new ImagelistItem("pack://application:,,,/PM_Studio_Windows;component/Images/File.png", FilesAndFolders[i].ItemName));
                 }
                 //If it's not, then it must be a folder, and then set the icon to folder icon, then add the corrosponding Folder Name
                 else
                 {
-                    returnedFilesAndFolders.Add(new ImagelistItem("../PM_Studio_Core/Images/Folder.png", FilesAndFolders[i].ItemName));
+                    returnedFilesAndFolders.Add(new ImagelistItem("pack://application:,,,/PM_Studio_Windows;component/Images/Folder.png", FilesAndFolders[i].ItemName));
                 }
             }
             //return the filled List At the end
@@ -86,12 +83,12 @@ namespace PM_Studio
                     //If the item type was a File, Set the icon to file icon, then add the corrosponding File Name
                     if (FilesAndFolders[i].ItemType == "File")
                     {
-                        returnedFilesAndFolders.Add(new ImagelistItem("../PM_Studio_Core/Images/File.png", FilesAndFolders[i].ItemName));
+                        returnedFilesAndFolders.Add(new ImagelistItem("pack://application:,,,/PM_Studio_Windows;component/Images/File.png", FilesAndFolders[i].ItemName));
                     }
                     //If it's not, then it must be a folder, and then set the icon to folder icon, then add the corrosponding Folder Name
                     else
                     {
-                        returnedFilesAndFolders.Add(new ImagelistItem("../PM_Studio_Core/Images/Folder.png", FilesAndFolders[i].ItemName));
+                        returnedFilesAndFolders.Add(new ImagelistItem("pack://application:,,,/PM_Studio_Windows;component/Images/Folder.png", FilesAndFolders[i].ItemName));
                     }
                 }
                 //return the filled List At the end
@@ -124,12 +121,12 @@ namespace PM_Studio
                 //If the item type was a File, Set the icon to file icon, then add the corrosponding File Name
                 if (FilesAndFolders[i].ItemType == "File")
                 {
-                    returnedFilesAndFolders.Add(new ImagelistItem("../PM_Studio_Core/Images/File.png", FilesAndFolders[i].ItemName));
+                    returnedFilesAndFolders.Add(new ImagelistItem("pack://application:,,,/PM_Studio_Windows;component/Images/File.png", FilesAndFolders[i].ItemName));
                 }
                 //If it's not, then it must be a folder, and then set the icon to folder icon, then add the corrosponding Folder Name
                 else
                 {
-                    returnedFilesAndFolders.Add(new ImagelistItem("../PM_Studio_Core/Images/Folder.png", FilesAndFolders[i].ItemName));
+                    returnedFilesAndFolders.Add(new ImagelistItem("pack://application:,,,/PM_Studio_Windows;component/Images/Folder.png", FilesAndFolders[i].ItemName));
                 }
             }
             //Set the current path to the previous folder path(which is stored in the FileManger Class)

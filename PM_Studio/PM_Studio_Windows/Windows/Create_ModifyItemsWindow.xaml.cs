@@ -1,14 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace PM_Studio
 {
@@ -29,13 +20,25 @@ namespace PM_Studio
 
                 lbDataField3.Visibility = Visibility.Hidden;
                 txtDataField3.Visibility = Visibility.Hidden;
+                DatePickersContainer.Visibility = Visibility.Hidden;
             }
 
             //If the Number of DataEntries was 2, show the TextBoxes and the Labels in the Top and the Bottom
             else if (DataEntriesNumber == 2)
             {
+                //Hide the Middle TextBox And Label
                 lbDataField2.Visibility = Visibility.Hidden;
                 txtDataField2.Visibility = Visibility.Hidden;
+
+                //Give the Middle Row a Height of 0 to prevent it from consuming space
+                MiddleRow.Height = new GridLength(0);
+
+                //Set the Vertical Alignment of the botton label to Top to make it match with the DatePickers
+                lbDataField3.VerticalAlignment = VerticalAlignment.Top;
+                //Decrease the Font size of the bottom label to make the text fit with the date pickers size
+                lbDataField3.FontSize = 16;
+                //Add some Margin to the Top textbox to give it a good width and height
+                txtDataField1.Margin = new Thickness(5,30,5,30);
             }
 
             //If the Number of DataEntries was 3, Do nothing
@@ -45,7 +48,7 @@ namespace PM_Studio
             }
             //Set the Visibilty of the DatePicker to False by default
             IsDatePickerVisible = false;
-            
+
         }
 
         #region Properties
@@ -151,15 +154,19 @@ namespace PM_Studio
             }
             set
             {
-                if(value == true)
+                if(DatePickersContainer.Visibility != Visibility.Visible || txtDataField3.Visibility != Visibility.Visible)
                 {
-                    DatePickersContainer.Visibility = Visibility.Visible;
-                    txtDataField3.Visibility = Visibility.Hidden;
-                }
-                else
-                {
-                    DatePickersContainer.Visibility = Visibility.Hidden;
-                    txtDataField3.Visibility = Visibility.Visible;
+                    if (value == true)
+                    {
+                        DatePickersContainer.Visibility = Visibility.Visible;
+                        txtDataField3.Visibility = Visibility.Hidden;
+                    }
+                    else
+                    {
+                        DatePickersContainer.Visibility = Visibility.Hidden;
+                        txtDataField3.Visibility = Visibility.Visible;
+                    }
+
                 }
             }
         }
@@ -198,36 +205,51 @@ namespace PM_Studio
 
         private void btnOK_Click(object sender, RoutedEventArgs e)
         {
-            //If the DatePickers were Visible, do the Date Checking
-            if(IsDatePickerVisible == true)
+            //If the DatePickers were Visible, do the Data and the Date Checking
+            if (IsDatePickerVisible == true)
             {
-                //If the End Date was Earilier than the Start Date, Show an Error Message
-                if (DateTime.Compare(StartDate, EndDate) > 0)
+                //If there Was missing Data, show an Error
+                if (String.IsNullOrEmpty(txtDataField1.Text) || dpStartDate.SelectedDate.Value == null || dpEndDate.SelectedDate.Value == null)
                 {
-                    MessageBox.Show("The Starting Date of the Task must Be Before the Finishing Date");
+                    MessageBox.Show("Please fill All the Data in the Window");
                     return;
                 }
+                //else, Do the Date checking
                 else
                 {
-                    //If the Start date was Earilier than Today, Display Another Error Message
-                    if (DateTime.Compare(DateTime.Now, StartDate) >= 0)
+                    //If the End Date was Earilier than the Start Date, Show an Error Message
+                    if (DateTime.Compare(StartDate, EndDate) > 0)
                     {
-                        MessageBox.Show("The Starting Date Cannot Be Earlier than Today");
+                        MessageBox.Show("The Starting Date of the Task must Be Before the Finishing Date");
                         return;
                     }
-                    //If not, Set the Dialog Result to Ok and Close the Form
                     else
                     {
-                        //Set the Dialog Result of the Form to Ok
-                        this.DialogResult = true;
+                        ////If the Start date was Earilier than Today, Display Another Error Message
+                        //if (DateTime.Compare(DateTime.Now, StartDate) >= 0)
+                        //{
+                        //    MessageBox.Show("The Starting Date Cannot Be Earlier than Today");
+                        //    return;
+                        //}
+                        ////If not, Set the Dialog Result to Ok and Close the Form
+                        //else
+                        //{
+                            //Set the Dialog Result of the Form to Ok
+                            this.DialogResult = true;
+                        //}
                     }
-
                 }
+
             }
-            
-            
+            else
+            {
+                //Set the Dialog Result of the Form to Ok
+                this.DialogResult = true;
+            }
+
+
         }
 
-       
+
     }
 }

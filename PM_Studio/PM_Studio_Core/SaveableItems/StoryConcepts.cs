@@ -7,6 +7,7 @@ namespace PM_Studio
     [Serializable]
     public class StoryConcepts
     {
+        public string fileName { get; set; }
         public string[] StoryTypes { get; set; }
         public string StoryIdea { get; set; }
         public string PlotTwists { get; set; }

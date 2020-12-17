@@ -49,6 +49,7 @@
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -62,7 +63,7 @@
                     Background="#3E3E42" Foreground="WhiteSmoke"
                         Grid.Row="1" Margin="0,10,0,10" Click="TabButton_Click" Grid.ColumnSpan="2" Uid="0">
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="/PM_Studio_Core;component/Images/Shedule.png" Width="50"/>
+                        <Image Source="pack://application:,,,/PM_Studio_Core;component/Images/Algorithm.png" Width="50"/>
                         <TextBlock Text="Algorithm" VerticalAlignment="Center" x:Name="btnAlgorithmText" FontSize="17"/>
                     </StackPanel>
                 </ToggleButton>
@@ -73,7 +74,7 @@
                     Background="#3E3E42" Foreground="WhiteSmoke"
                         Grid.Row="2" Margin="0,10,0,10" Click="TabButton_Click" Grid.ColumnSpan="2" Uid="1">
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="/PM_Studio_Core;component/Resources/Images/Shedule.png" Width="50"/>
+                        <Image Source="pack://application:,,,/PM_Studio_Core;component/Images/Shedule.png" Width="50"/>
                         <TextBlock Text="Shedule" VerticalAlignment="Center" x:Name="btnSheduleText" FontSize="17"/>
                     </StackPanel>
                 </ToggleButton>
@@ -81,9 +82,13 @@
                 <ToggleButton x:Name="btnTeam" Content="Team" BorderThickness="0"
                     Background="#3E3E42" Foreground="WhiteSmoke"
                         Grid.Row="3" Margin="0,10,0,10" Click="TabButton_Click" Grid.ColumnSpan="2" Uid="2" FontSize="17"/>
-                <ToggleButton x:Name="btnPublish" Content="Publish" BorderThickness="0"
+                <ToggleButton x:Name="btnStages" Content="Stages" BorderThickness="0"
                     Background="#3E3E42" Foreground="WhiteSmoke"
                         Grid.Row="4" Margin="0,10,0,10" Click="TabButton_Click" Grid.ColumnSpan="2" Uid="3" FontSize="17"/>
+                
+                <ToggleButton x:Name="btnPublish" Content="Publish" BorderThickness="0"
+                    Background="#3E3E42" Foreground="WhiteSmoke"
+                        Grid.Row="5" Margin="0,10,0,10" Click="TabButton_Click" Grid.ColumnSpan="2" Uid="4" FontSize="17"/>
 
             </Grid>
             <!--End Left Side Menu-->

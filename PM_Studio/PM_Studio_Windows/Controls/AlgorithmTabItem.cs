@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Windows;
 using System.Windows.Controls;
 
 namespace PM_Studio
@@ -133,8 +131,8 @@ namespace PM_Studio
 
         public override void SaveFile()
         {
-            //Get the current path of the file,(was saved before in the tab tag)
-            string CurrentPath = this.Tag.ToString();  
+            //Get the current path of the file
+            string CurrentPath = FilePath;
 
             //Make a new algorithm class based on the new data in the file
             Algorithm algorithm = new Algorithm()

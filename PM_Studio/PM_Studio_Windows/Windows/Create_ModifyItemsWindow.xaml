@@ -18,7 +18,7 @@
         <Grid Grid.Row="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="*" x:Name="MiddleRow"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
@@ -57,9 +57,9 @@
             <StackPanel Grid.Column="1" Grid.Row="2" x:Name="DatePickersContainer">
                 <DatePicker VerticalAlignment="Center" Background="#2D2D3D"
                          Foreground="#D2D2D4" x:Name="dpStartDate"
-                        Margin="0,5"/>
+                        Margin="0,0,0,7"/>
                 <DatePicker VerticalAlignment="Center" Background="#2D2D3D"
-                         Foreground="#D2D2D4" x:Name="dpEndDate"/>
+                         Foreground="#D2D2D4" x:Name="dpEndDate" Margin="0,9"/>
                         
             </StackPanel>
             

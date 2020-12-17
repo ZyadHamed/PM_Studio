@@ -8,7 +8,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\File.png" />
+    <None Remove="Images\Folder.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\PM_Studio_Core\PM_Studio_Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\File.png" />
+    <Resource Include="Images\Folder.png" />
   </ItemGroup>
 
 </Project>

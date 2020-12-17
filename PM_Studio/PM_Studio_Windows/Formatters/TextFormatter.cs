@@ -56,8 +56,9 @@ namespace PM_Studio
                 //If the Current Line contains only a step indicator without any text, then it's a Blank Line
                 //Then Set the selection start to the end of that Line
 
-                if (Regex.IsMatch(rtxtAlgorithm.Lines[CurrentLine], @"(\[\d*\])")) 
+                if (CurrentLine > 0 && Regex.IsMatch(rtxtAlgorithm.Lines[CurrentLine], @"(\[\d*\])")) 
                 {
+
                     //Set the Selection Start to the End of the blank Line
                     rtxtAlgorithm.SelectionStart = rtxtAlgorithm.GetFirstCharIndexFromLine(CurrentLine) + rtxtAlgorithm.Lines[CurrentLine].Length;
 

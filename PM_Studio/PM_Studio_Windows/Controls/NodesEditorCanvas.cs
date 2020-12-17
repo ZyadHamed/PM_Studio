@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Runtime.InteropServices;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -31,6 +30,7 @@ namespace PM_Studio
         {
             this.MouseDown += NodesEditorCanvas_MouseDown;
             this.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#2E292C"));
+            this.Height = 5000;
             SetContextMenu();
             Nodes = _nodes;
 
@@ -349,7 +349,7 @@ namespace PM_Studio
                 if(window.ShowDialog() == true)
                 {
                     CreateNewNodeBlock(window.txtDataField2Text);
-                    ((this.Parent as Grid).Parent as NodeEditorTabItem).IsSaved = false;
+                    (((this.Parent as Grid).Parent as ScrollViewer).Parent as NodeEditorTabItem).IsSaved = false;
                 }
 
             }

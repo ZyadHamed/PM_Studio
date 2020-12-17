@@ -22,7 +22,13 @@
             <TextBlock Grid.Row="0" Grid.Column="0" Text="Team Members:" Foreground="#D2D2D2"
                        FontSize="20"/>
         <ListView Grid.Row="1" Grid.Column="0" Background="#363A3D" SelectionMode="Single"
-                   x:Name="lstTeamMembers" SelectionChanged="lstTeamMembers_SelectionChanged"/>
+                   x:Name="lstTeamMembers" SelectionChanged="lstTeamMembers_SelectionChanged">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                </Style>
+            </ListView.ItemContainerStyle>
+        </ListView>
         
         <!--End Team Members Overview Region-->
         

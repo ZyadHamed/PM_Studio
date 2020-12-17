@@ -3,7 +3,7 @@
 namespace PM_Studio
 {
     [Serializable]
-    public class Feature
+    public class BugToFix
     {
         public string Header { get; set; }
         public string Description { get; set; }

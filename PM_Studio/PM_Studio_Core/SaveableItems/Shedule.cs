@@ -8,6 +8,7 @@ namespace PM_Studio
     public class Shedule
     {
 
+        public string Name { get; set; }
         public List<Task> Tasks { get; set; }
 
     }

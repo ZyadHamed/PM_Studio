@@ -139,6 +139,10 @@ namespace PM_Studio
                 //Reset the Position of the Lines of the control
                 SetArrowsPostion();
 
+                Node.X = Canvas.GetLeft((TextBlock)sender);
+                Node.Y = Canvas.GetTop((TextBlock)sender);
+
+                ((((this.Parent as NodesEditorCanvas).Parent as Grid).Parent as ScrollViewer).Parent as NodeEditorTabItem).IsSaved = false;
             }
         }
 

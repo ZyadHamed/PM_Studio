@@ -8,12 +8,14 @@ namespace PM_Studio
     class NodeEditorTabItem : FileTabItem
     {
         NodesEditorCanvas Canvas;
+        ScrollViewer scrollViewer = new ScrollViewer();
 
         #region Constructor
 
         public NodeEditorTabItem(TabControl tabControl, string filePath, NodeSystem _nodeSystem) : base(tabControl, _nodeSystem.fileName, filePath)
         {
             this.KeyDown += NodeEditorTabItem_KeyDown;
+
             //Define a new grid to be the container of the Items
             Grid Container = new Grid();
 
@@ -22,8 +24,9 @@ namespace PM_Studio
             //Add the Nodes Canvas to that grid
             Container.Children.Add(Canvas);
 
+            scrollViewer.Content = Container;
             //Add the Grid to the TabItem
-            this.AddChild(Container);
+            this.AddChild(scrollViewer);
 
             this.Focus();
 

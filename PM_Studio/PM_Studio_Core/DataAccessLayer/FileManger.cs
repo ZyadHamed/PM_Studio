@@ -140,14 +140,14 @@ namespace PM_Studio
                     for (int i = 0; i < files.Length; i++)
                     {
 
-                        await Task.Run(() => FilesAndFolders.Add(("File", files[i].Name)));
+                        await System.Threading.Tasks.Task.Run(() => FilesAndFolders.Add(("File", files[i].Name)));
 
                     }
 
                     for (int i = 0; i < folders.Length; i++)
                     {
 
-                        await Task.Run(() => FilesAndFolders.Add(("Folder", folders[i].Name)));
+                        await System.Threading.Tasks.Task.Run(() => FilesAndFolders.Add(("Folder", folders[i].Name)));
 
                     }
 
@@ -194,12 +194,12 @@ namespace PM_Studio
 
         public ObservableCollection<(string ItemType, string ItemName)> GoBack()
         {
-            RemoveBackSlash();
+            
 
             //check if the path is not a path of a Drive or a parition
-
             if (filePath != "" && filePath != null && filePath.Length > 3)
             {
+                RemoveBackSlash();
                 //Remove the last folder from the path
                 filePath = filePath.Substring(0, filePath.LastIndexOf(@"\"));
                 //set the IsFile to false

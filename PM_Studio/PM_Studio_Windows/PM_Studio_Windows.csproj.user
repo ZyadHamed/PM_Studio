@@ -10,12 +10,48 @@
     <Compile Update="Pages\AlgorithmEditor.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Pages\PublishManger.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Pages\SheduleManger.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Pages\StagePage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Pages\StagesManger.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Pages\TeamManger.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Windows\Create_ModifyItemsWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="MainWindow.xaml">
+    <Page Update="IconsDictionary.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Pages\AlgorithmEditor.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Pages\PublishManger.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Pages\SheduleManger.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Pages\StagePage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Pages\StagesManger.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Pages\TeamManger.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Windows\Create_ModifyItemsWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

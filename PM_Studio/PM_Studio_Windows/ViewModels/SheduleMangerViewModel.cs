@@ -35,13 +35,13 @@ namespace PM_Studio
             List<TaskBlock> taskBlocks = new List<TaskBlock>();
             
             //Loop inside each task in the current shedule
-            foreach(Task task in Shedule.Tasks)
+            foreach (Task task in Shedule.Tasks)
             {
                 //Create a TaskBlock Based on that task
                 TaskBlock taskBlock = new TaskBlock(task);
                 //Add that TaskBlock to the List
                 taskBlocks.Add(taskBlock);
-                
+
             }
             //Save the Current Data of the Tasks(Will take affect when the Progress of a Task Changes)
             SaveSheduleData();

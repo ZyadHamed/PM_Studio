@@ -11,7 +11,19 @@
     <Grid>
         
         <TreeView ScrollViewer.HorizontalScrollBarVisibility="Disabled" Background="#2D2D30" Margin="20,0,0,0" Visibility="Hidden" x:Name="tvTasks">
-
+            <TreeView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Edit Task" Background="#404247"
+                              Foreground="#D2D2D4" Click="menuItem_Click"
+                              x:Name="menuItemEditTask"/>
+                    <MenuItem Header="Delete Task" Background="#404247"
+                              Foreground="#D2D2D4" Click="menuItem_Click"
+                              x:Name="menuItemDeleteTask"/>
+                    <MenuItem Header="Mark Task as Done" Background="#404247" 
+                              Foreground="#D2D2D4" Click="menuItem_Click"
+                              x:Name="menuItemMarkTask"/>
+                </ContextMenu>
+            </TreeView.ContextMenu>
             <TreeViewItem Header="Upcoming Tasks" x:Name="tviUpcomingTasks" Foreground="#D2D2D2">
                 <TreeViewItem.ItemsPanel>
                     <ItemsPanelTemplate>

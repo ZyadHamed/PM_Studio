@@ -19,12 +19,17 @@ namespace PM_Studio
         #endregion
 
         #region Constructor
-        public FileTabItem(TabControl TabControl, string Header = "", string FilePath = "")
+        public FileTabItem(TabControl TabControl, string Header = "", string filePath = "")
         {
             //Set the tabControl field to the incoming TabControl
             tabControl = TabControl;
+
+            //Set the FilePath Property to the incoming filePath
+            FilePath = filePath;
+
             //Set the tabControl Paramerter of the SaveLoadSystemViewModel to tabControl
             saveLoadSystemViewModel = new SaveLoadSystemViewModel(tabControl);
+
             //Set the properties of the closing button
             closeButton.Content = "X";
             closeButton.BorderThickness = new System.Windows.Thickness(0);
@@ -40,8 +45,7 @@ namespace PM_Studio
 
             //Set the header of the tab to the incoming header, and the tag to the file path
             this.Header = tabHeader;
-            this.Tag = FilePath;
-
+            
 
         }
 
@@ -74,6 +78,7 @@ namespace PM_Studio
                 {
                     tabControl.Items.Remove(this);
                 }
+
             }
             //If the file Is already saved, Close the tab
             else
@@ -116,17 +121,27 @@ namespace PM_Studio
                 //If the Incoming value was true, Remove the Unsaved Star from the Header
                 if (isSaved == true)
                 {
-                    HeaderText = HeaderText.Remove(HeaderText.Length - 1);
+                    if (HeaderText[HeaderText.Length - 1] == '*')
+                    {
+                        HeaderText = HeaderText.Remove(HeaderText.Length - 1);
+                    }
+
                 }
 
                 //Else, then the incoming value is false, then add an Unsaved Star to the Header
                 else
                 {
-                    HeaderText += "*";
+                    if(HeaderText[HeaderText.Length - 1] != '*')
+                    {
+                        HeaderText += "*";
+                    }
+
                 }
                 
             }
         }
+
+        public string FilePath { get; set; }
 
         #endregion
 

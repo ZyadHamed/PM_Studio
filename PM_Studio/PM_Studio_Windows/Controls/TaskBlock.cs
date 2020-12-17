@@ -152,9 +152,7 @@ namespace PM_Studio
         }
 
         #endregion
-
-        
-       
+   
         #region Properties
 
         /// <summary>

@@ -6,12 +6,13 @@ using System.Windows.Media;
 
 namespace PM_Studio
 {
-    public class FeatureBlock : DockPanel
+    public class FeatureBlock : Border
     {
 
         #region Designing Variables
-
-        TextBlock lbFeatureText = new TextBlock();
+        DockPanel Container = new DockPanel();
+        TextBlock lbFeatureHeader = new TextBlock();
+        TextBlock lbFeatureDescription = new TextBlock();
         Button btnMore = new Button();
         ContextMenu menu = new ContextMenu();
         MenuItem EditFeatureMenuItem = new MenuItem();
@@ -25,7 +26,6 @@ namespace PM_Studio
 
         #endregion
 
-
         #region Constructor
 
         public FeatureBlock(Feature _feature)
@@ -36,6 +36,7 @@ namespace PM_Studio
             this.MouseEnter += FeatureBlock_MouseEnter;
             this.MouseLeave += FeatureBlock_MouseLeave;
             SetControlsProperties();
+            SetControlsData();
         }
 
         #endregion
@@ -45,9 +46,15 @@ namespace PM_Studio
         void SetControlsProperties()
         {
 
-            lbFeatureText.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#EBEBEB"));
-            lbFeatureText.FontSize = 20;
-            lbFeatureText.Text = "Something";
+            lbFeatureHeader.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#EBEBEB"));
+            lbFeatureHeader.FontSize = 20;
+            //lbFeatureHeader.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
+            lbFeatureHeader.VerticalAlignment = System.Windows.VerticalAlignment.Top;
+
+            lbFeatureDescription.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#EBEBEB"));
+            lbFeatureDescription.FontSize = 15;
+            //lbFeatureDescription.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
+            lbFeatureDescription.VerticalAlignment = System.Windows.VerticalAlignment.Bottom;
 
             btnMore.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#332F2E"));
             btnMore.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#CCCCCC"));
@@ -60,11 +67,21 @@ namespace PM_Studio
             menu.Items.Add(EditFeatureMenuItem);
             menu.Items.Add(DeleteFeatureMenuItem);
 
-            this.Children.Add(lbFeatureText);
-            this.Children.Add(btnMore);
+            Container.LastChildFill = false;
+            Container.Children.Add(lbFeatureHeader);
+            Container.Children.Add(lbFeatureDescription);
+            Container.Children.Add(btnMore);
 
             btnMore.HorizontalAlignment = System.Windows.HorizontalAlignment.Right;
-            btnMore.VerticalAlignment = System.Windows.VerticalAlignment.Center;
+            btnMore.VerticalContentAlignment = System.Windows.VerticalAlignment.Center;
+            btnMore.Margin = new System.Windows.Thickness(20,0,0,30);
+
+            this.Child = Container;
+            this.CornerRadius = new System.Windows.CornerRadius(4);
+            this.BorderThickness = new System.Windows.Thickness(2);
+            this.BorderBrush = Brushes.LightGray;
+            this.Padding = new System.Windows.Thickness(5);
+            this.Margin = new System.Windows.Thickness(5,10,5,10);
 
         }
 
@@ -74,7 +91,8 @@ namespace PM_Studio
 
         void SetControlsData()
         {
-
+            lbFeatureHeader.Text = Feature.Header;
+            lbFeatureDescription.Text = Feature.Description;
         }
 
         #endregion
@@ -89,7 +107,7 @@ namespace PM_Studio
         private void FeatureBlock_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
             btnMore.Visibility = System.Windows.Visibility.Visible;
-            this.Background = Brushes.Green;
+            this.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#3D3837"));
         }
 
         private void FeatureBlock_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
@@ -112,6 +130,7 @@ namespace PM_Studio
             set
             {
                 feature = value;
+                SetControlsData();
             }
         }
 
