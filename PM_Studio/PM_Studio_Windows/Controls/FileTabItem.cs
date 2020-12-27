@@ -6,21 +6,33 @@ namespace PM_Studio
     class FileTabItem : TabItem
     {
         #region Variables
+
         private bool isSaved = true;
 
-
-        public SaveLoadSystemViewModel saveLoadSystemViewModel;
-
-        public StackPanel tabHeader = new StackPanel();
-        public TextBlock headerText = new TextBlock();
-        public Button closeButton = new Button();
-        public TabControl tabControl;
+        protected SaveLoadSystemViewModel saveLoadSystemViewModel;
+        protected StackPanel tabHeader = new StackPanel();
+        protected TextBlock headerText = new TextBlock();
+        protected Button closeButton = new Button();
+        protected TabControl tabControl;
+        protected Grid Container = new Grid();
+        protected StackPanel buttonsBar = new StackPanel();
 
         #endregion
 
         #region Constructor
+
         public FileTabItem(TabControl TabControl, string Header = "", string filePath = "")
         {
+            //Add two rows for the container Grid, one for the buttonsBar, and the other for the TabItem Contents themselves
+            Container.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(1, GridUnitType.Auto) });
+            Container.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(1, GridUnitType.Star) });
+
+            //Set the Properties of the buttonsBar and add it to the contanier
+            buttonsBar.Orientation = Orientation.Horizontal;
+            buttonsBar.Background = new System.Windows.Media.SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#2D2D30"));
+            Container.Children.Add(buttonsBar);
+            Grid.SetRow(buttonsBar, 0);
+
             //Set the tabControl field to the incoming TabControl
             tabControl = TabControl;
 
@@ -45,10 +57,11 @@ namespace PM_Studio
 
             //Set the header of the tab to the incoming header, and the tag to the file path
             this.Header = tabHeader;
+
+            //Set the child of the tabItem to the Container
+            this.AddChild(Container);
             
-
         }
-
 
         #endregion
 
