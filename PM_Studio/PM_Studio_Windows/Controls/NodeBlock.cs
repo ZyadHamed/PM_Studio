@@ -16,6 +16,7 @@ namespace PM_Studio
         private Arrow toArrow;
         private bool isSelected = false;
         private Node node;
+
         #endregion
 
         #region Constructor
@@ -31,7 +32,10 @@ namespace PM_Studio
             this.MouseMove += Node_MouseMove;
             this.MouseUp += Node_MouseUp;
             SetArrowsPostion();
+
             
+
+
         }
 
         #endregion
@@ -142,7 +146,7 @@ namespace PM_Studio
                 Node.X = Canvas.GetLeft((TextBlock)sender);
                 Node.Y = Canvas.GetTop((TextBlock)sender);
 
-                ((((this.Parent as NodesEditorCanvas).Parent as Grid).Parent as ScrollViewer).Parent as NodeEditorTabItem).IsSaved = false;
+                (((((this.Parent as NodesEditorCanvas).Parent as Grid).Parent as ScrollViewer).Parent as Grid).Parent as NodeEditorTabItem).IsSaved = false;
             }
         }
 
