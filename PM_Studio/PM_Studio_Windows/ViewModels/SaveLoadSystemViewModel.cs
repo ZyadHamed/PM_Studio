@@ -118,6 +118,15 @@ namespace PM_Studio
             return SaveLoadSystem.LoadData<Shedule>(sheduleFilePath);
         }
 
+        /// <summary>
+        /// Returns the stages in a stages file in a given path
+        /// </summary>
+        /// <param name="stagesFilePath">the stages filepath</param>
+        /// <returns></returns>
+        public List<Stage> GetStages(string stagesFilePath)
+        {
+            return SaveLoadSystem.LoadData<List<Stage>>(stagesFilePath);
+        }
 
         #endregion
 
@@ -209,6 +218,20 @@ namespace PM_Studio
 
             //Save that Shedule in the Given Path
             Save(filePath + shedule.Name, shedule);
+        }
+
+        /// <summary>
+        /// Creates an empty stages file in a given path
+        /// </summary>
+        /// <param name="filepath">the file path</param>
+        /// <param name="StagesFileName">The name of the file</param>
+        public void CreateStagesFile(string filepath, string StagesFileName)
+        {
+            //Create an empty list of stages
+            List<Stage> Stages = new List<Stage>();
+
+            //Save that list in the given path
+            Save(filepath + StagesFileName, Stages);
         }
 
         #endregion
