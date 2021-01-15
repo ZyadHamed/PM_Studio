@@ -7,7 +7,7 @@ using System.Windows.Media;
 
 namespace PM_Studio
 {
-    class StageBlock : Border
+    public class StageBlock : Border
     {
 
         #region Designing Variables
