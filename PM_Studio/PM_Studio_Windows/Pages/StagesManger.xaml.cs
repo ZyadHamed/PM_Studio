@@ -18,16 +18,29 @@ namespace PM_Studio
     /// </summary>
     public partial class StagesManger : Page
     {
+        StageMangerViewModel stageMangerViewModel = new StageMangerViewModel(@"E:\Stages2.pmstage");
         public StagesManger()
         {
             InitializeComponent();
-            lstReleasedVerticalView.Items.Add(new StageBlock(new Stage() 
-            {
-                StageType = "Beta",
-                Version = "1.2.5",
-                StartDate = DateTime.Parse("5/25/2021"),
-                EndDate = DateTime.Parse("6/25/2021")
-            }));
+
+            //This Sample code was used to test the AddStage method
+            //stageMangerViewModel.AddStage(new Stage 
+            //{
+            //    StageType = "In Progress",
+            //    Version = "1.2.5",
+            //    StartDate = DateTime.Parse("5/25/2021"),
+            //    EndDate = DateTime.Parse("6/25/2021")
+            //});
+            UpdateListViews();
         }
+
+        void UpdateListViews()
+        {
+            
+            lstUpcomingVerticalView.ItemsSource = stageMangerViewModel.UpcomingStages;
+            lstInProgressVerticalView.ItemsSource = stageMangerViewModel.InProgressStages;
+            lstReleasedVerticalView.ItemsSource = stageMangerViewModel.DoneStages;
+        }
+
     }
 }
