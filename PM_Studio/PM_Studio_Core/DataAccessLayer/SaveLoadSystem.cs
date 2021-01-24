@@ -42,15 +42,25 @@ namespace PM_Studio
             //Intialize a SecurityManger Class which will be responsible for decryption of data
             SecurityManger securityManger = new SecurityManger();
 
-            //Decrypt the text in the file
-            securityManger.DecryptFile(filePath);
-
-            //Return the binary data in that file as a class
-            using (FileStream stream = new FileStream(filePath, FileMode.Open))
+            try
             {
-                BinaryFormatter formatter = new BinaryFormatter();
-                return (T)formatter.Deserialize(stream);
+                //Decrypt the text in the file
+                securityManger.DecryptFile(filePath);
             }
+            catch(Exception ex)
+            {
+
+            }
+
+                //Return the binary data in that file as a class
+                using (FileStream stream = new FileStream(filePath, FileMode.Open))
+                {
+                    BinaryFormatter formatter = new BinaryFormatter();
+                    return (T)formatter.Deserialize(stream);
+                }
+            
+
+
         }
 
         #endregion
