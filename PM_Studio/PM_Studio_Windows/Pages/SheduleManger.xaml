@@ -62,11 +62,12 @@
         </TreeView>
 
         <Grid x:Name="NoSheduleGrid" Visibility="Hidden">
-            <DockPanel>
+            <StackPanel VerticalAlignment="Center">
                 <TextBlock Text="Ooops, Looks Like you do not have a Shedule yet, Do you want to Create one?" FontSize="20"
                            Foreground="WhiteSmoke" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                <Button Content="Create Shedule" DockPanel.Dock="Bottom" FontSize="15" Height="40"/>
-            </DockPanel>
+                <Button Content="Create Shedule" FontSize="15" Height="40" Width="200" Margin="0,20,0,0"
+                        x:Name="btnCreateShedule" Click="btnCreateShedule_Click"/>
+            </StackPanel>
         </Grid>
         
     </Grid>
