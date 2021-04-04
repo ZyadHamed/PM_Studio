@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -14,6 +15,7 @@ namespace PM_Studio
         private bool isGridVisible = false;
         private List<Node> nodes;
 
+        Point mouseDownLocation;
         #endregion
 
         #region Designing Variables
@@ -29,13 +31,18 @@ namespace PM_Studio
         public NodesEditorCanvas(List<Node> _nodes)
         {
             this.MouseDown += NodesEditorCanvas_MouseDown;
+            this.MouseMove += NodesEditorCanvas_MouseMove;
+
             this.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#2E292C"));
             this.Height = 5000;
+            this.Width = 5000;
             SetContextMenu();
             Nodes = _nodes;
 
             FillCanvasFromList(Nodes);
         }
+
+        
 
         #endregion
 
@@ -336,8 +343,27 @@ namespace PM_Studio
                     }
 
                 }
+                
             }
 
+            if (e.ChangedButton == MouseButton.Right)
+            {
+                mouseDownLocation = e.GetPosition(this);
+            }
+        }
+
+        private void NodesEditorCanvas_MouseMove(object sender, MouseEventArgs e)
+        {
+            if(e.RightButton == MouseButtonState.Pressed)
+            {
+                ScrollViewer parentViewer = ((this.Parent as Grid).Parent as ScrollViewer);
+                parentViewer.ScrollToHorizontalOffset(((parentViewer.ScrollableWidth / 5000) * e.GetPosition(this).X) * 0.25 /*+ parentViewer.HorizontalOffset - mouseDownLocation.X*/);
+                parentViewer.ScrollToVerticalOffset(((parentViewer.ScrollableHeight / 5000) * e.GetPosition(this).Y ) * 0.25 /*+ parentViewer.VerticalOffset - mouseDownLocation.Y*/);
+                double height = parentViewer.ScrollableHeight;
+                //MessageBox.Show(parentViewer.VerticalOffset.ToString());
+                //MessageBox.Show(parentViewer.VerticalOffset.ToString());
+
+            }
         }
 
         private void MenuItem_Click(object sender, System.Windows.RoutedEventArgs e)
@@ -345,10 +371,10 @@ namespace PM_Studio
             if ((sender as MenuItem).Header.ToString() == "New Node")
             {
                 Create_ModifyItemsWindow window = new Create_ModifyItemsWindow(1);
-                window.lbDataField2Text = "Node Text: ";
+                window.lbDataField1Text = "Node Text: ";
                 if(window.ShowDialog() == true)
                 {
-                    CreateNewNodeBlock(window.txtDataField2Text);
+                    CreateNewNodeBlock(window.txtDataField1Text);
                     (((this.Parent as Grid).Parent as ScrollViewer).Parent as NodeEditorTabItem).IsSaved = false;
                 }
 
@@ -370,8 +396,6 @@ namespace PM_Studio
         }
 
         #endregion
-
-
 
         #region Properties
 

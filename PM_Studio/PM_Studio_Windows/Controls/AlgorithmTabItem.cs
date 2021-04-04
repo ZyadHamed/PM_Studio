@@ -163,7 +163,7 @@ namespace PM_Studio
         private void btnConvertAlgorithmToNodeSystem_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             Create_ModifyItemsWindow window = new Create_ModifyItemsWindow(1);
-            window.lbDataField2Text = "NodeSystem Name: ";
+            window.lbDataField1Text = "NodeSystem Name: ";
 
             if(window.ShowDialog() == true)
             {
@@ -208,7 +208,7 @@ namespace PM_Studio
 
                 //Create a node system based on that list and the name that the user entered in the window
                 NodeSystem nodeSystem = new NodeSystem();
-                nodeSystem.fileName = window.txtDataField2Text + ".pmnodes";
+                nodeSystem.fileName = window.txtDataField1Text + ".pmnodes";
                 nodeSystem.Nodes = nodes;
 
                 //Create a nodesystem file using that nodesystem
