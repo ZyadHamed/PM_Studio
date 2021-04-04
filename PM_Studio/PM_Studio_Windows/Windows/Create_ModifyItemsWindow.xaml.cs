@@ -8,46 +8,59 @@ namespace PM_Studio
     /// </summary>
     public partial class Create_ModifyItemsWindow : Window
     {
-        public Create_ModifyItemsWindow(int DataEntriesNumber)
+        
+        public Create_ModifyItemsWindow(int DataEntriesNumber, bool IsDateTimePickerVisible = false)
         {
             InitializeComponent();
-
-            //If the Number of DataEntries was 1, show only the TextBox and the Label in the Middle
+            IsDatePickerVisible = IsDateTimePickerVisible;
+            //If the Number of DataEntries was 1, show only the TextBox and the Label in the Middle and hide the rest
             if (DataEntriesNumber == 1)
             {
-                lbDataField1.Visibility = Visibility.Hidden;
-                txtDataField1.Visibility = Visibility.Hidden;
+                lbDataField2.Visibility = Visibility.Collapsed;
+                txtDataField2.Visibility = Visibility.Collapsed;
 
-                lbDataField3.Visibility = Visibility.Hidden;
-                txtDataField3.Visibility = Visibility.Hidden;
-                DatePickersContainer.Visibility = Visibility.Hidden;
+                lbDataField3.Visibility = Visibility.Collapsed;
+                txtDataField3.Visibility = Visibility.Collapsed;
+                DatePickersContainer.Visibility = Visibility.Collapsed;
             }
 
-            //If the Number of DataEntries was 2, show the TextBoxes and the Labels in the Top and the Bottom
+            //If the Number of DataEntries was 2
             else if (DataEntriesNumber == 2)
             {
-                //Hide the Middle TextBox And Label
-                lbDataField2.Visibility = Visibility.Hidden;
-                txtDataField2.Visibility = Visibility.Hidden;
+                //If the DateTimePicker boolean was true, show the datetime pickers and hide the text box
+                if(IsDateTimePickerVisible == true) 
+                {
+                    txtDataField3.Visibility = Visibility.Collapsed;
+                    lbDataField2.Visibility = Visibility.Collapsed;
+                    txtDataField2.Visibility = Visibility.Collapsed;
 
-                //Give the Middle Row a Height of 0 to prevent it from consuming space
-                MiddleRow.Height = new GridLength(0);
+                }
 
-                //Set the Vertical Alignment of the botton label to Top to make it match with the DatePickers
-                lbDataField3.VerticalAlignment = VerticalAlignment.Top;
-                //Decrease the Font size of the bottom label to make the text fit with the date pickers size
-                lbDataField3.FontSize = 16;
-                //Add some Margin to the Top textbox to give it a good width and height
-                txtDataField1.Margin = new Thickness(5,30,5,30);
+                //If the DateTimePicker boolean was false, hide the datetime pickers and show the text box
+                else
+                {
+                    txtDataField3.Visibility = Visibility.Collapsed;
+                    lbDataField3.Visibility = Visibility.Collapsed;
+                    DatePickersContainer.Visibility = Visibility.Collapsed;
+                }
             }
 
-            //If the Number of DataEntries was 3, Do nothing
+            //If the Number of DataEntries was 3
             else if (DataEntriesNumber == 3)
             {
+                //If the DateTimePicker boolean was true, show the datetime pickers and hide the text box
+                if (IsDateTimePickerVisible == true)
+                {
+                    txtDataField3.Visibility = Visibility.Collapsed;
 
+                }
+
+                //If the DateTimePicker boolean was false, hide the datetime pickers and show the text box
+                else
+                {
+                    DatePickersContainer.Visibility = Visibility.Collapsed;
+                }
             }
-            //Set the Visibilty of the DatePicker to False by default
-            IsDatePickerVisible = false;
 
         }
 
@@ -144,34 +157,6 @@ namespace PM_Studio
         }
 
         /// <summary>
-        /// The Bool which indicates wheather the DatePickers are Visible or not
-        /// </summary>
-        public bool IsDatePickerVisible
-        {
-            get
-            {
-                return DatePickersContainer.Visibility == Visibility.Visible;
-            }
-            set
-            {
-                if(DatePickersContainer.Visibility != Visibility.Visible || txtDataField3.Visibility != Visibility.Visible)
-                {
-                    if (value == true)
-                    {
-                        DatePickersContainer.Visibility = Visibility.Visible;
-                        txtDataField3.Visibility = Visibility.Hidden;
-                    }
-                    else
-                    {
-                        DatePickersContainer.Visibility = Visibility.Hidden;
-                        txtDataField3.Visibility = Visibility.Visible;
-                    }
-
-                }
-            }
-        }
-
-        /// <summary>
         /// The Start Date of the Task
         /// </summary>
         public DateTime StartDate
@@ -201,6 +186,7 @@ namespace PM_Studio
             }
         }
 
+        bool IsDatePickerVisible { get; set; }
         #endregion
 
         private void btnOK_Click(object sender, RoutedEventArgs e)
