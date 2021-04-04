@@ -9,6 +9,7 @@ It's still under devoulpment though, so make sure to stay updated till full rele
 6. **Make a shedule to manage the Days of work to finish all the algorithms,Ideas,Concepts you have made first**
 7. **Export your full project in a readable PDF and show it to your team, your manger, your companyn etc**
 
+Edit: PM_Studio has finally reached the end of version 1, some bits needs to be added and polished and the version will be officially released, stay tuned :)
 **More is coming soon, Stay Tuned!**<br><br><br>
 **Dependencies:**<br>
 iText7 package for PDF Creating , link: https://www.nuget.org/packages/itext7/7.0.3-netstandard<br>
