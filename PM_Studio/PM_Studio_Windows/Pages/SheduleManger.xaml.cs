@@ -24,7 +24,7 @@ namespace PM_Studio
         SheduleMangerViewModel sheduleMangerViewModel;
         SaveLoadSystemViewModel saveLoadSystemViewModel = new SaveLoadSystemViewModel(null);
         //Button btnAddTask = new Button();
-
+            
         #region Constructor
 
         public SheduleManger()
@@ -107,16 +107,13 @@ namespace PM_Studio
                 if ((e.Source as MenuItem).Name == "menuItemEditTask")
                 {
                     //Create a CreatingItem Window with 2 Data Fields(The Task Title and The Task Duration)
-                    Create_ModifyItemsWindow CreateWindow = new Create_ModifyItemsWindow(2);
+                    Create_ModifyItemsWindow CreateWindow = new Create_ModifyItemsWindow(2, true);
 
                     //Set the First Label Text to Task Title
                     CreateWindow.lbDataField1Text = "Task Title: ";
 
                     //Set the Second Label Text to Task Duration
                     CreateWindow.lbDataField3Text = "Start Date: \nEndDate: ";
-
-                    //Make the IsDatePicker Property Visible so that the Second Data Entry Is a DatePicker
-                    CreateWindow.IsDatePickerVisible = true;
 
                     //Set the Title of the Window to Edit Task
                     CreateWindow.Title = "Edit Task";
@@ -175,13 +172,11 @@ namespace PM_Studio
         private void btnAddTask_Click(object sender, RoutedEventArgs e)
         {
             //Create a CreatingItem Window with 2 Data Fields(The Task Title and The Task Duration)
-            Create_ModifyItemsWindow CreateWindow = new Create_ModifyItemsWindow(2);
+            Create_ModifyItemsWindow CreateWindow = new Create_ModifyItemsWindow(2, true);
             //Set the First Label Text to Task Title
             CreateWindow.lbDataField1Text = "Task Title: ";
             //Set the Second Label Text to Task Duration
             CreateWindow.lbDataField3Text = "Start Date: \n\nEndDate: ";
-            //Make the IsDatePicker Property Visible so that the Second Data Entry Is a DatePicker
-            CreateWindow.IsDatePickerVisible = true;
             //Set the Title of the Window to Create New Task
             CreateWindow.Title = "Create New Task";
             //Show the Window as Dialog
@@ -204,10 +199,10 @@ namespace PM_Studio
         private void btnCreateShedule_Click(object sender, RoutedEventArgs e)
         {
             Create_ModifyItemsWindow window = new Create_ModifyItemsWindow(1);
-            window.lbDataField2Text = "Schedule Name: ";
+            window.lbDataField1Text = "Schedule Name: ";
             if(window.ShowDialog() == true)
             {
-                saveLoadSystemViewModel.CreateSheduleFile(@"E:\", window.txtDataField2Text);
+                saveLoadSystemViewModel.CreateSheduleFile(@"E:\", window.txtDataField1Text);
             }
             CheckShedule();
         }
