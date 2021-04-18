@@ -15,13 +15,11 @@ namespace PM_Studio
         /// Generates a PDF file Containing the Data of the Algorithms in the Project
         /// Code will be updated soon to include other types of files and include formatting for text
         /// </summary>
-        /// <param name="filePath">The Location to save the file in</param>
-        /// <param name="fileName">the Name of the Pdf file assosaied with an extesion of .pdf</param>
-        /// <param name="algorithms">The Algorithms to put there data in the PDF file</param>
-        public void GeneratePDFFile(string filePath, string fileName, PDFExportArgs args)
+        /// <param name="filePath">The Location to save the file in containing the name of the file</param>
+        public void GeneratePDFFile(string filePath, PDFExportArgs args)
         {
             //Create a PdfWriter for creating and writing data into a PDF file
-            PdfWriter writer = new PdfWriter(filePath + fileName);
+            PdfWriter writer = new PdfWriter(filePath);
 
             //Create a PdfDocument to store all the Pages and Data in the PDF
             PdfDocument pdf = new PdfDocument(writer);
@@ -30,7 +28,7 @@ namespace PM_Studio
             Document document = new Document(pdf);
 
             //Create a Header for the PDF document that contains the fileName of the PDF File
-            Paragraph header = new Paragraph(fileName).SetTextAlignment(TextAlignment.CENTER).SetFontSize(30);
+            Paragraph header = new Paragraph(filePath.Substring(filePath.LastIndexOf(@"\") + 1)).SetTextAlignment(TextAlignment.CENTER).SetFontSize(30);
 
             //Add it to the document
             document.Add(header);
