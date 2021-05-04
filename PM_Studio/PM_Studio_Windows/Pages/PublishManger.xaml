@@ -9,7 +9,19 @@
       Title="PublishManger">
 
     <Grid Background="#332F2E">
-        <Button x:Name="btnExport" Content="Export"
-                Margin="200" FontSize="20" Click="btnExport_Click"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="4*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel>
+            <TextBlock Text="Exporting Settings:" FontSize="25"
+                       Foreground="WhiteSmoke"></TextBlock>
+            <CheckBox x:Name="cbxExportAlgorithms" FontSize="20" Foreground="WhiteSmoke" Content="Export Algorithms"></CheckBox>
+            <CheckBox x:Name="cbxExportIdeas" FontSize="20" Foreground="WhiteSmoke" Content="Export Ideas"></CheckBox>
+            <CheckBox x:Name="cbxExportStoryconcepts" FontSize="20" Foreground="WhiteSmoke" Content="Export Story Concepts"></CheckBox>
+            <CheckBox x:Name="cbxExportNotes" FontSize="20" Foreground="WhiteSmoke" Content="Export Notes"></CheckBox>
+        </StackPanel>
+        <Button x:Name="btnExport" Content="Export" FontSize="20" Click="btnExport_Click"
+                Grid.Row="1"/>
     </Grid>
 </Page>

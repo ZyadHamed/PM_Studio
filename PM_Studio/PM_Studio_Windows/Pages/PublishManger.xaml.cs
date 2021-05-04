@@ -22,9 +22,17 @@ namespace PM_Studio
         {
             PDF_Exporter exporter = new PDF_Exporter();
             SaveFileDialog saveFileDialog = new SaveFileDialog();
+            PDFExportArgs args = new PDFExportArgs() 
+            {
+                ExportAlgorithms = cbxExportAlgorithms.IsChecked == true,
+                ExportIdeas = cbxExportIdeas.IsChecked == true,
+                ExportStoryConcepts = cbxExportStoryconcepts.IsChecked == true,
+                ExportNotes = cbxExportNotes.IsChecked == true
+            };
+
             if(saveFileDialog.ShowDialog() == true)
             {
-                exporter.GeneratePDFFile(saveFileDialog.FileName + ".pdf", new PDFExportArgs() { ExportAlgorithms = true });
+                exporter.GeneratePDFFile(saveFileDialog.FileName + ".pdf", args);
             }
             
             
