@@ -12,7 +12,7 @@ namespace PM_Studio
     {
 
         #region Variables
-        Grid Container = new Grid();
+        Grid ContainerGrid = new Grid();
         TextBox txtStoryType = new TextBox();
         TextBox txtStoryIdea = new TextBox();
         TextBox txtPlotTwists = new TextBox();
@@ -61,7 +61,7 @@ namespace PM_Studio
             SetControlsPostions();
 
             //Add the Grid as a Child to this Tab Item
-            this.AddChild(Container);
+            Container.Children.Add(ContainerGrid);
 
             //Fill the TextBoxes with the text from the storyConcepts File
             LoadTextBoxesText();
@@ -82,35 +82,35 @@ namespace PM_Studio
         void AddGridRowsAndColumns()
         {
             //Create the 5 Grid Rows that will contain the 5 text fields
-            Container.RowDefinitions.Add(new RowDefinition()
+            ContainerGrid.RowDefinitions.Add(new RowDefinition()
             {
                 Height = new System.Windows.GridLength(1, System.Windows.GridUnitType.Star)
             });
 
-            Container.RowDefinitions.Add(new RowDefinition()
+            ContainerGrid.RowDefinitions.Add(new RowDefinition()
             {
                 Height = new System.Windows.GridLength(2, System.Windows.GridUnitType.Star)
             });
-            Container.RowDefinitions.Add(new RowDefinition()
+            ContainerGrid.RowDefinitions.Add(new RowDefinition()
             {
                 Height = new System.Windows.GridLength(4, System.Windows.GridUnitType.Star)
             });
-            Container.RowDefinitions.Add(new RowDefinition()
+            ContainerGrid.RowDefinitions.Add(new RowDefinition()
             {
                 Height = new System.Windows.GridLength(4, System.Windows.GridUnitType.Star)
             });
-            Container.RowDefinitions.Add(new RowDefinition()
+            ContainerGrid.RowDefinitions.Add(new RowDefinition()
             {
                 Height = new System.Windows.GridLength(5, System.Windows.GridUnitType.Star)
             });
 
             //Create the 2 Columns that will contain the labels and the text fields
-            Container.ColumnDefinitions.Add(new ColumnDefinition()
+            ContainerGrid.ColumnDefinitions.Add(new ColumnDefinition()
             {
                 Width = new System.Windows.GridLength(1, System.Windows.GridUnitType.Auto)
             });
 
-            Container.ColumnDefinitions.Add(new ColumnDefinition()
+            ContainerGrid.ColumnDefinitions.Add(new ColumnDefinition()
             {
                 Width = new System.Windows.GridLength(1, System.Windows.GridUnitType.Star)
             });
@@ -235,18 +235,18 @@ namespace PM_Studio
         void AddControlsToGrid()
         {
             //Add the TextBlocks to the grid
-            Container.Children.Add(lbStoryType);
-            Container.Children.Add(lbStoryIdea);
-            Container.Children.Add(lbPlotTwists);
-            Container.Children.Add(lbPlotPoints);
-            Container.Children.Add(lbStoryEvents);
+            ContainerGrid.Children.Add(lbStoryType);
+            ContainerGrid.Children.Add(lbStoryIdea);
+            ContainerGrid.Children.Add(lbPlotTwists);
+            ContainerGrid.Children.Add(lbPlotPoints);
+            ContainerGrid.Children.Add(lbStoryEvents);
 
             //Add the textboxes to the grid
-            Container.Children.Add(txtStoryType);
-            Container.Children.Add(txtStoryIdea);
-            Container.Children.Add(txtPlotTwists);
-            Container.Children.Add(txtPlotPoints);
-            Container.Children.Add(txtStoryEvents);
+            ContainerGrid.Children.Add(txtStoryType);
+            ContainerGrid.Children.Add(txtStoryIdea);
+            ContainerGrid.Children.Add(txtPlotTwists);
+            ContainerGrid.Children.Add(txtPlotPoints);
+            ContainerGrid.Children.Add(txtStoryEvents);
         }
         #endregion
 
@@ -271,8 +271,9 @@ namespace PM_Studio
 
         public override void SaveFile()
         {
-            //Get the current path of the file,(was saved before in the tab tag)
-            string CurrentPath = this.Tag.ToString();
+            //Get the current path of the file
+            string CurrentPath = FilePath;
+
             //Create a StoryConcepts Class Based on the new data in the Tab
             StoryConcepts sc = new StoryConcepts()
             {
