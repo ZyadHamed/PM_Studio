@@ -6,36 +6,36 @@ using System.Windows.Media;
 
 namespace PM_Studio
 {
-    public class FeatureBlock : Border
+    public class BugsBlock : Border
     {
 
         #region Designing Variables
         Grid Container = new Grid();
         Grid TextBlocksContainer = new Grid();
-        TextBlock lbFeatureHeader = new TextBlock();
-        TextBlock lbFeatureDescription = new TextBlock();
+        TextBlock lbBugHeader = new TextBlock();
+        TextBlock lbBugDescription = new TextBlock();
         Button btnMore = new Button();
         ContextMenu menu = new ContextMenu();
-        MenuItem EditFeatureMenuItem = new MenuItem();
-        MenuItem DeleteFeatureMenuItem = new MenuItem();
+        MenuItem EditBugMenuItem = new MenuItem();
+        MenuItem DeleteBugsMenuItem = new MenuItem();
 
         #endregion
 
         #region Variables
 
-        private Feature feature;
+        private BugToFix bug;
 
         #endregion
 
         #region Constructor
 
-        public FeatureBlock(Feature _feature)
+        public BugsBlock(BugToFix _bug)
         {
-            Feature = _feature;
+            Bug = _bug;
             btnMore.Click += btnMore_Click;
             btnMore.Visibility = System.Windows.Visibility.Hidden;
-            this.MouseEnter += FeatureBlock_MouseEnter;
-            this.MouseLeave += FeatureBlock_MouseLeave;
+            this.MouseEnter += BugBlock_MouseEnter;
+            this.MouseLeave += BugBlock_MouseLeave;
             SetControlsProperties();
             SetControlsData();
         }
@@ -47,13 +47,13 @@ namespace PM_Studio
         void SetControlsProperties()
         {
             //Set properties of the textblocks
-            lbFeatureHeader.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#EBEBEB"));
-            lbFeatureHeader.FontSize = 20;
-            lbFeatureHeader.VerticalAlignment = System.Windows.VerticalAlignment.Top;
+            lbBugHeader.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#EBEBEB"));
+            lbBugHeader.FontSize = 20;
+            lbBugHeader.VerticalAlignment = System.Windows.VerticalAlignment.Top;
 
-            lbFeatureDescription.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#EBEBEB"));
-            lbFeatureDescription.FontSize = 15;
-            lbFeatureDescription.VerticalAlignment = System.Windows.VerticalAlignment.Bottom;
+            lbBugDescription.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#EBEBEB"));
+            lbBugDescription.FontSize = 15;
+            lbBugDescription.VerticalAlignment = System.Windows.VerticalAlignment.Bottom;
 
             //Set the properties of the button
             btnMore.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#332F2E"));
@@ -64,22 +64,22 @@ namespace PM_Studio
             btnMore.VerticalAlignment = System.Windows.VerticalAlignment.Center;
 
             //Set the properties of the context menu
-            EditFeatureMenuItem.Header = "Edit Feature";
-            DeleteFeatureMenuItem.Header = "Delete Feature";
+            EditBugMenuItem.Header = "Edit Bug";
+            DeleteBugsMenuItem.Header = "Delete Bug";
 
-            menu.Items.Add(EditFeatureMenuItem);
-            menu.Items.Add(DeleteFeatureMenuItem);
+            menu.Items.Add(EditBugMenuItem);
+            menu.Items.Add(DeleteBugsMenuItem);
 
             //Add rows to the textblocks container grid
             TextBlocksContainer.RowDefinitions.Add(new RowDefinition() { Height = new System.Windows.GridLength(1, System.Windows.GridUnitType.Star) });
             TextBlocksContainer.RowDefinitions.Add(new RowDefinition() { Height = new System.Windows.GridLength(1, System.Windows.GridUnitType.Star) });
 
             //Add the textblocks to their container grid and set their position
-            TextBlocksContainer.Children.Add(lbFeatureHeader);
-            TextBlocksContainer.Children.Add(lbFeatureDescription);
+            TextBlocksContainer.Children.Add(lbBugHeader);
+            TextBlocksContainer.Children.Add(lbBugDescription);
 
-            Grid.SetRow(lbFeatureHeader, 0);
-            Grid.SetRow(lbFeatureDescription, 1);
+            Grid.SetRow(lbBugHeader, 0);
+            Grid.SetRow(lbBugDescription, 1);
 
             //Add columns to the container grid
             Container.ColumnDefinitions.Add(new ColumnDefinition() { Width = new System.Windows.GridLength(1, System.Windows.GridUnitType.Star) });
@@ -110,8 +110,8 @@ namespace PM_Studio
 
         void SetControlsData()
         {
-            lbFeatureHeader.Text = Feature.Header;
-            lbFeatureDescription.Text = Feature.Description;
+            lbBugHeader.Text = Bug.Header;
+            lbBugDescription.Text = Bug.Description;
         }
 
         #endregion
@@ -123,13 +123,13 @@ namespace PM_Studio
             menu.IsOpen = true;
         }
 
-        private void FeatureBlock_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        private void BugBlock_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
             btnMore.Visibility = System.Windows.Visibility.Visible;
             this.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#3D3837"));
         }
 
-        private void FeatureBlock_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+        private void BugBlock_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
             btnMore.Visibility = System.Windows.Visibility.Hidden;
             this.Background = Brushes.Transparent;
@@ -139,16 +139,16 @@ namespace PM_Studio
 
         #region Properties
 
-        public Feature Feature
+        public BugToFix Bug
         {
             get
             {
-                return feature;
+                return bug;
             }
 
             set
             {
-                feature = value;
+                bug = value;
                 SetControlsData();
             }
         }
