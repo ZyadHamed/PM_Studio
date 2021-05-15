@@ -28,8 +28,13 @@
                 </Grid.RowDefinitions>
                 <TextBlock Text="Upcoming" FontSize="30" Margin="0,0,0,10" Foreground="#D4D4D4"/>
                 <ListView x:Name="lstUpcomingVerticalView" Background="Transparent" 
-                          Grid.Row="1" BorderBrush="#5BBDE8" BorderThickness="0,2,0,0">
-                    
+                          Grid.Row="1" BorderBrush="#5BBDE8" BorderThickness="0,2,0,0"
+                          MouseDoubleClick="lst_MouseDoubleClick">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                        </Style>
+                    </ListView.ItemContainerStyle>
                 </ListView>
             </Grid>
             <Grid Grid.Column="1" Margin="0,0,10,0">
@@ -39,8 +44,13 @@
                 </Grid.RowDefinitions>
                 <TextBlock Text="In Progress" FontSize="30" Margin="0,0,0,10"  Foreground="#D4D4D4"/>
                 <ListView x:Name="lstInProgressVerticalView" Background="Transparent" 
-                          Grid.Row="1" BorderBrush="#5BBDE8" BorderThickness="0,2,0,0">
-
+                          Grid.Row="1" BorderBrush="#5BBDE8" BorderThickness="0,2,0,0"
+                          MouseDoubleClick="lst_MouseDoubleClick">
+                    <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    </Style>
+                    </ListView.ItemContainerStyle>
                 </ListView>
             </Grid>
             
@@ -52,7 +62,8 @@
                 <TextBlock Text="Done/Released" FontSize="30" Margin="0,0,0,10"  Foreground="#D4D4D4"/>
                 <ListView x:Name="lstReleasedVerticalView" Background="Transparent" 
                           Grid.Row="1" BorderBrush="#5BBDE8" BorderThickness="0,2,0,0"
-                          ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                          MouseDoubleClick="lst_MouseDoubleClick">
                     <!--<Border CornerRadius="3" Background="#6b6b6b" Padding="4">
                         <StackPanel>
                             <TextBlock FontSize="30" Text="Version 1.1" Foreground="#CFCFCF" TextWrapping="Wrap"/>
@@ -60,6 +71,11 @@
                             <TextBlock FontSize="15" Text="Alpha" Foreground="Red" TextWrapping="Wrap"/>
                         </StackPanel>
                     </Border>-->
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                        </Style>
+                    </ListView.ItemContainerStyle>
                 </ListView>
             </Grid>
         </Grid>

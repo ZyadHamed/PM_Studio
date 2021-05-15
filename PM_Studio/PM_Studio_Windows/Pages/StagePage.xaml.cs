@@ -18,26 +18,52 @@ namespace PM_Studio
     /// </summary>
     public partial class StagePage : Page
     {
-        public StagePage()
+        public StagePage(Stage stage)
         {
             InitializeComponent();
-            FeatureBlock block1 = new FeatureBlock(new Feature() { Header = "Bitfrost Caching" , Description = "Automatic Caching for bitfrost FX"});
-            FeatureBlock block2 = new FeatureBlock(new Feature() { Header = "Bitfrost Caching", Description = "Eating Ram as Chrome tbh" });
-            FeatureBlock block3 = new FeatureBlock(new Feature() { Header = "Bitfrost Caching", Description = "Nothing" });
-            FeatureBlock block4 = new FeatureBlock(new Feature() { Header = "Bitfrost Caching", Description = "" });
-            List<FeatureBlock> blocks = new List<FeatureBlock>() { block1, block2, block3, block4 };
-            FeaturesHeader header = new FeaturesHeader("Modeling");
-            FeaturesHeader header2 = new FeaturesHeader("Animation");
-            FeaturesHeader header3 = new FeaturesHeader("Rigging");
-            FeaturesHeader header4 = new FeaturesHeader("Texturing");
-            header.ItemsSource = blocks;
-            header2.ItemsSource = blocks;
-            header3.ItemsSource = blocks;
-            header4.ItemsSource = blocks;
-            tvFeatures.Items.Add(header);
-            tvFeatures.Items.Add(header2);
-            tvFeatures.Items.Add(header3);
-            tvFeatures.Items.Add(header4);
+            Stage = stage;
+            List<FeatureBlock> FeatureBlocks = GetFeatureBlocks();
+            List<BugsBlock> BugBlocks = GetBugBlocks();
+            lstFeatures.ItemsSource = FeatureBlocks;
+            lstBugsToFix.ItemsSource = BugBlocks;
+        }
+
+        #region Methods
+
+        List<FeatureBlock> GetFeatureBlocks()
+        {
+            List<FeatureBlock> featureBlocks = new List<FeatureBlock>();
+            foreach(Feature feature in Stage.Features)
+            {
+                FeatureBlock featureBlock = new FeatureBlock(feature);
+                featureBlocks.Add(featureBlock);
+            }
+            return featureBlocks;
+        }
+
+        List<BugsBlock> GetBugBlocks()
+        {
+            List<BugsBlock> bugBlocks = new List<BugsBlock>();
+            foreach (BugToFix bug in Stage.BugsToFix)
+            {
+                BugsBlock bugBlock = new BugsBlock(bug);
+                bugBlocks.Add(bugBlock);
+            }
+            return bugBlocks;
+        }
+
+        #endregion
+
+        #region Properties
+
+        public Stage Stage { get; set; }
+
+        #endregion
+
+        private void btnBack_Click(object sender, RoutedEventArgs e)
+        {
+            ContentPresenter presenter = this.VisualParent as ContentPresenter;
+            (presenter.TemplatedParent as Frame).Content = new StagesManger();
         }
     }
 }
