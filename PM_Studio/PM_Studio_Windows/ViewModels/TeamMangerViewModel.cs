@@ -20,9 +20,9 @@ namespace PM_Studio
         #endregion
 
         #region Constructor
-        public TeamMangerViewModel(Team _team, string _teamFilePath)
+        public TeamMangerViewModel(string _teamFilePath)
         {
-            team = _team;
+            team = saveLoadSystemViewModel.GetTeam(_teamFilePath);
             teamFilePath = _teamFilePath;
            
         }
