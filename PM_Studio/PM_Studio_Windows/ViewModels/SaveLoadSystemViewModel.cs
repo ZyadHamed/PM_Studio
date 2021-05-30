@@ -221,6 +221,24 @@ namespace PM_Studio
         }
 
         /// <summary>
+        /// Creates a new TeamFile in a given Path
+        /// </summary>
+        /// <param name="filePath">The Path to Create the Team file in</param>
+        /// <param name="teamName">The Name of the Team file</param>
+        public void CreateTeamFile(string filePath, string teamName)
+        {
+            //Create a Team with the given name and with Empty Members
+            Team team = new Team()
+            {
+                TeamName = teamName,
+                TeamMembers = new List<TeamMember>()
+            };
+            
+            //Save that Team in the Given Path
+            Save(filePath + team.TeamName, team);
+        }
+        
+        /// <summary>
         /// Creates an empty stages file in a given path
         /// </summary>
         /// <param name="filepath">the file path</param>
