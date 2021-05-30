@@ -230,7 +230,7 @@ namespace PM_Studio
             //Create a Team with the given name and with Empty Members
             Team team = new Team()
             {
-                TeamName = teamName,
+                TeamName = teamName + ".team",
                 TeamMembers = new List<TeamMember>()
             };
             
