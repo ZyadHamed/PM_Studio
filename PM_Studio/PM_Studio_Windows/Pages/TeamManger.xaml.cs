@@ -27,11 +27,8 @@ namespace PM_Studio
         public TeamManger()
         {
             InitializeComponent();
-           
-            //Intilaize the TeamMangerViewModel Class with the team paramerter
-            teamMangerViewModel = new TeamMangerViewModel(saveLoadSystemViewModel.GetTeam(@"E:\zyadhamedashour\team1.team"), @"E:\zyadhamedashour\team1.team");
-            //Set the Item Source of the TeamMembers ListView to the TeamMembers from the View Model
-            lstTeamMembers.ItemsSource = teamMangerViewModel.TeamMembers;
+
+            CheckTeam();
 
             // the Code that was used for testing the Functionallity of teamfiles:
 
@@ -87,6 +84,33 @@ namespace PM_Studio
             lstTeamMembers.ItemsSource = teamMangerViewModel.TeamMembers;
         }
 
+        void CheckTeam()
+        {
+            //Make a list with all tean files in the E: directory,(Will be changed soon to the path of the project)
+            List<string> TeamFilePaths = FileManger.GetAllFilesByExtension(@"E:\", ".team");
+            //If there wasn't any shedule files. show the message and the creation button for the user
+            if (TeamFilePaths.Count < 1)
+            {
+                //Show the  creation of shedule page and hide the tasks grid
+                NoTeamGrid.Visibility = Visibility.Visible;
+                MainGrid.Visibility = Visibility.Collapsed;
+            }
+
+            //If not, use the first file found as a default file opened.
+            else
+            {
+                //Get the first shedule file from the list
+                teamMangerViewModel = new TeamMangerViewModel(TeamFilePaths[0]);
+
+                //Show the tasks page and hide the creation of shedule grid
+                MainGrid.Visibility = Visibility.Visible;
+                NoTeamGrid.Visibility = Visibility.Collapsed;
+
+                //Fill the treeviews with tasks
+                ReloadTeamMembers();
+            }
+        }
+
         #endregion
 
         #region Events
@@ -97,7 +121,19 @@ namespace PM_Studio
             lstTeamMembersTasks.ItemsSource = teamMangerViewModel.MemberTasks;
         }
 
+        private void btnCreateTeamFile_Click(object sender, RoutedEventArgs e)
+        {
+            Create_ModifyItemsWindow window = new Create_ModifyItemsWindow(1);
+            window.lbDataField1Text = "Tean Name: ";
+            if (window.ShowDialog() == true)
+            {
+                saveLoadSystemViewModel.CreateTeamFile(@"E:\", window.txtDataField1Text);
+            }
+            CheckTeam();
+        }
+
         #endregion
+
 
     }
 }

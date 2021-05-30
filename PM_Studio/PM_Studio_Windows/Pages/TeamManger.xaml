@@ -9,36 +9,47 @@
       Title="TeamManger" Background="#2D2D30">
 
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-       
-        <!--Team Members Overview Region-->
+        <Grid x:Name="MainGrid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!--Team Members Overview Region-->
             <TextBlock Grid.Row="0" Grid.Column="0" Text="Team Members:" Foreground="#D2D2D2"
                        FontSize="20"/>
-        <ListView Grid.Row="1" Grid.Column="0" Background="#363A3D" SelectionMode="Single"
+            <ListView Grid.Row="1" Grid.Column="0" Background="#363A3D" SelectionMode="Single"
                    x:Name="lstTeamMembers" SelectionChanged="lstTeamMembers_SelectionChanged">
-            <ListView.ItemContainerStyle>
-                <Style TargetType="ListViewItem">
-                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                </Style>
-            </ListView.ItemContainerStyle>
-        </ListView>
-        
-        <!--End Team Members Overview Region-->
-        
-        <!--Team Members Tasks Region-->
-        <TextBlock Grid.Row="0" Grid.Column="1" Text="Tasks: "
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    </Style>
+                </ListView.ItemContainerStyle>
+            </ListView>
+
+            <!--End Team Members Overview Region-->
+
+            <!--Team Members Tasks Region-->
+            <TextBlock Grid.Row="0" Grid.Column="1" Text="Tasks: "
                    Foreground="GhostWhite" FontSize="20"
                    x:Name="lbTeamMemberTasks" Margin="10,0"/>
-        <ListView Grid.Row="1" Grid.Column="1" Background="#363A3D"
+            <ListView Grid.Row="1" Grid.Column="1" Background="#363A3D"
                    x:Name="lstTeamMembersTasks" Margin="10,0,0,0"/>
-        <!--End Team Members Tasks Region-->
-        
+            <!--End Team Members Tasks Region-->
+
+        </Grid>
+        <Grid x:Name="NoTeamGrid" Visibility="Hidden">
+            <StackPanel VerticalAlignment="Center">
+                <TextBlock Text="Ooops, Looks Like you do not have a Team file yet, Do you want to Create one?" FontSize="20"
+                           Foreground="WhiteSmoke" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Button Content="Create Team File" FontSize="15" Height="40" Width="200" Margin="0,20,0,0"
+                        x:Name="btnCreateTeamFile" Click="btnCreateTeamFile_Click"/>
+            </StackPanel>
+        </Grid>
     </Grid>
+    
 </Page>
