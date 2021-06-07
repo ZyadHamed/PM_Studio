@@ -39,24 +39,33 @@ namespace PM_Studio
                     PagesContainer.Content = null;
                     PagesContainer.Content = new AlgorithmEditor();
                     break;
+
                 case 1:
                     PagesContainer.Content = null;
-                    PagesContainer.Content = new SheduleManger();
+                    PagesContainer.Content = new MarketPlace();
                     break;
 
                 case 2:
                     PagesContainer.Content = null;
+                    PagesContainer.Content = new SheduleManger();
+                    break;
+
+                case 3:
+                    PagesContainer.Content = null;
                     PagesContainer.Content = new TeamManger();
                     break;
-                case 3:
+
+                case 4:
                     PagesContainer.Content = null;
                     PagesContainer.Content = new StagesManger();
                     break;
-                case 4:
+
+                case 5:
                     PagesContainer.Content = null;
                     PagesContainer.Content = new PublishManger();
                     break;
             }
+
             foreach(var Control in LeftPanelGrid.Children)
             {
                 if(Control.GetType() == typeof(ToggleButton))
@@ -82,12 +91,15 @@ namespace PM_Studio
             //then mark the IsPanelCollapsed as true
             if(IsPanelCollapsed == false)
             {
-                btnAlgorithmText.Text = "";
-                btnSheduleText.Text = "";
-                btnPublish.Content = "P";
-                btnTeam.Content = "T";
+                lbAlgorithmText.Text = "";
+                lbMarketPlaceText.Text = "";
+                lbSheduleText.Text = "";
+                lbTeamText.Text = "";
+                lbStagesText.Text = "";
+                lbPublishText.Text = "";
                 TabButtonsColumn.Width = new GridLength(1, GridUnitType.Auto);
                 TabesColumn.Width = new GridLength(1, GridUnitType.Star);
+                btnCollapsePanel.Content = ">";
                 IsPanelCollapsed = true;
             }
             //If the panel was collapsed, set the buttons text to the original text
@@ -95,12 +107,15 @@ namespace PM_Studio
             //then mark the IsPanelCollapsed as false
             else if(IsPanelCollapsed == true)
             {
-                btnAlgorithmText.Text = "Algorithm";
-                btnSheduleText.Text = "Schedule";
-                btnPublish.Content = "Publish";
-                btnTeam.Content = "Team";
+                lbAlgorithmText.Text = "Algorithm";
+                lbMarketPlaceText.Text = "Market Place";
+                lbSheduleText.Text = "Schedule";
+                lbStagesText.Text = "Stages";
+                lbTeamText.Text = "Team";
+                lbPublishText.Text = "Publish";
                 TabButtonsColumn.Width = new GridLength(1, GridUnitType.Star);
                 TabesColumn.Width = new GridLength(4, GridUnitType.Star);
+                btnCollapsePanel.Content = "<";
                 IsPanelCollapsed = false;
             }
         }

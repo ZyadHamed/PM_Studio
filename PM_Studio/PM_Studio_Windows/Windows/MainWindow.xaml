@@ -5,10 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PM_Studio"
         mc:Ignorable="d"
-        Title="PM Studio" Height="450" Width="800"
+        Title="PM Studio" MinHeight="600" MinWidth="900"
         Background="#2D2D30">
     <Grid>
-        
+        <Grid.Resources>
+            <Style TargetType="{x:Type ToggleButton}">
+                <Setter Property="Background" Value="#2D2D30" />
+                <Style.Triggers>
+                    <Trigger Property="IsChecked" Value="True">
+                        <Setter Property="Background" Value="#62656E" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </Grid.Resources>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
@@ -50,52 +59,99 @@
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="auto"/>
-
-                </Grid.ColumnDefinitions>
-                <!--Algorthim Tab Button-->
-                <Button Content="&lt;" Grid.Column="1" Grid.Row="0"
-                        x:Name="btnCollapsePanel" Click="btnCollapsePanel_Click" />
-                <ToggleButton x:Name="btnAlgorithm" BorderThickness="0"
-                    Background="#3E3E42" Foreground="WhiteSmoke"
-                        Grid.Row="1" Margin="0,10,0,10" Click="TabButton_Click" Grid.ColumnSpan="2" Uid="0">
-                    <StackPanel Orientation="Horizontal">
-                        <Image Source="pack://application:,,,/PM_Studio_Core;component/Images/Algorithm.png" Width="50"/>
-                        <TextBlock Text="Algorithm" VerticalAlignment="Center" x:Name="btnAlgorithmText" FontSize="17"/>
-                    </StackPanel>
-                </ToggleButton>
-                <!--End Algorthim Tab Button-->
-
-                <!--Shedule Tab Button-->
-                <ToggleButton x:Name="btnSchedule" BorderThickness="0"
-                    Background="#3E3E42" Foreground="WhiteSmoke"
-                        Grid.Row="2" Margin="0,10,0,10" Click="TabButton_Click" Grid.ColumnSpan="2" Uid="1">
-                    <StackPanel Orientation="Horizontal">
-                        <Image Source="pack://application:,,,/PM_Studio_Core;component/Images/Shedule.png" Width="50"/>
-                        <TextBlock Text="Shedule" VerticalAlignment="Center" x:Name="btnSheduleText" FontSize="17"/>
-                    </StackPanel>
-                </ToggleButton>
-                <!--End Sheudle Tab Button-->
-                <ToggleButton x:Name="btnTeam" Content="Team" BorderThickness="0"
-                    Background="#3E3E42" Foreground="WhiteSmoke"
-                        Grid.Row="3" Margin="0,10,0,10" Click="TabButton_Click" Grid.ColumnSpan="2" Uid="2" FontSize="17"/>
-                <ToggleButton x:Name="btnStages" Content="Stages" BorderThickness="0"
-                    Background="#3E3E42" Foreground="WhiteSmoke"
-                        Grid.Row="4" Margin="0,10,0,10" Click="TabButton_Click" Grid.ColumnSpan="2" Uid="3" FontSize="17"/>
                 
-                <ToggleButton x:Name="btnPublish" Content="Publish" BorderThickness="0"
-                    Background="#3E3E42" Foreground="WhiteSmoke"
-                        Grid.Row="5" Margin="0,10,0,10" Click="TabButton_Click" Grid.ColumnSpan="2" Uid="4" FontSize="17"/>
+                <Button Content="&lt;" Grid.Row="0"
+                        x:Name="btnCollapsePanel" Click="btnCollapsePanel_Click" 
+                        Background="Transparent" Foreground="FloralWhite" 
+                        BorderThickness="0" FontSize="22" HorizontalAlignment="Right"/>
+
+                <!--#region Algorthim Tab Button-->
+                
+                <ToggleButton x:Name="btnAlgorithm" BorderThickness="0"
+                    Foreground="WhiteSmoke" Grid.Row="1" Margin="0,10,0,10" 
+                              Click="TabButton_Click" Uid="0" HorizontalContentAlignment="Stretch">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="pack://application:,,,/PM_Studio_Windows;component/Images/Algorithm.png" Width="50"/>
+                        <TextBlock Text="Algorithm" VerticalAlignment="Center" 
+                                   x:Name="lbAlgorithmText" FontSize="17"/>
+                    </StackPanel>
+                </ToggleButton>
+                
+                <!--#endregion-->
+
+                <!--#region MarketPlace Tab Button-->
+                
+                <ToggleButton x:Name="btnMarketPlace" BorderThickness="0"
+                    Foreground="WhiteSmoke" Grid.Row="2" Margin="0,10,0,10" 
+                              Click="TabButton_Click" Uid="1" HorizontalContentAlignment="Stretch">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="pack://application:,,,/PM_Studio_Windows;component/Images/MarketPlace.png" Width="50"/>
+                        <TextBlock Text="Market Place" VerticalAlignment="Center" x:Name="lbMarketPlaceText" FontSize="17"/>
+                    </StackPanel>
+                </ToggleButton>
+                
+                <!--#endregion-->
+
+                <!--#region Schedule Tab Button-->
+                
+                <ToggleButton x:Name="btnSchedule" BorderThickness="0"
+                    Foreground="WhiteSmoke" Grid.Row="3" Margin="0,10,0,10" 
+                              Click="TabButton_Click" Uid="2" HorizontalContentAlignment="Stretch">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="pack://application:,,,/PM_Studio_Windows;component/Images/Shedule.png" Width="50"/>
+                        <TextBlock Text="Shedule" VerticalAlignment="Center" x:Name="lbSheduleText" FontSize="17"/>
+                    </StackPanel>
+                </ToggleButton>
+                
+                <!--#endregion-->
+                
+                <!--#region Team Tab Button-->
+                
+                <ToggleButton x:Name="btnTeam" BorderThickness="0"
+                    Foreground="WhiteSmoke" Grid.Row="4" Margin="0,10,0,10" 
+                              Click="TabButton_Click" Uid="3" HorizontalContentAlignment="Stretch">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="pack://application:,,,/PM_Studio_Windows;component/Images/TeamGroup.png" Width="50"/>
+                        <TextBlock Text="Team" VerticalAlignment="Center" x:Name="lbTeamText" FontSize="17"/>
+                    </StackPanel>
+                </ToggleButton>
+                
+                <!--#endregion-->
+                
+                <!--#region Stages Tab Button-->
+                
+                <ToggleButton x:Name="btnStages" BorderThickness="0"
+                    Foreground="WhiteSmoke" Grid.Row="5" Margin="0,10,0,10"
+                              Click="TabButton_Click" Uid="4" HorizontalContentAlignment="Stretch">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="pack://application:,,,/PM_Studio_Windows;component/Images/Stages.png" Width="50"/>
+                        <TextBlock Text="Stages" VerticalAlignment="Center" x:Name="lbStagesText" FontSize="17"/>
+                    </StackPanel>
+                </ToggleButton>
+                
+                <!--#endregion-->
+
+                <!--#region Publish Tab Button-->
+                
+                <ToggleButton x:Name="btnPublish" BorderThickness="0"
+                    Foreground="WhiteSmoke" Grid.Row="6" Margin="0,10,0,10" 
+                              Click="TabButton_Click" Uid="5"  HorizontalContentAlignment="Stretch">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="pack://application:,,,/PM_Studio_Windows;component/Images/Publish.png" Width="50"/>
+                        <TextBlock Text="Publish" VerticalAlignment="Center" x:Name="lbPublishText" FontSize="17"/>
+                    </StackPanel>
+                </ToggleButton>
+                
+                <!--#endregion-->
 
             </Grid>
             <!--End Left Side Menu-->
 
             <!--Pages Switch-->
             <Frame x:Name="PagesContainer" NavigationUIVisibility="Hidden"
-                   Grid.Column="1">
+                   Grid.Column="1" Margin="10,0,0,0">
             </Frame>
             <!--End Pages Switch-->
         </Grid>
