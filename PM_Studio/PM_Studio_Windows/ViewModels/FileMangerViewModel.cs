@@ -44,10 +44,23 @@ namespace PM_Studio
             //Loop inside each item in there
             for (int i = 0; i < FilesAndFolders.Count; i++)
             {
-                //If the item type was a File, Set the icon to file icon, then add the corrosponding File Name
+                //If the item type was a File, Set the icon to the corrosponding file icon, then add the corrosponding File Name
                 if (FilesAndFolders[i].ItemType == "File")
                 {
-                    returnedFilesAndFolders.Add(new ImagelistItem("pack://application:,,,/PM_Studio_Windows;component/Images/File.png", FilesAndFolders[i].ItemName));
+                    string fileName = FilesAndFolders[i].ItemName;
+                    if (fileName.Substring(fileName.LastIndexOf(".")) == ".pmalg")
+                    {
+                        returnedFilesAndFolders.Add(new ImagelistItem("pack://application:,,,/PM_Studio_Windows;component/Images/AlgorithmFile.png", fileName));
+                    }
+                    else if (fileName.Substring(fileName.LastIndexOf(".")) == ".pdf")
+                    {
+                        returnedFilesAndFolders.Add(new ImagelistItem("pack://application:,,,/PM_Studio_Windows;component/Images/PDF.png", fileName));
+                    }
+                    else
+                    {
+                        returnedFilesAndFolders.Add(new ImagelistItem("pack://application:,,,/PM_Studio_Windows;component/Images/File.png", fileName));
+                    }
+                    
                 }
                 //If it's not, then it must be a folder, and then set the icon to folder icon, then add the corrosponding Folder Name
                 else
