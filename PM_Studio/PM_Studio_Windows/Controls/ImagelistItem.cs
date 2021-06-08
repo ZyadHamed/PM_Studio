@@ -46,8 +46,10 @@ namespace PM_Studio
             //Add the Text to the StackPanel
             Children.Add(new TextBlock
             {
-                Text = text
-
+                Text = text,
+                VerticalAlignment = System.Windows.VerticalAlignment.Center,
+                Margin = new System.Windows.Thickness(7,0,0,0),
+                FontSize = 15
             });
         }
         #endregion
