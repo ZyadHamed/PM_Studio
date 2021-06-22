@@ -5,15 +5,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PM_Studio"
         mc:Ignorable="d"
-        Title="Add" Height="250" Width="400"
+        Title="Add" Height="300" Width="500"
         WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
-    
-    <Grid Background="#2D2D32">
+
+    <Grid Background="#231F20">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        
+        <Grid.Resources>
+            <Style TargetType="{x:Type TextBox}">
+                <Style.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="4" />
+                    </Style>
+                </Style.Resources>
+            </Style>
+        </Grid.Resources>
         <!--ItemsContainerGrid-->
         <Grid Grid.Row="0">
             <Grid.RowDefinitions>
@@ -42,17 +50,17 @@
 
             <!--TextBoxes-->
 
-            <TextBox FontSize="15" Foreground="#D2D2D4"
-                 Margin="5,17" Background="#2D2D3D" Padding="5,1"
-                 x:Name="txtDataField1" Grid.Column="1" Grid.Row="0"/>
+            <TextBox FontSize="23" Foreground="#D2D2D4"
+                 Margin="5,17" Background="#414042" Padding="10,1"
+                 x:Name="txtDataField1" Grid.Column="1" Grid.Row="0" VerticalContentAlignment="Center"/>
 
-            <TextBox FontSize="15" Foreground="#D2D2D4"
-                 Margin="5,17" Background="#2D2D3D" Padding="5,1"
-                 x:Name="txtDataField2" Grid.Column="1" Grid.Row="1"/>
+            <TextBox FontSize="23" Foreground="#D2D2D4"
+                 Margin="5,17" Background="#414042" Padding="10,1"
+                 x:Name="txtDataField2" Grid.Column="1" Grid.Row="1"  VerticalContentAlignment="Center"/>
             
-            <TextBox FontSize="15" Foreground="#D2D2D4"
-                 Margin="5,17" Background="#2D2D3D" Padding="5,1"
-                 x:Name="txtDataField3" Grid.Column="1" Grid.Row="2"/>
+            <TextBox FontSize="23" Foreground="#D2D2D4"
+                 Margin="5,17" Background="#414042" Padding="10,1"
+                 x:Name="txtDataField3" Grid.Column="1" Grid.Row="2"  VerticalContentAlignment="Center"/>
 
             <StackPanel Grid.Column="1" Grid.Row="2" x:Name="DatePickersContainer">
                 <DatePicker VerticalAlignment="Center" Background="#2D2D3D"
@@ -70,7 +78,15 @@
 
         <DockPanel Grid.Row="1">
             <Button x:Name="btnOK" Content="OK" FontSize="20"
-                    HorizontalAlignment="Right" Margin="5" Padding="20,0" Click="btnOK_Click"/>
+                    HorizontalAlignment="Center" Margin="5" Padding="20,0" 
+                    Click="btnOK_Click" Background="#58595B" Foreground="WhiteSmoke">
+                <Button.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+
         </DockPanel>
     </Grid>
     
