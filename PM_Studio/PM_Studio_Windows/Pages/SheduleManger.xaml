@@ -6,60 +6,36 @@
       xmlns:local="clr-namespace:PM_Studio"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="SheduleManger">
+      Title="SheduleManger" Background="#2D2D30">
 
     <Grid>
-        
-        <TreeView ScrollViewer.HorizontalScrollBarVisibility="Disabled" Background="#2D2D30" Margin="20,0,0,0" Visibility="Hidden" x:Name="tvTasks">
-            <TreeView.ContextMenu>
-                <ContextMenu>
-                    <MenuItem Header="Edit Task" Background="#404247"
-                              Foreground="#D2D2D4" Click="menuItem_Click"
-                              x:Name="menuItemEditTask"/>
-                    <MenuItem Header="Delete Task" Background="#404247"
-                              Foreground="#D2D2D4" Click="menuItem_Click"
-                              x:Name="menuItemDeleteTask"/>
-                    <MenuItem Header="Mark Task as Done" Background="#404247" 
-                              Foreground="#D2D2D4" Click="menuItem_Click"
-                              x:Name="menuItemMarkTask"/>
-                </ContextMenu>
-            </TreeView.ContextMenu>
-            <TreeViewItem Header="Upcoming Tasks" x:Name="tviUpcomingTasks" Foreground="#D2D2D2">
-                <TreeViewItem.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel/>
-                    </ItemsPanelTemplate>
-                </TreeViewItem.ItemsPanel>
-
-            </TreeViewItem>
-
-            <TreeViewItem Header="In Progress" x:Name="tviInProgress" Foreground="#D2D2D2">
-                <TreeViewItem.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel/>
-                    </ItemsPanelTemplate>
-                </TreeViewItem.ItemsPanel>
-            </TreeViewItem>
-
-            <TreeViewItem Header="Done" x:Name="tviDone" Foreground="#D2D2D2">
-                <TreeViewItem.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel/>
-                    </ItemsPanelTemplate>
-                </TreeViewItem.ItemsPanel>
-            </TreeViewItem>
-
-            <TreeViewItem Header="Undone" x:Name="tviUndone" Foreground="#D2D2D2">
-                <TreeViewItem.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel/>
-                    </ItemsPanelTemplate>
-                </TreeViewItem.ItemsPanel>
-
-            </TreeViewItem>
-
-            <Button Content="+" FontSize="20" Click="btnAddTask_Click"/>
-        </TreeView>
+        <Grid x:Name="contentGrid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="5*"/>
+            </Grid.ColumnDefinitions>
+            <ListView x:Name="lstCloseTasks" Background="#363A3D" Grid.Column="0" BorderThickness="0">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    </Style>
+                </ListView.ItemContainerStyle>
+            </ListView>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <TextBlock FontSize="25" Text="Hello, Usernme" Foreground="FloralWhite" Margin="10,0" Grid.Row="0"/>
+                <ItemsControl x:Name="lstTasks" Margin="10,0" Grid.Row="1">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </Grid>
+        </Grid>
 
         <Grid x:Name="NoSheduleGrid" Visibility="Hidden">
             <StackPanel VerticalAlignment="Center">
