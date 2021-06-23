@@ -49,10 +49,12 @@ namespace PM_Studio
         void SetControlsProperties()
         {
             //Set the Properties of the outer Border
-            this.BorderBrush = Brushes.Aqua;
+            this.BorderBrush = Brushes.Transparent;
+            this.Background = new SolidColorBrush(Color.FromRgb(66, 64, 71));
             this.BorderThickness = new System.Windows.Thickness(3);
-            this.CornerRadius = new System.Windows.CornerRadius(3);
+            this.CornerRadius = new System.Windows.CornerRadius(20);
             this.Margin = new System.Windows.Thickness(5);
+            this.Padding = new System.Windows.Thickness(5);
 
             //Set the Margin of the Container StackPanel
             Container.Margin = new System.Windows.Thickness(5);
