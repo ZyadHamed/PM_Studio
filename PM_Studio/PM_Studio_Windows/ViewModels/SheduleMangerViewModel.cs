@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 
 namespace PM_Studio
 {
@@ -23,13 +23,14 @@ namespace PM_Studio
             Shedule = saveLoadSystemViewModel.GetShedule(sheduleFilePath);
             //Set the SheduleFilePath to that file path
             SheduleFilePath = sheduleFilePath;
+            
         }
 
         #endregion
 
         #region Methods
 
-        public List<TaskBlock> GetTaskBlocks()
+        private List<TaskBlock> GetTaskBlocks()
         {
             //Create an Empty List of TaskBlocks
             List<TaskBlock> taskBlocks = new List<TaskBlock>();
@@ -50,7 +51,7 @@ namespace PM_Studio
             
         }
 
-        public (List<TaskBlock> UpcomingTasks, List<TaskBlock> InProgrssTasks, List<TaskBlock> DoneTasks, List<TaskBlock> UndoneTasks) SortTasks()
+        private (List<TaskBlock> UpcomingTasks, List<TaskBlock> InProgrssTasks, List<TaskBlock> DoneTasks, List<TaskBlock> UndoneTasks) SortTasksByType()
         {
             //Create 4 Empty Lists for each type of TaskBlocks
             List<TaskBlock> UpcomingTasks = new List<TaskBlock>();
@@ -62,28 +63,46 @@ namespace PM_Studio
             foreach (TaskBlock taskBlock in GetTaskBlocks())
             {
                 //If the Task of that task Block was Upcoming, add it to the Upcoming TaskBlocks List
-                if (taskBlock.Task.Progress == "Upcoming")
+                if (taskBlock.Task.Tag == "Upcoming")
                 {
                     UpcomingTasks.Add(taskBlock);
                 }
                 //If the Task of that task Block was In Progress, add it to the InProgress TaskBlocks List
-                else if (taskBlock.Task.Progress == "In Progress")
+                else if (taskBlock.Task.Tag == "In Progress")
                 {
                     InProgrssTasks.Add(taskBlock);
                 }
                 //If the Task of that task Block was Done, add it to the Done TaskBlocks List
-                else if (taskBlock.Task.Progress == "Done")
+                else if (taskBlock.Task.Tag == "Done")
                 {
                     DoneTasks.Add(taskBlock);
                 }
                 //If the Task of that task Block was Undone, add it to the Undone TaskBlocks List
-                else if (taskBlock.Task.Progress == "Undone")
+                else if (taskBlock.Task.Tag == "Undone")
                 {
                     UndoneTasks.Add(taskBlock);
                 }
                 
             }
             return (UpcomingTasks, InProgrssTasks, DoneTasks, UndoneTasks);
+        }
+
+        /// <summary>
+        /// Sorts the tasks by their deadline
+        /// </summary>
+        /// <returns>a list that containes all the tasks sorted by the nearst deadline</returns>
+        private List<TaskBlock> SortTasksByDeadline()
+        {
+            return GetTaskBlocks().OrderBy(x => x.Task.EndDate).ToList();
+        }
+
+        /// <summary>
+        /// Sortes the task in acesnding order according to the title of the task
+        /// </summary>
+        /// <returns>a list that contains all the tasks sorted by the title in ascending order</returns>
+        private List<TaskBlock> SortTasksInAlphabiticalOrder()
+        {
+            return GetTaskBlocks().OrderBy(x => x.Task.Title).ToList();
         }
 
         /// <summary>
@@ -147,7 +166,7 @@ namespace PM_Studio
         {
             get
             {
-                return SortTasks().UpcomingTasks;
+                return SortTasksByType().UpcomingTasks;
             }
         }
 
@@ -158,7 +177,7 @@ namespace PM_Studio
         {
             get
             {
-                return SortTasks().InProgrssTasks;
+                return SortTasksByType().InProgrssTasks;
             }
         }
 
@@ -169,7 +188,7 @@ namespace PM_Studio
         {
             get
             {
-                return SortTasks().DoneTasks;
+                return SortTasksByType().DoneTasks;
             }
         }
 
@@ -180,7 +199,23 @@ namespace PM_Studio
         {
             get
             {
-                return SortTasks().UndoneTasks;
+                return SortTasksByType().UndoneTasks;
+            }
+        }
+
+        public List<TaskBlock> SortedByDeadLineTasks
+        {
+            get
+            {
+                return SortTasksByDeadline();
+            }
+        }
+
+        public List<TaskBlock> SortedAlphabiticallyTasks
+        {
+            get
+            {
+                return SortTasksInAlphabiticalOrder();
             }
         }
 
